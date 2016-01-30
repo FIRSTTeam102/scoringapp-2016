@@ -4,9 +4,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Pre Match</title>
+<style>
+	.box {
+		border: 1px solid black;
+		width: 75px;
+		text-align: center;
+	}
+</style>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
-
+	<form id="preMatchForm">
+		<div class="box">
+			No Show:
+			<br>
+			<input type="checkbox"/>Team 1
+			<br>
+			<input type="checkbox"/>Team 2
+			<br>
+			<input type="checkbox"/>Team 3
+		</div>
+	</form>
 </body>
 </html>
