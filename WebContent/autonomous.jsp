@@ -4,9 +4,61 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Auto</title>
 </head>
 <body>
-
+<div class="box">
+<hl>
+Crossed Line :
+</hl>
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+</div>
+<br>
+<div class="box">
+<hl>
+Cross Defense :
+</hl>
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+</div>
+<br>
+<div class="box">
+<hl>
+Score High/Low
+</hl>
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+<br>
+<input type="CheckBox">
+</div>
 </body>
 </html>
