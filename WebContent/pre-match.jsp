@@ -21,11 +21,11 @@
 		<div class="box">
 			No Show:
 			<br>
-			<input type="checkbox"/>Team 1
+			<input name="Team1NoShow" type="checkbox"/>Team 1
 			<br>
-			<input type="checkbox"/>Team 2
+			<input name="Team2NoShow" type="checkbox"/>Team 2
 			<br>
-			<input type="checkbox"/>Team 3
+			<input name="Team3NoShow" type="checkbox"/>Team 3
 		</div>
 	</form>
 </body>

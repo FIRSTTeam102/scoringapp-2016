@@ -17,21 +17,27 @@
 	</script-->
 </head>
 <body class="no-js">
+	<!-- div class="castle-bg">
+		<img src="castle-bg-2.jpg"></img>
+	</div-->
 	<div id="page">
+		<div class="gray-y-bg"></div>
 		<div class="header">
-			<form id="indexForm" action="index.php" method="POST">
+			<form id="indexForm" action="NewFile.jsp" method="POST">
 				<div class="title">FIRST STRONGHOLD</div>
 				<div id="competition"
 					style="padding-top: 50px; padding-bottom: 20px;">Team 102 FRC</div>
-				<div id="Initials">
-					<label for="txtInitials">Your Initials: <input type="text"
-						maxLength="4" name="txtInitials" tabindex="1" />
-					</label>
-				</div>
-				<div id="Password">
-					<label for="txtPassword">Password: <input type="password"
-						name="txtPassword" tabindex="4" />
-					</label>
+				<div id="input" class="input-contianer">
+					<div id="Initials">
+						<label for="txtInitials">Your Initials: <input type="text"
+							maxLength="4" name="txtInitials" tabindex="1" class="input-box" />
+						</label>
+					</div>
+					<div id="Password">
+						<label for="txtPassword">Password: <input type="password"
+							name="txtPassword" tabindex="4" class="input-box" />
+						</label>
+					</div>
 				</div>
 				<div id="nav">
 					<div style="padding-top: 10px; padding-bottom: 10px;">

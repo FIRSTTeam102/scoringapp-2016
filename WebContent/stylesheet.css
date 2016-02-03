@@ -11,6 +11,11 @@ body {
 body div {
     text-align: center;
 }
+
+.castle-bg {
+	opacity: 0.2;
+}
+
 input[type=checkbox], input[type=radio] {
     display: inline-block;
     font-size: 15px;
@@ -51,4 +56,8 @@ input, textarea, select {
     background: -webkit-gradient(linear, left top, left bottom, from(#A88B62), to(#7A6446));
     -webkit-appearance: none;
     -webkit-box-shadow: 1px 1px 1px #333;
+    width: 200px;
+    
+    /*display: flex;*/
+    align-items: right;
 }
