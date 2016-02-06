@@ -24,7 +24,7 @@
 	<div id="page">
 		<div class="gray-y-bg"></div>
 		<div class="header">
-			<div class="title">FIRST STRONGHOLD</div>
+			<img class="title" src="Images/frc-stronghold-logo.png"/>
 			<% Enumeration<String> thing = request.getParameterNames();  
 				for(int i = 0; thing.hasMoreElements(); i++){
 					out.println(thing.nextElement());
