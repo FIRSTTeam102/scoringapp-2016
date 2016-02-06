@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +25,12 @@
 		<div class="gray-y-bg"></div>
 		<div class="header">
 			<div class="title">FIRST STRONGHOLD</div>
-			<%=request.getParameter("txtInitials")%>
+			<% Enumeration<String> thing = request.getParameterNames();  
+				for(int i = 0; thing.hasMoreElements(); i++){
+					out.println(thing.nextElement());
+				}
+			%>
+			<%--= request.getParameterNames() --%>
 			<form id="indexForm" action="index.jsp" method="POST">
 
 				<div id="competition"
