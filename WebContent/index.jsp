@@ -23,14 +23,16 @@
 	<div id="page">
 		<div class="gray-y-bg"></div>
 		<div class="header">
-			<form id="indexForm" action="NewFile.jsp" method="POST">
-				<div class="title">FIRST STRONGHOLD</div>
+			<div class="title">FIRST STRONGHOLD</div>
+			<%=request.getParameter("txtInitials")%>
+			<form id="indexForm" action="index.jsp" method="POST">
+
 				<div id="competition"
 					style="padding-top: 50px; padding-bottom: 20px;">Team 102 FRC</div>
 				<div id="input" class="input-contianer">
 					<div id="Initials">
 						<label for="txtInitials">Your Initials: <input type="text"
-							maxLength="4" name="txtInitials" tabindex="1" class="input-box" />
+							maxLength="12" name="txtInitials" tabindex="1" class="input-box" />
 						</label>
 					</div>
 					<div id="Password">

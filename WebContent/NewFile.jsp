@@ -2,29 +2,35 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.io.*,java.util.*" %>
+<%@ page import="java.io.*,java.util.*" %>
 <html>
 <head>
-<title>Auto Refresh Header Example</title>
+<title>HTTP Header Request Example</title>
 </head>
 <body>
 <center>
-<h2>Auto Refresh Header Example</h2>
+<h2>HTTP Header Request Example</h2>
+<table width="100%" border="1" align="center">
+<tr bgcolor="#949494">
+<th>Param Name</th><th>Param Value(s)</th>
+</tr>
 <%
-   // Set refresh, autoload time as 5 seconds
-   response.setIntHeader("Refresh", 5);
-   // Get current time
-   Calendar calendar = new GregorianCalendar();
-   String am_pm;
-   int hour = calendar.get(Calendar.HOUR);
-   int minute = calendar.get(Calendar.MINUTE);
-   int second = calendar.get(Calendar.SECOND);
-   if(calendar.get(Calendar.AM_PM) == 0)
-      am_pm = "AM";
-   else
-      am_pm = "PM";
-   String CT = hour+":"+ minute +":"+ second +" "+ am_pm;
-   out.println("Current Time is: " + CT + "\n");
+   Enumeration paramNames = request.getParameterNames();
+
+   while(paramNames.hasMoreElements()) {
+      String paramName = (String)paramNames.nextElement();
+      out.print("<tr><td>" + paramName + "</td>\n");
+      String paramValue = request.getHeader(paramName);
+      out.println("<td> " + paramValue + "</td></tr>\n");
+   }
 %>
+</table>
 </center>
+<form action="NewFile.jsp" method="POST" >
+<input type="checkbox" name="maths" checked="checked" /> Maths
+<input type="checkbox" name="physics"  /> Physics
+<input type="checkbox" name="chemistry" checked="checked" /> Chem
+<input type="submit" value="Select Subject" />
+</form>
 </body>
 </html>
