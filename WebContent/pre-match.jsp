@@ -13,22 +13,26 @@
 		float: right;
 		margin: auto;
 	}
-	
-	.defenses {
-		border: 1px solid black;
-		width: 400px;
-		height: 325px;
-		margin-top: 25px;
-		float: right;
-	}
 </style>
 <script type="text/javascript">
+
 	function loadPage() {
-		var canvas = document.getElementById("arena");
-		var ctx = canvas.getContext("2d");
-		var arena = document.getElementById("arenaBG");
+		canvas = document.getElementById("arena");
+		ctx = canvas.getContext('2d');
+		arena = document.getElementById("arenaBG");
 		
-		arena.src = "arena.png";
+		var defensesPath = "Images/Defenses/";
+		selectDefense = false;
+
+		portcullis = document.getElementById("portcullis");
+		chevalDeFrise = document.getElementById("chevalDeFrise");
+		moat = document.getElementById("moat");
+		ramparts = document.getElementById("ramparts");
+		drawbridge = document.getElementById("drawbridge");
+		roughTerrain = document.getElementById("roughTerrain");
+		rockWall = document.getElementById("rockWall");
+		sallyPort = document.getElementById("sallyPort");
+		
 		ctx.drawImage(arena, 0, 0);
 		
 		var leftDefense1 = new Path2D();
@@ -61,53 +65,87 @@
 		var rightDefense5 = new Path2D();
 		rightDefense5.rect(710, 440, 74, 84);
 		
+		var portcullisPath = new Path2D();
+		portcullisPath.rect(360, 245, 100, 100);
+		
 		canvas.onmousedown = function (e)
 		{
 			var context = e.target.getContext('2d');
 			var x = e.offsetX;
 			var y = e.offsetY;
 			
-			if (context.isPointInPath(leftDefense1, x, y))
+			if (!selectDefense)
 			{
-				ctx.fill(leftDefense1);
+				if (context.isPointInPath(leftDefense1, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(leftDefense2, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(leftDefense3, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(leftDefense4, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+		    	else if (context.isPointInPath(leftDefense5, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+		    	else if (context.isPointInPath(rightDefense1, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(rightDefense2, x, y))
+				{
+					selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(rightDefense3, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+				else if (context.isPointInPath(rightDefense4, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
+		    	else if (context.isPointInPath(rightDefense5, x, y))
+				{
+		  			selectDefense = true;
+		  			drawDefenseSelection();
+				}
 			}
-			else if (context.isPointInPath(leftDefense2, x, y))
+			else
 			{
-				ctx.fill(leftDefense2);
-			}
-			else if (context.isPointInPath(leftDefense3, x, y))
-			{
-				ctx.fill(leftDefense3);
-			}
-			else if (context.isPointInPath(leftDefense4, x, y))
-			{
-				ctx.fill(leftDefense4);
-			}
-		    else if (context.isPointInPath(leftDefense5, x, y))
-			{
-		    	ctx.fill(leftDefense5);
-			}
-		    else if (context.isPointInPath(rightDefense1, x, y))
-			{
-				ctx.fill(rightDefense1);
-			}
-			else if (context.isPointInPath(rightDefense2, x, y))
-			{
-				ctx.fill(rightDefense2);
-			}
-			else if (context.isPointInPath(rightDefense3, x, y))
-			{
-				ctx.fill(rightDefense3);
-			}
-			else if (context.isPointInPath(rightDefense4, x, y))
-			{
-				ctx.fill(rightDefense4);
-			}
-		    else if (context.isPointInPath(rightDefense5, x, y))
-			{
-		    	ctx.fill(rightDefense5);
+				if (context.isPointInPath(portcullis, x, y))
+				{
+					
+				}
 			}
 		}
+	}
+	
+	function drawDefenseSelection() {
+		var defenseBG = document.getElementById("defenseBG");
+		ctx.drawImage(defenseBG, 350, 235, 450, 230);
+		
+		ctx.beginPath();
+		ctx.rect(360, 245, 100, 100);
+		ctx.fillStyle = "#FFFFFF";
+		ctx.fill();
+		ctx.drawImage(portcullis, 360, 245, 100, 100);
 	}
 </script>
 </head>
@@ -124,26 +162,16 @@
 		<br>
 		<input name="Team3NoShow" type="checkbox"/>Team 3
 	</div>
-	<div class="defenses">
-		Defenses:
-		<br>
-		<input type="radio" id="portcullis">Portcullis
-		<br>
-		<input type="radio" id="chivalDeFrise">Chival de Frise
-		<br>
-		<input type="radio" id="moat">Moat
-		<br>
-		<input type="radio" id="ramparts">Ramparts
-		<br>
-		<input type="radio" id="drawbridge">Drawbridge
-		<br>
-		<input type="radio" id="sallyPort">Sally Port
-		<br>
-		<input type="radio" id="rockWall">Rock Wall
-		<br>
-		<input type="radio" id="roughTerrain">Rough Terrain
-	</div>
+		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
+		<img id="chevalDeFrise" src="Images/Defenses/ChevaldeFrise.png" width="1" height="1" style="visibility: hidden">
+		<img id="moat" src="Images/Defenses/Moat.png" width="1" height="1" style="visibility: hidden">
+		<img id="ramparts" src="Images/Defenses/Ramparts.png" width="1" height="1" style="visibility: hidden">
+		<img id="drawbridge" src="Images/Defenses/Drawbridge.png" width="1" height="1" style="visibility: hidden">
+		<img id="sallyPort" src="Images/Defenses/Sally Port.png" width="1" height="1" style="visibility: hidden">
+		<img id="rockWall" src="Images/Defenses/Rock Wall.png" width="1" height="1" style="visibility: hidden">
+		<img id="roughTerrain" src="Images/Defenses/Rough Terrain.png" width="1" height="1" style="visibility: hidden">
 	<img src="arena.png" id="arenaBG" style="visibility: hidden" width="1" height="1">
+	<img src=Images/Defenses/defenseBG.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
 	
 </body>
 </html>
