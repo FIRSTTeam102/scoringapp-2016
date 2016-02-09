@@ -1,6 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.io.*,java.util.*" %>
+<%@ page import="java.io.*,java.util.*"%>
+
+<%  Enumeration<String> formInputs = request.getParameterNames();   %>
+<%	String passwordInput = request.getParameter("txtPassword");
+	String initialsInput = request.getParameter("txtInitials");
+	String buttonInput = "";
+	
+	String passwordKey = "password";
+	String initialsKey = "initials";
+	String buttonKey = "button";
+	
+	String newLocation = new String();
+	
+	session.setAttribute(passwordKey, passwordInput);
+	session.setAttribute(initialsKey, initialsInput);
+	
+	for(int i = 0; formInputs.hasMoreElements(); i++){
+		String str = formInputs.nextElement();
+		if(str.equals("txtInitials") || str.equals("txtPassword")){
+			
+		}else{
+			buttonInput = str;
+		}
+	}
+	
+	out.println(buttonInput);
+	
+	   response.setStatus(response.SC_MOVED_TEMPORARILY);
+	   response.setHeader("Location", site); 
+	
+	
+	switch(buttonInput){
+	
+	case ""
+	}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,11 +60,15 @@
 	<div id="page">
 		<div class="gray-y-bg"></div>
 		<div class="header">
-			<img class="title" src="Images/frc-stronghold-logo.png"/>
-			<% Enumeration<String> thing = request.getParameterNames();  
-				for(int i = 0; thing.hasMoreElements(); i++){
-					out.println(thing.nextElement());
-				}
+			<img class="title" src="Images/frc-stronghold-logo.png" />
+			<%
+				//for(int i = 0; formInputs.hasMoreElements(); i++){
+
+						//out.println(formInputs.nextElement());
+						//out.println("Test.");
+					
+				//}
+				out.println(passwordInput);
 			%>
 			<%--= request.getParameterNames() --%>
 			<form id="indexForm" action="index.jsp" method="POST">
