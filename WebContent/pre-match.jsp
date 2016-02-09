@@ -18,17 +18,17 @@
 
 var positionToPlaceDefense;
 var defensePositions = [];
-var defense = function(image, position){
+var defense = function(image, position, category){
 	this.image = image;
 	this.position = position;
+	this.category = category;
 }
 
 	function loadPage() {
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
-		arena = document.getElementById("arenaBG");
+		arena = document.getElementById("redArenaBG");
 		
-		var defensesPath = "Images/Defenses/";
 		selectDefense = false;
 
 		portcullis = document.getElementById("portcullis");
@@ -42,59 +42,41 @@ var defense = function(image, position){
 		
 		ctx.drawImage(arena, 0, 0);
 		
-		var leftDefense1 = new Path2D();
-		leftDefense1.rect(363, 189, 74, 84);
+		var defense1 = new Path2D();
+		defense1.rect(363, 189, 74, 84);
 		
-		var leftDefense2 = new Path2D();
-		leftDefense2.rect(363, 274, 74, 84);
+		var defense2 = new Path2D();
+		defense2.rect(363, 274, 74, 84);
 		
-		var leftDefense3 = new Path2D();
-		leftDefense3.rect(363, 359, 74, 84);
+		var defense3 = new Path2D();
+		defense3.rect(363, 359, 74, 84);
 		
-		var leftDefense4 = new Path2D();
-		leftDefense4.rect(363, 444, 74, 84);
-		
-		var leftDefense5 = new Path2D();
-		leftDefense5.rect(363, 528, 74, 84);
-		
-		var rightDefense1 = new Path2D();
-		rightDefense1.rect(710, 106, 74, 78);
-		
-		var rightDefense2 = new Path2D();
-		rightDefense2.rect(710, 185, 74, 84);
-		
-		var rightDefense3 = new Path2D();
-		rightDefense3.rect(710, 270, 74, 84);
-		
-		var rightDefense4 = new Path2D();
-		rightDefense4.rect(710, 355, 74, 84);
-		
-		var rightDefense5 = new Path2D();
-		rightDefense5.rect(710, 440, 74, 84);
+		var defense4 = new Path2D();
+		defense4.rect(363, 444, 74, 84);
 		
 		var portcullisPath = new Path2D();
-		portcullisPath.rect(360, 245, 100, 100);
+		portcullisPath.rect(72.5, 245, 100, 100);
 		
 		var chevalDeFrisePath = new Path2D();
-		chevalDeFrisePath.rect(470, 245, 100, 100);
+		chevalDeFrisePath.rect(182.5, 245, 100, 100);
 		
 		var moatPath = new Path2D();
-		moatPath.rect(580, 245, 100, 100);
+		moatPath.rect(292.5, 245, 100, 100);
 		
 		var rampartsPath = new Path2D();
-		rampartsPath.rect(690, 245, 100, 100);
+		rampartsPath.rect(402.5, 245, 100, 100);
 		
 		var drawbridgePath = new Path2D();
-		drawbridgePath.rect(360, 355, 100, 100);
+		drawbridgePath.rect(72.5, 355, 100, 100);
 		
 		var sallyPortPath = new Path2D();
-		sallyPortPath.rect(470, 355, 100, 100);
+		sallyPortPath.rect(182.5, 355, 100, 100);
 		
 		var rockWallPath = new Path2D();
-		rockWallPath.rect(580, 355, 100, 100);
+		rockWallPath.rect(292.5, 355, 100, 100);
 		
 		var roughTerrainPath = new Path2D();
-		roughTerrainPath.rect(690, 355, 100, 100);
+		roughTerrainPath.rect(402.5, 355, 100, 100);
 		
 		canvas.onmousedown = function (e)
 		{
@@ -104,65 +86,29 @@ var defense = function(image, position){
 			
 			if (!selectDefense)
 			{
-				if (context.isPointInPath(leftDefense1, x, y))
+				if (context.isPointInPath(defense1, x, y))
 				{
 		  			selectDefense = true;
 		  			drawDefenseSelection();
 		  			positionToPlaceDefense = {x:363, y:189, width:74, height:84};
 				}
-				else if (context.isPointInPath(leftDefense2, x, y))
+				else if (context.isPointInPath(defense2, x, y))
 				{
 		  			selectDefense = true;
 		  			drawDefenseSelection();
 		  			positionToPlaceDefense = {x:363, y:274, width:74, height:84};
 				}
-				else if (context.isPointInPath(leftDefense3, x, y))
+				else if (context.isPointInPath(defense3, x, y))
 				{
 		  			selectDefense = true;
 		  			drawDefenseSelection();
 		  			positionToPlaceDefense = {x:363, y:359, width:74, height:84};
 				}
-				else if (context.isPointInPath(leftDefense4, x, y))
+				else if (context.isPointInPath(defense4, x, y))
 				{
 		  			selectDefense = true;
 		  			drawDefenseSelection();
 		  			positionToPlaceDefense = {x:363, y:444, width:74, height:84};
-				}
-		    	else if (context.isPointInPath(leftDefense5, x, y))
-				{
-		  			selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:363, y:528, width:74, height:84};
-				}
-		    	else if (context.isPointInPath(rightDefense1, x, y))
-				{
-		  			selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:710, y:106, width:74, height:78};
-				}
-				else if (context.isPointInPath(rightDefense2, x, y))
-				{
-					selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:710, y:185, width:74, height:84};
-				}
-				else if (context.isPointInPath(rightDefense3, x, y))
-				{
-		  			selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:710, y:270, width:74, height:84};
-				}
-				else if (context.isPointInPath(rightDefense4, x, y))
-				{
-		  			selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:710, y:355, width:74, height:84};
-				}
-		    	else if (context.isPointInPath(rightDefense5, x, y))
-				{
-		  			selectDefense = true;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:710, y:440, width:74, height:84};
 				}
 			}
 			else
@@ -171,7 +117,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(portcullis, positionToPlaceDefense);
+					var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -179,7 +125,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(chevalDeFrise, positionToPlaceDefense);
+					var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -187,7 +133,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(moat, positionToPlaceDefense);
+					var newDefense = new defense(moat, positionToPlaceDefense, 2);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -195,7 +141,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(ramparts, positionToPlaceDefense);
+					var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -203,7 +149,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(drawbridge, positionToPlaceDefense);
+					var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -211,7 +157,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(sallyPort, positionToPlaceDefense);
+					var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -219,7 +165,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(rockWall, positionToPlaceDefense);
+					var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -227,7 +173,7 @@ var defense = function(image, position){
 				{
 					ctx.drawImage(arena, 0, 0);
 					selectDefense = false;
-					var newDefense = new defense(roughTerrain, positionToPlaceDefense);
+					var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
 					defensePositions.push(newDefense);
 					drawDefenses();
 				}
@@ -252,6 +198,11 @@ var defense = function(image, position){
 				defensePositions.splice(i, 1);
 				break;
 			}
+			if (defenseToCheck.category == dynamicDefense.category)
+			{
+				defensePositions.splice(i, 1);
+				break;
+			}
 		}
 		for (var i = 0; i < defensePositions.length; i++)
 		{
@@ -262,27 +213,26 @@ var defense = function(image, position){
 	
 	function drawDefenseSelection() {
 		var defenseBG = document.getElementById("defenseBG");
-		ctx.drawImage(defenseBG, 350, 235, 450, 340);
+		ctx.drawImage(defenseBG, 62.5, 235, 450, 230);
 		
-		ctx.shadowBlur = 15;
+		ctx.shadowBlur = 12;
 		ctx.shadowColor = "white";
 		
-		ctx.drawImage(portcullis, 360, 245, 100, 100);
-		ctx.drawImage(chevalDeFrise, 470, 245, 100, 100);
-		ctx.drawImage(moat, 580, 245, 100, 100);
-		ctx.drawImage(ramparts, 690, 245, 100, 100);
-		ctx.drawImage(drawbridge, 360, 355, 100, 100);
-		ctx.drawImage(sallyPort, 470, 355, 100, 100);
-		ctx.drawImage(rockWall, 580, 355, 100, 100);
-		ctx.drawImage(roughTerrain, 690, 355, 100, 100);
-		ctx.drawImage(portcullis, 525, 465, 100, 100);
+		ctx.drawImage(portcullis, 72.5, 245, 100, 100);
+		ctx.drawImage(chevalDeFrise, 182.5, 245, 100, 100);
+		ctx.drawImage(moat, 292.5, 245, 100, 100);
+		ctx.drawImage(ramparts, 402.5, 245, 100, 100);
+		ctx.drawImage(drawbridge, 72.5, 355, 100, 100);
+		ctx.drawImage(sallyPort, 182.5, 355, 100, 100);
+		ctx.drawImage(rockWall, 292.5, 355, 100, 100);
+		ctx.drawImage(roughTerrain, 402.5, 355, 100, 100);
 		
 		ctx.shadowBlur = 0;
 	}
 </script>
 </head>
 <body onload="loadPage();">
-	<canvas id="arena" width="1150" height="700" style="border: 1px solid black">
+	<canvas id="arena" width="575" height="700" style="border: 1px solid black">
 		
 	</canvas>
 	<div class="box">
@@ -302,8 +252,10 @@ var defense = function(image, position){
 		<img id="sallyPort" src="Images/Defenses/Sally Port.png" width="1" height="1" style="visibility: hidden">
 		<img id="rockWall" src="Images/Defenses/Rock Wall.png" width="1" height="1" style="visibility: hidden">
 		<img id="roughTerrain" src="Images/Defenses/Rough Terrain.png" width="1" height="1" style="visibility: hidden">
-	<img src="Images/arena.png" id="arenaBG" style="visibility: hidden" width="1" height="1">
-	<img src="Images/woodBG-defense.png" id="defenseBG" style="visibility: hidden" width="1" height="1">
+		<img id="lowBar" src="Images/Defenses/Low Bar.png" width="1" height="1" style="visibility: hidden">
+	<img src="Images/bluearena.png" id="blueArenaBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/redarena.png" id="redArenaBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/woodBG-defense.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
 	
 </body>
 </html>
