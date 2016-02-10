@@ -5,35 +5,37 @@
 <%  Enumeration<String> formInputs = request.getParameterNames();   %>
 <%	String passwordInput = request.getParameter("txtPassword");
 	String initialsInput = request.getParameter("txtInitials");
-	String buttonInput = "";
-	
+	String btnInput = "";
 	String passwordKey = "password";
 	String initialsKey = "initials";
 	String buttonKey = "button";
 	
-	String newLocation = new String();
+	boolean loggedIn = false;
 	
-	session.setAttribute(passwordKey, passwordInput);
-	session.setAttribute(initialsKey, initialsInput);
+	String newLocation = new String();
 	
 	for(int i = 0; formInputs.hasMoreElements(); i++){
 		String str = formInputs.nextElement();
 		if(str.equals("txtInitials") || str.equals("txtPassword")){
 			
 		}else{
-			buttonInput = str;
+			btnInput = str;
 		}
 	}
 	
-	out.println(buttonInput);
-	
-	   response.setStatus(response.SC_MOVED_TEMPORARILY);
-	   response.setHeader("Location", site); 
+	session.setAttribute(initialsKey, initialsInput);
+	session.setAttribute(buttonKey, btnInput);
 	
 	
-	switch(buttonInput){
+	if(btnInput.equals("btnScoringApp")){
+		newLocation = "pre-match.jsp";
+	}else if(btnInput.equals("btnNew")){
+		newLocation = "NewFile.jsp";
+	}
 	
-	case ""
+	if(!newLocation.equals("")){
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", newLocation);
 	}
 %>
 
@@ -93,8 +95,8 @@
 							value="Team 102 Scoring App" />
 					</div>
 					<div style="padding-top: 10px; padding-bottom: 10px;">
-						<input type="submit" name="btnStandings"
-							value="Team 102 Standings Page" />
+						<input type="submit" name="btnNew"
+							value="NewFile JSP Tests" />
 					</div>
 					<div style="padding-top: 10px; padding-bottom: 10px;">
 						<input type="submit" name="btnSurvey"

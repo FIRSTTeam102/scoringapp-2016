@@ -14,10 +14,14 @@
 		margin: auto;
 	}
 </style>
+<script id="allianceSet" type="text/javascript">
+	alliance = "Red";
+</script>
 <script type="text/javascript">
 
 var positionToPlaceDefense;
 var defensePositions = [];
+
 var defense = function(image, position, category){
 	this.image = image;
 	this.position = position;
@@ -27,7 +31,16 @@ var defense = function(image, position, category){
 	function loadPage() {
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
-		arena = document.getElementById("redArenaBG");
+		if (alliance == "Red")
+		{
+			arena = document.getElementById("redArenaBG");
+			ctx.drawImage(arena, 0, 0);
+		}
+		else
+		{
+			arena = document.getElementById("blueArenaBG");
+			ctx.drawImage(arena, 0, 0);
+		}
 		
 		selectDefense = false;
 
@@ -39,8 +52,6 @@ var defense = function(image, position, category){
 		roughTerrain = document.getElementById("roughTerrain");
 		rockWall = document.getElementById("rockWall");
 		sallyPort = document.getElementById("sallyPort");
-		
-		ctx.drawImage(arena, 0, 0);
 		
 		var defense1 = new Path2D();
 		defense1.rect(363, 189, 74, 84);
@@ -198,6 +209,12 @@ var defense = function(image, position, category){
 				defensePositions.splice(i, 1);
 				break;
 			}
+		}
+		for (var i = 0; i < defensePositions.length - 1; i++)
+		{
+			var defenseToCheck = defensePositions[defensePositions.length - 1];
+			var dynamicDefense = defensePositions[i];
+			
 			if (defenseToCheck.category == dynamicDefense.category)
 			{
 				defensePositions.splice(i, 1);
@@ -244,6 +261,7 @@ var defense = function(image, position, category){
 		<br>
 		<input name="Team3NoShow" type="checkbox"/>Team 3
 	</div>
+	
 		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
 		<img id="chevalDeFrise" src="Images/Defenses/ChevaldeFrise.png" width="1" height="1" style="visibility: hidden">
 		<img id="moat" src="Images/Defenses/Moat.png" width="1" height="1" style="visibility: hidden">
