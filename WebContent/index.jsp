@@ -6,11 +6,10 @@
 <%	String passwordInput = request.getParameter("txtPassword");
 	String initialsInput = request.getParameter("txtInitials");
 	String btnInput = "";
-	String passwordKey = "password";
 	String initialsKey = "initials";
 	String buttonKey = "button";
 	
-	boolean loggedIn = false;
+	boolean isLoggedIn = false;
 	
 	String newLocation = new String();
 	
@@ -22,6 +21,18 @@
 			btnInput = str;
 		}
 	}
+	
+	
+	if(passwordInput != null){
+		if (passwordInput.equals("Gearheads")){
+			
+			session.setAttribute("isLoggedIn", true);
+		}else{
+			
+			session.setAttribute("isLoggedIn", false);
+		}
+	}
+	
 	
 	session.setAttribute(initialsKey, initialsInput);
 	session.setAttribute(buttonKey, btnInput);
@@ -70,7 +81,6 @@
 						//out.println("Test.");
 					
 				//}
-				out.println(passwordInput);
 			%>
 			<%--= request.getParameterNames() --%>
 			<form id="indexForm" action="index.jsp" method="POST">
