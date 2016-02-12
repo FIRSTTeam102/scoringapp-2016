@@ -16,7 +16,7 @@
 </style>
 <script id="allianceSet" type="text/javascript">
 	alliance = "Blue";
-	side = "Near";
+	side = "Far";
 	team1 = "102";
 	team2 = "103";
 	team3 = "104";
@@ -24,14 +24,23 @@
 <script type="text/javascript">
 
 var positionToPlaceDefense;
+var positionToPlaceRobot;
 var teamAsSpyBot = "";
 var hasSpyHuman = false;
 var defensePositions = [];
+var robotPositions = [];
+var originX = 0;
+var originY = 0;
 
 var defense = function(image, position, category){
 	this.image = image;
 	this.position = position;
 	this.category = category;
+}
+
+var robot = function(teamNumber, position){
+	this.teamNumber = teamNumber;
+	this.position = position;
 }
 
 	function loadPage() {
@@ -41,235 +50,667 @@ var defense = function(image, position, category){
 		
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
-		if (alliance == "Red")
+		
+		if (side == "Near")
 		{
-			arena = document.getElementById("redArenaBG");
+			if (alliance == "Red")
+			{
+				arena = document.getElementById("redArenaFlippedBG");
+			}
+			else
+			{
+				arena = document.getElementById("blueArenaFlippedBG");
+			}
+			
 			ctx.drawImage(arena, 0, 0);
+			
+			selectMode = 0;
+
+			portcullis = document.getElementById("portcullis");
+			chevalDeFrise = document.getElementById("chevalDeFrise");
+			moat = document.getElementById("moat");
+			ramparts = document.getElementById("ramparts");
+			drawbridge = document.getElementById("drawbridge");
+			roughTerrain = document.getElementById("roughTerrain");
+			rockWall = document.getElementById("rockWall");
+			sallyPort = document.getElementById("sallyPort");
+			
+			if (alliance == "Red")
+			{
+				var defense1 = new Path2D();
+				defense1.rect(137, 170, 74, 84);
+				
+				var defense2 = new Path2D();
+				defense2.rect(137, 254, 74, 84);
+				
+				var defense3 = new Path2D();
+				defense3.rect(137, 340, 74, 84);
+				
+				var defense4 = new Path2D();
+				defense4.rect(137, 425, 74, 84);
+				
+			}
+			else
+			{
+				var defense1 = new Path2D();
+				defense1.rect(138, 173, 74, 84);
+				
+				var defense2 = new Path2D();
+				defense2.rect(138, 257, 74, 84);
+				
+				var defense3 = new Path2D();
+				defense3.rect(138, 343, 74, 84);
+				
+				var defense4 = new Path2D();
+				defense4.rect(138, 428, 74, 84);
+				
+			}
+			
+			var portcullisPath = new Path2D();
+			portcullisPath.rect(72.5, 245, 100, 100);
+			
+			var chevalDeFrisePath = new Path2D();
+			chevalDeFrisePath.rect(182.5, 245, 100, 100);
+			
+			var moatPath = new Path2D();
+			moatPath.rect(292.5, 245, 100, 100);
+			
+			var rampartsPath = new Path2D();
+			rampartsPath.rect(402.5, 245, 100, 100);
+			
+			var drawbridgePath = new Path2D();
+			drawbridgePath.rect(72.5, 355, 100, 100);
+			
+			var sallyPortPath = new Path2D();
+			sallyPortPath.rect(182.5, 355, 100, 100);
+			
+			var rockWallPath = new Path2D();
+			rockWallPath.rect(292.5, 355, 100, 100);
+			
+			var roughTerrainPath = new Path2D();
+			roughTerrainPath.rect(402.5, 355, 100, 100);
+			
+			spyHumanPath = new Path2D();
+			spyHumanPath.rect(406, 22, 107, 31);
+			
+			var spyBotPath = new Path2D();
+			spyBotPath.rect(341, 127, 134, 102);
+			
+			var team1Path = new Path2D();
+			team1Path.rect(72.5, 235 + 115 / 2, 136.66667, 115);
+			
+			var team2Path = new Path2D();
+			team2Path.rect(219.16667, 235 + 115 / 2, 136.66667, 115);
+			
+			var team3Path = new Path2D();
+			team3Path.rect(365.83334, 235 + 115 / 2, 136.66667, 115);
+			
+			var robotPosition1 = new Path2D();
+			robotPosition1.rect(41, 102, 77, 58);
+			
+			var robotPosition2 = new Path2D();
+			robotPosition2.rect(41, 183, 77, 58);
+			
+			var robotPosition3 = new Path2D();
+			robotPosition3.rect(41, 269, 77, 58);
+			
+			var robotPosition4 = new Path2D();
+			robotPosition4.rect(41, 353, 77, 58);
+			
+			var robotPosition5 = new Path2D();
+			robotPosition5.rect(41, 440, 77, 58);
+			
+			canvas.onmousedown = function (e)
+			{
+				var context = e.target.getContext('2d');
+				var x = e.offsetX;
+				var y = e.offsetY;
+				
+				if (selectMode == 0)
+				{
+					if (context.isPointInPath(defense1, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance == "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:170, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:173, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense2, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance == "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:254, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:257, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense3, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance == "Red")
+			  			{
+				  			positionToPlaceDefense = {x:137, y:340, width:74, height:84};
+			  			}
+			  			else
+			  			{
+				  			positionToPlaceDefense = {x:138, y:343, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense4, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance == "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:425, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:428, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(spyBotPath, x, y))
+					{
+						selectMode = 2;
+						drawTeamSelection();
+					}
+					else if (context.isPointInPath(spyHumanPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						if (hasSpyHuman)
+							hasSpyHuman = false;
+						else
+							hasSpyHuman = true;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(robotPosition1, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:41, y:102, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition2, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:41, y:183, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition3, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:41, y:269, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition4, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:41, y:353, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition5, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:41, y:440, width:77, height:58};
+					}
+				}
+				else if (selectMode == 1)
+				{
+					if (context.isPointInPath(portcullisPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(chevalDeFrisePath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(moatPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(moat, positionToPlaceDefense, 2);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(rampartsPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(drawbridgePath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(sallyPortPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(rockWallPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(roughTerrainPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
+				}
+				else if (selectMode == 2)
+				{
+					if (context.isPointInPath(team1Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team1;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team2Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team2;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team3Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team3;
+						drawArenaWithChanges();
+					}
+					else
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
+				}
+				else if (selectMode == 3)
+				{
+					if (context.isPointInPath(team1Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team1, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team2Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team2, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team3Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team3, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
+				}
+			}
 		}
 		else
 		{
-			arena = document.getElementById("blueArenaBG");
-			ctx.drawImage(arena, 0, 0);
-		}
-		
-//		if (side == ("Near"))
-//		{
-//			ctx.rotate(Math.PI);
-//		}
-		
-		selectMode = 0;
-
-		portcullis = document.getElementById("portcullis");
-		chevalDeFrise = document.getElementById("chevalDeFrise");
-		moat = document.getElementById("moat");
-		ramparts = document.getElementById("ramparts");
-		drawbridge = document.getElementById("drawbridge");
-		roughTerrain = document.getElementById("roughTerrain");
-		rockWall = document.getElementById("rockWall");
-		sallyPort = document.getElementById("sallyPort");
-		
-		var defense1 = new Path2D();
-		defense1.rect(363, 189, 74, 84);
-		
-		var defense2 = new Path2D();
-		defense2.rect(363, 274, 74, 84);
-		
-		var defense3 = new Path2D();
-		defense3.rect(363, 359, 74, 84);
-		
-		var defense4 = new Path2D();
-		defense4.rect(363, 444, 74, 84);
-		
-		var portcullisPath = new Path2D();
-		portcullisPath.rect(72.5, 245, 100, 100);
-		
-		var chevalDeFrisePath = new Path2D();
-		chevalDeFrisePath.rect(182.5, 245, 100, 100);
-		
-		var moatPath = new Path2D();
-		moatPath.rect(292.5, 245, 100, 100);
-		
-		var rampartsPath = new Path2D();
-		rampartsPath.rect(402.5, 245, 100, 100);
-		
-		var drawbridgePath = new Path2D();
-		drawbridgePath.rect(72.5, 355, 100, 100);
-		
-		var sallyPortPath = new Path2D();
-		sallyPortPath.rect(182.5, 355, 100, 100);
-		
-		var rockWallPath = new Path2D();
-		rockWallPath.rect(292.5, 355, 100, 100);
-		
-		var roughTerrainPath = new Path2D();
-		roughTerrainPath.rect(402.5, 355, 100, 100);
-		
-		spyHumanPath = new Path2D();
-		spyHumanPath.rect(63, 647, 107, 31);
-		
-		var spyBotPath = new Path2D();
-		spyBotPath.rect(99, 472, 134, 102);
-		
-		var team1Path = new Path2D();
-		team1Path.rect(72.5, 235 + 115 / 2, 136.66667, 115);
-		
-		var team2Path = new Path2D();
-		team2Path.rect(219.16667, 235 + 115 / 2, 136.66667, 115);
-		
-		var team3Path = new Path2D();
-		team3Path.rect(365.83334, 235 + 115 / 2, 136.66667, 115);
-		
-		canvas.onmousedown = function (e)
-		{
-			var context = e.target.getContext('2d');
-			var x = e.offsetX;
-			var y = e.offsetY;
+			if (alliance == "Red")
+			{
+				arena = document.getElementById("redArenaBG");
+			}
+			else
+			{
+				arena = document.getElementById("blueArenaBG");
+			}
 			
-			if (selectMode == 0)
+			ctx.drawImage(arena, 0, 0);
+			
+			selectMode = 0;
+
+			portcullis = document.getElementById("portcullis");
+			chevalDeFrise = document.getElementById("chevalDeFrise");
+			moat = document.getElementById("moat");
+			ramparts = document.getElementById("ramparts");
+			drawbridge = document.getElementById("drawbridge");
+			roughTerrain = document.getElementById("roughTerrain");
+			rockWall = document.getElementById("rockWall");
+			sallyPort = document.getElementById("sallyPort");
+			
+			
+			var defense1 = new Path2D();
+			defense1.rect(363, 189, 74, 84);
+			
+			var defense2 = new Path2D();
+			defense2.rect(363, 274, 74, 84);
+			
+			var defense3 = new Path2D();
+			defense3.rect(363, 359, 74, 84);
+			
+			var defense4 = new Path2D();
+			defense4.rect(363, 444, 74, 84);
+			
+			var portcullisPath = new Path2D();
+			portcullisPath.rect(72.5, 245, 100, 100);
+			
+			var chevalDeFrisePath = new Path2D();
+			chevalDeFrisePath.rect(182.5, 245, 100, 100);
+			
+			var moatPath = new Path2D();
+			moatPath.rect(292.5, 245, 100, 100);
+			
+			var rampartsPath = new Path2D();
+			rampartsPath.rect(402.5, 245, 100, 100);
+			
+			var drawbridgePath = new Path2D();
+			drawbridgePath.rect(72.5, 355, 100, 100);
+			
+			var sallyPortPath = new Path2D();
+			sallyPortPath.rect(182.5, 355, 100, 100);
+			
+			var rockWallPath = new Path2D();
+			rockWallPath.rect(292.5, 355, 100, 100);
+			
+			var roughTerrainPath = new Path2D();
+			roughTerrainPath.rect(402.5, 355, 100, 100);
+			
+			spyHumanPath = new Path2D();
+			spyHumanPath.rect(63, 647, 107, 31);
+			
+			var spyBotPath = new Path2D();
+			spyBotPath.rect(99, 472, 134, 102);
+			
+			var team1Path = new Path2D();
+			team1Path.rect(72.5, 235 + 115 / 2, 136.66667, 115);
+			
+			var team2Path = new Path2D();
+			team2Path.rect(219.16667, 235 + 115 / 2, 136.66667, 115);
+			
+			var team3Path = new Path2D();
+			team3Path.rect(365.83334, 235 + 115 / 2, 136.66667, 115);
+			
+			var robotPosition1 = new Path2D();
+			robotPosition1.rect(460, 206, 77, 58);
+			
+			var robotPosition2 = new Path2D();
+			robotPosition2.rect(460, 287, 77, 58);
+			
+			var robotPosition3 = new Path2D();
+			robotPosition3.rect(460, 373, 77, 58);
+			
+			var robotPosition4 = new Path2D();
+			robotPosition4.rect(460, 458, 77, 58);
+			
+			var robotPosition5 = new Path2D();
+			robotPosition5.rect(460, 544, 77, 58);
+			
+			canvas.onmousedown = function (e)
 			{
-				if (context.isPointInPath(defense1, x, y))
+				var context = e.target.getContext('2d');
+				var x = e.offsetX;
+				var y = e.offsetY;
+				
+				if (selectMode == 0)
 				{
-		  			selectMode = 1;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:363, y:189, width:74, height:84};
+					if (context.isPointInPath(defense1, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			positionToPlaceDefense = {x:363, y:189, width:74, height:84};
+					}
+					else if (context.isPointInPath(defense2, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			positionToPlaceDefense = {x:363, y:274, width:74, height:84};
+					}
+					else if (context.isPointInPath(defense3, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			positionToPlaceDefense = {x:363, y:359, width:74, height:84};
+					}
+					else if (context.isPointInPath(defense4, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			positionToPlaceDefense = {x:363, y:444, width:74, height:84};
+					}
+					else if (context.isPointInPath(spyBotPath, x, y))
+					{
+						selectMode = 2;
+						drawTeamSelection();
+					}
+					else if (context.isPointInPath(spyHumanPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						if (hasSpyHuman)
+							hasSpyHuman = false;
+						else
+							hasSpyHuman = true;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(robotPosition1, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:460, y:206, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition2, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:460, y:287, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition3, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:460, y:373, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition4, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:460, y:458, width:77, height:58};
+					}
+					else if (context.isPointInPath(robotPosition5, x, y))
+					{
+						selectMode = 3;
+						drawTeamSelection();
+						positionToPlaceRobot = {x:460, y:544, width:77, height:58};
+					}
 				}
-				else if (context.isPointInPath(defense2, x, y))
+				else if (selectMode == 1)
 				{
-		  			selectMode = 1;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:363, y:274, width:74, height:84};
-				}
-				else if (context.isPointInPath(defense3, x, y))
-				{
-		  			selectMode = 1;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:363, y:359, width:74, height:84};
-				}
-				else if (context.isPointInPath(defense4, x, y))
-				{
-		  			selectMode = 1;
-		  			drawDefenseSelection();
-		  			positionToPlaceDefense = {x:363, y:444, width:74, height:84};
-				}
-				else if (context.isPointInPath(spyBotPath, x, y))
-				{
-					selectMode = 2;
-					drawTeamSelection();
-				}
-				else if (context.isPointInPath(spyHumanPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					if (hasSpyHuman)
-						hasSpyHuman = false;
+					if (context.isPointInPath(portcullisPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(chevalDeFrisePath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(moatPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(moat, positionToPlaceDefense, 2);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(rampartsPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(drawbridgePath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(sallyPortPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(rockWallPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(roughTerrainPath, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
+						defensePositions.push(newDefense);
+						drawArenaWithChanges();
+					}
 					else
-						hasSpyHuman = true;
-					drawArenaWithChanges();
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
 				}
-			}
-			else if (selectMode == 1)
-			{
-				if (context.isPointInPath(portcullisPath, x, y))
+				else if (selectMode == 2)
 				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
+					if (context.isPointInPath(team1Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team1;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team2Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team2;
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team3Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						teamAsSpyBot = team3;
+						drawArenaWithChanges();
+					}
+					else
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
 				}
-				else if (context.isPointInPath(chevalDeFrisePath, x, y))
+				else if (selectMode == 3)
 				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(moatPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(moat, positionToPlaceDefense, 2);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(rampartsPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(drawbridgePath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(sallyPortPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(rockWallPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(roughTerrainPath, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
-					defensePositions.push(newDefense);
-					drawArenaWithChanges();
-				}
-				else
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					drawArenaWithChanges();
-				}
-			}
-			else if (selectMode == 2)
-			{
-				if (context.isPointInPath(team1Path, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					teamAsSpyBot = team1;
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(team2Path, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					teamAsSpyBot = team2;
-					drawArenaWithChanges();
-				}
-				else if (context.isPointInPath(team3Path, x, y))
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					teamAsSpyBot = team3;
-					drawArenaWithChanges();
-				}
-				else
-				{
-					ctx.drawImage(arena, 0, 0);
-					selectMode = 0;
-					drawArenaWithChanges();
+					if (context.isPointInPath(team1Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team1, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team2Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team2, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else if (context.isPointInPath(team3Path, x, y))
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						var newRobot = new robot(team3, positionToPlaceRobot);
+						robotPositions.push(newRobot);
+						drawArenaWithChanges();
+					}
+					else
+					{
+						ctx.drawImage(arena, 0, 0);
+						selectMode = 0;
+						drawArenaWithChanges();
+					}
 				}
 			}
 		}
+		
+
 	}
 	
 	function drawArenaWithChanges() {
@@ -303,10 +744,20 @@ var defense = function(image, position, category){
 		
 		if (teamAsSpyBot != "")
 		{
-			ctx.font = "24px serif";
-			ctx.textAlign = "center";
-			ctx.fillStyle = "white";
-			ctx.fillText("Team " + teamAsSpyBot, 99 + 134 / 2, 472 + 102 / 2 + 7, 134);
+			if (side == "Near")
+			{
+				ctx.font = "24px serif";
+				ctx.textAlign = "center";
+				ctx.fillStyle = "white";
+				ctx.fillText("Team " + teamAsSpyBot, 341 + 134 / 2, 127 + 102 / 2 + 7, 134);
+			}
+			else
+			{
+				ctx.font = "24px serif";
+				ctx.textAlign = "center";
+				ctx.fillStyle = "white";
+				ctx.fillText("Team " + teamAsSpyBot, 99 + 134 / 2, 472 + 102 / 2 + 7, 134);
+			}
 		}
 		
 		if (hasSpyHuman)
@@ -318,6 +769,47 @@ var defense = function(image, position, category){
 		{
 			ctx.fillStyle = "red";
 			ctx.fill(spyHumanPath);
+		}
+		
+		ctx.fillStyle = "white";
+		ctx.font = "18px serif";
+		ctx.textAlign = "center";
+		for (var i = 0; i < robotPositions.length - 1; i++)
+		{
+			var robotToCheck = robotPositions[robotPositions.length - 1];
+			var dynamicRobot = robotPositions[i];
+			
+			if (robotToCheck.position.x == dynamicRobot.position.x && robotToCheck.position.y == dynamicRobot.position.y)
+			{
+				robotPositions.splice(i, 1);
+				break;
+			}
+		}
+		for (var i = 0; i < robotPositions.length - 1; i++)
+		{
+			var robotToCheck = robotPositions[robotPositions.length - 1];
+			var dynamicRobot = robotPositions[i];
+			
+			if (robotToCheck.teamNumber == dynamicRobot.teamNumber)
+			{
+				robotPositions.splice(i, 1);
+				break;
+			}
+		}
+		for (var i = 0; i < robotPositions.length; i++)
+		{
+			var robotToCheck = robotPositions[i];
+			
+			if (robotToCheck.teamNumber == teamAsSpyBot)
+			{
+				robotPositions.splice(i, 1);
+				break;
+			}
+		}
+		for (var i = 0; i < robotPositions.length; i++)
+		{
+			var robotToDraw = robotPositions[i];
+			ctx.fillText("Team " + robotToDraw.teamNumber, robotToDraw.position.x + 77 / 2, robotToDraw.position.y + 58 / 2 + 3, robotToDraw.position.width);
 		}
 	}
 	
@@ -385,6 +877,8 @@ var defense = function(image, position, category){
 		<img id="lowBar" src="Images/Defenses/Low Bar.png" width="1" height="1" style="visibility: hidden">
 	<img src="Images/bluearena.png" id="blueArenaBG" style="visibility: hidden" width="1" height="1">
 	<img src="Images/redarena.png" id="redArenaBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/bluearena-flipped.png" id="blueArenaFlippedBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/redarena-flipped.png" id="redArenaFlippedBG" style="visibility: hidden" width="1" height="1">
 	<img src="Images/woodBG-defense.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
 	
 </body>
