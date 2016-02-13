@@ -1,0 +1,14 @@
+<%@ include file="STUDENTRUN.jsp" %>
+<%
+//Place in head.	
+//Set alliance and team variables.
+String allianceColor = (String)session.getAttribute(allianceKey);
+String script = "<script id='allianceSet' type='text/javascript'>"
+				+ "alliance = '" + allianceColor + "'; "
+				+ "side = '" + "Far" + "';"
+				+ "team1 = " + "102; "
+				+ "team2 = " + "75; "
+				+ "team3 = " + "56; "
+				+ "</script>";
+out.println(script);
+%>

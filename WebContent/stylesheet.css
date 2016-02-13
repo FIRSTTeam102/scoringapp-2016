@@ -17,9 +17,14 @@ body div {
 	opacity: 0.2;
 }
 
-.header {
+.main {
 	margin-bottom: 40px;
 	margin-top: 40px;
+	max-width: 90%;
+}
+
+.title {
+	max-width: 90%;
 }
 
 input[type=checkbox], input[type=radio] {

@@ -4,8 +4,12 @@
 
 //public static final String loggedIn = "isLoggedIn";
 
-boolean isLoggedIn = (boolean)session.getAttribute("isLoggedIn");
-String user = (String)session.getAttribute("user");
+final String allianceKey = "allianceColor";
+final String loginKey = "isLoggedIn";
+final String userKey = "user";
 
+boolean isLoggedIn = (Boolean)session.getAttribute(loginKey);
+String user = (String)session.getAttribute(userKey);
+String alliance = (String)session.getAttribute(allianceKey);
 // troll
 %>

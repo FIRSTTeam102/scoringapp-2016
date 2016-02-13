@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*"%>
-<%@ include file="STUDENTRUN.jsp" %>
+<%@ include file="STUDENTRUN.jsp"%>
 
 <%  Enumeration<String> formInputs = request.getParameterNames();   %>
 <%	String passwordInput = request.getParameter("txtPassword");
@@ -71,17 +71,8 @@
 	</div-->
 	<div id="page">
 		<div class="gray-y-bg"></div>
-		<div class="header">
-			<img class="title" src="Images/frc-stronghold-logo.png" />
-			<%
-				//for(int i = 0; formInputs.hasMoreElements(); i++){
-
-						//out.println(formInputs.nextElement());
-						//out.println("Test.");
-					
-				//}
-			%>
-			<%--= request.getParameterNames() --%>
+		<div class="main">
+			<jsp:include page="title.html"></jsp:include>
 			<form id="indexForm" action="index.jsp" method="POST">
 				<div id="input" class="input-contianer">
 					<div id="Initials">
@@ -101,8 +92,7 @@
 							value="Team 102 Scoring App" />
 					</div>
 					<div style="padding-top: 10px; padding-bottom: 10px;">
-						<input type="submit" name="btnNew"
-							value="NewFile JSP Tests" />
+						<input type="submit" name="btnNew" value="NewFile JSP Tests" />
 					</div>
 					<div style="padding-top: 10px; padding-bottom: 10px;">
 						<input type="submit" name="btnSurvey"
