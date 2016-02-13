@@ -1,17 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,java.util.*"%>
+<%@ include file="STUDENTRUN.jsp"%> 
+
+<% Enumeration<String> info = request.getParameterNames();
+Enumeration<String> values = request.getParameterValues();
+
+	for (int i = 0; info.hasMoreElements(); i++)
+	{
+		String currentName = info.nextElement();
+		String currentValue = values.nextElement();
+		
+		
+	}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="stylesheet.css">
 <title>Pre Match</title>
 <style>
-	.box {
-		border: 1px solid black;
-		width: 400px;
-		float: right;
-		margin: auto;
-	}
+	span.no_selection {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
 </style>
 <script id="allianceSet" type="text/javascript">
 	alliance = "Blue";
@@ -31,10 +47,11 @@ var robotPositions = [];
 var originX = 0;
 var originY = 0;
 
-var defense = function(image, position, category){
+var defense = function(image, position, category, name){
 	this.image = image;
 	this.position = position;
 	this.category = category;
+	this.name = name;
 }
 
 var robot = function(teamNumber, position){
@@ -42,7 +59,7 @@ var robot = function(teamNumber, position){
 	this.position = position;
 }
 
-	function loadPage() {
+	function loadPage() {		
 		team1Div = document.getElementById("team1NoShow");
 		team2Div = document.getElementById("team2NoShow");
 		team3Div = document.getElementById("team3NoShow");
@@ -54,9 +71,9 @@ var robot = function(teamNumber, position){
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
 		
-		if (side == "Near")
+		if (side != "Near")
 		{
-			if (alliance == "Red")
+			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaFlippedBG");
 			}
@@ -78,7 +95,7 @@ var robot = function(teamNumber, position){
 			rockWall = document.getElementById("rockWall");
 			sallyPort = document.getElementById("sallyPort");
 			
-			if (alliance == "Red")
+			if (alliance != "Red")
 			{
 				var defense1 = new Path2D();
 				defense1.rect(137, 170, 74, 84);
@@ -175,7 +192,7 @@ var robot = function(teamNumber, position){
 					{
 			  			selectMode = 1;
 			  			drawDefenseSelection();
-			  			if (alliance == "Red")
+			  			if (alliance != "Red")
 			  			{
 			  				positionToPlaceDefense = {x:137, y:170, width:74, height:84};
 			  			}
@@ -188,7 +205,7 @@ var robot = function(teamNumber, position){
 					{
 			  			selectMode = 1;
 			  			drawDefenseSelection();
-			  			if (alliance == "Red")
+			  			if (alliance != "Red")
 			  			{
 			  				positionToPlaceDefense = {x:137, y:254, width:74, height:84};
 			  			}
@@ -201,7 +218,7 @@ var robot = function(teamNumber, position){
 					{
 			  			selectMode = 1;
 			  			drawDefenseSelection();
-			  			if (alliance == "Red")
+			  			if (alliance != "Red")
 			  			{
 				  			positionToPlaceDefense = {x:137, y:340, width:74, height:84};
 			  			}
@@ -214,7 +231,7 @@ var robot = function(teamNumber, position){
 					{
 			  			selectMode = 1;
 			  			drawDefenseSelection();
-			  			if (alliance == "Red")
+			  			if (alliance != "Red")
 			  			{
 			  				positionToPlaceDefense = {x:137, y:425, width:74, height:84};
 			  			}
@@ -274,7 +291,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1, "Portcullis");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -282,7 +299,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1, "Cheval De Frise");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -290,7 +307,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(moat, positionToPlaceDefense, 2);
+						var newDefense = new defense(moat, positionToPlaceDefense, 2, "Moat");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -298,7 +315,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2, "Ramparts");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -306,7 +323,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3, "Drawbridge");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -314,7 +331,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3, "Sally Port");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -322,7 +339,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4, "Rock Wall");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -330,7 +347,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4, "Rough Terrain");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -408,7 +425,7 @@ var robot = function(teamNumber, position){
 		}
 		else
 		{
-			if (alliance == "Red")
+			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaBG");
 			}
@@ -580,7 +597,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(portcullis, positionToPlaceDefense, 1);
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1, "Portcullis");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -588,7 +605,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1);
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1, "Cheval De Frise");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -596,7 +613,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(moat, positionToPlaceDefense, 2);
+						var newDefense = new defense(moat, positionToPlaceDefense, 2, "Moat");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -604,7 +621,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(ramparts, positionToPlaceDefense, 2);
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2, "Ramparts");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -612,7 +629,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3);
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3, "Drawbridge");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -620,7 +637,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3);
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3, "Sally Port");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -628,7 +645,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(rockWall, positionToPlaceDefense, 4);
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4, "Rock Wall");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -636,7 +653,7 @@ var robot = function(teamNumber, position){
 					{
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
-						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4);
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4, "Rough Terrain");
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					}
@@ -753,7 +770,7 @@ var robot = function(teamNumber, position){
 		
 		if (teamAsSpyBot != "")
 		{
-			if (side == "Near")
+			if (side != "Near")
 			{
 				ctx.font = "24px serif";
 				ctx.textAlign = "center";
@@ -893,15 +910,122 @@ var robot = function(teamNumber, position){
 					break;
 				}
 			}
+			switch (checkboxNumber)
+			{
+			case 1:
+				if (team1Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			case 2:
+				if (team2Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			case 3:
+				if (team3Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			}
 		}
+	}
+	
+	function loadNextPage() {
+//		var dataToPass = new data(robotPositions, defensePositions, teamAsSpyBot, hasSpyHuman);
+
+		var form = document.getElementById("actionForm");
+		
+		var team1Checked = document.getElementById("team1Checkbox").checked;
+		var team2Checked = document.getElementById("team2Checkbox").checked;
+		var team3Checked = document.getElementById("team3Checkbox").checked;
+		
+		for (var i = 0; i < robotPositions.length; i++)
+		{
+			var robotToParse = robotPositions[i];
+			
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'teamNumber" value="' + robotToParse.teamNumber + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'xPosition" value="' + robotToParse.position.x + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'yPosition" value="' + robotToParse.position.y + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'width" value="' + robotToParse.position.width + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'height" value="' + robotToParse.position.height + '"/>';
+		}
+		
+		for (var i = 0; i < defensePositions.length; i++)
+		{
+			var defenseToParse = defensePositions[i];
+			
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'name" value="' + defenseToParse.name + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'xPosition" value="' + defenseToParse.position.x + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'yPosition" value="' + defenseToParse.position.y + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'width" value="' + defenseToParse.position.width + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'height" value="' + defenseToParse.position.height + '"/>';
+		}
+		
+		if (teamAsSpyBot != "")
+		{
+			form.innerHTML += '<input type="hidden" name="robotAsSpyBot" value="' + teamAsSpyBot + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="robotAsSpyBot" value="' + "0" + '"/>';
+		}
+		
+		if (hasSpyHuman)
+		{
+			form.innerHTML += '<input type="hidden" name="hasSpyHuman" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="hasSpyHuman" value="' + "NO" + '"/>';
+		}
+		
+		if (team1Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team1NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team1NoShow" value="' + "NO" + '"/>';
+		}
+		
+		if (team2Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team2NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team2NoShow" value="' + "NO" + '"/>';
+		}
+		
+		if (team3Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team3NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team3NoShow" value="' + "NO" + '"/>';
+		}
+		
+		form.submit();
 	}
 </script>
 </head>
 <body onload="loadPage();">
-	<canvas id="arena" width="575" height="700" style="border: 1px solid black">
+<div class="main">
+	<canvas id="arena" width="575" height="700">
 		
 	</canvas>
-	<div class="box">
+	<div id="NoShow" class="box">
 		No Show:
 		<br>
 		<div id="team1NoShow">
@@ -916,6 +1040,16 @@ var robot = function(teamNumber, position){
 		<input id="team3Checkbox" name="Team3NoShow" type="checkbox" onclick="removeDuplicates(3);"/>
 		</div>
 	</div>
+	<br>
+		<div id="nav">
+			<div style="padding-top: 10px; padding-bottom: 10px;">
+				<input type="button" name="btnChooseMatch" value="Next" onclick="loadNextPage();"/>
+			</div>
+		</div>
+	</div>
+	
+	<form class="main" action="pre-match.jsp" method="post" id="actionForm">
+	</form>
 	
 		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
 		<img id="chevalDeFrise" src="Images/Defenses/ChevaldeFrise.png" width="1" height="1" style="visibility: hidden">
