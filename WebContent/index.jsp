@@ -3,7 +3,11 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+<<<<<<< HEAD
 <%  Enumeration<String> formInputs = request.getParameterNames();
+=======
+<%  Enumeration<String> formInputs = request.getParameterNames();   
+>>>>>>> a33de91117c6a39d7795794e3c256ad51afceb4b
 	String passwordInput = request.getParameter("txtPassword");
 	String initialsInput = request.getParameter("txtInitials");
 	String btnInput = "";

@@ -95,3 +95,14 @@ input, textarea, select {
 	/*display: flex;*/
 	align-items: right;
 }
+/* Box for pre-match */
+.box {
+	border: 1px solid black;
+	width: 400px;
+	float: center;
+	margin: auto;
+}
+
+.header{
+	margin-bottom: 20px;
+}
