@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*"%>
+<%@ include file="STUDENTRUN.jsp" %>
 
 <%  Enumeration<String> formInputs = request.getParameterNames();   %>
 <%	String passwordInput = request.getParameter("txtPassword");
@@ -8,8 +9,6 @@
 	String btnInput = "";
 	String initialsKey = "initials";
 	String buttonKey = "button";
-	
-	boolean isLoggedIn = false;
 	
 	String newLocation = new String();
 	
@@ -39,7 +38,7 @@
 	
 	
 	if(btnInput.equals("btnScoringApp")){
-		newLocation = "pre-match.jsp";
+		newLocation = "scoringapp.jsp";
 	}else if(btnInput.equals("btnNew")){
 		newLocation = "NewFile.jsp";
 	}
@@ -84,9 +83,6 @@
 			%>
 			<%--= request.getParameterNames() --%>
 			<form id="indexForm" action="index.jsp" method="POST">
-
-				<div id="competition"
-					style="padding-top: 50px; padding-bottom: 20px;">Team 102 FRC</div>
 				<div id="input" class="input-contianer">
 					<div id="Initials">
 						<label for="txtInitials">Your Initials: <input type="text"

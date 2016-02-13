@@ -4,9 +4,8 @@
 
 //public static final String loggedIn = "isLoggedIn";
 
-boolean isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
+boolean isLoggedIn = (boolean)session.getAttribute("isLoggedIn");
+String user = (String)session.getAttribute("user");
 
-out.println("noooo");
-
+// troll
 %>
-
