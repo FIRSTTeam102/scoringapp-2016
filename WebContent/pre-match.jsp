@@ -1,11 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<<<<<<< HEAD
 	pageEncoding="ISO-8859-1"%>
+=======
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,java.util.*"%>
+<%@ include file="STUDENTRUN.jsp"%> 
+
+<% Enumeration<String> info = request.getParameterNames();
+Enumeration<String> values = request.getParameterValues();
+
+	for (int i = 0; info.hasMoreElements(); i++)
+	{
+		String currentName = info.nextElement();
+		String currentValue = values.nextElement();
+		
+		
+	}
+%>
+
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="stylesheet.css">
 <title>Pre Match</title>
+<<<<<<< HEAD
 <link rel="stylesheet" href="stylesheet.css" />
+=======
+<style>
+	span.no_selection {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+</style>
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 <script id="allianceSet" type="text/javascript">
 	alliance = "Blue";
 	side = "Far";
@@ -23,6 +54,7 @@
 	var originX = 0;
 	var originY = 0;
 
+<<<<<<< HEAD
 	var defense = function(image, position, category) {
 		this.image = image;
 		this.position = position;
@@ -33,8 +65,30 @@
 		this.teamNumber = teamNumber;
 		this.position = position;
 	}
+=======
+var positionToPlaceDefense;
+var positionToPlaceRobot;
+var teamAsSpyBot = "";
+var hasSpyHuman = false;
+var defensePositions = [];
+var robotPositions = [];
+var originX = 0;
+var originY = 0;
 
-	function loadPage() {
+var defense = function(image, position, category, name){
+	this.image = image;
+	this.position = position;
+	this.category = category;
+	this.name = name;
+}
+
+var robot = function(teamNumber, position){
+	this.teamNumber = teamNumber;
+	this.position = position;
+}
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
+
+	function loadPage() {		
 		team1Div = document.getElementById("team1NoShow");
 		team2Div = document.getElementById("team2NoShow");
 		team3Div = document.getElementById("team3NoShow");
@@ -45,9 +99,17 @@
 
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
+<<<<<<< HEAD
 
 		if (side == "Near") {
 			if (alliance == "Red") {
+=======
+		
+		if (side != "Near")
+		{
+			if (alliance != "Red")
+			{
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 				arena = document.getElementById("redArenaFlippedBG");
 			} else {
 				arena = document.getElementById("blueArenaFlippedBG");
@@ -65,8 +127,14 @@
 			roughTerrain = document.getElementById("roughTerrain");
 			rockWall = document.getElementById("rockWall");
 			sallyPort = document.getElementById("sallyPort");
+<<<<<<< HEAD
 
 			if (alliance == "Red") {
+=======
+			
+			if (alliance != "Red")
+			{
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 				var defense1 = new Path2D();
 				defense1.rect(137, 170, 74, 84);
 
@@ -152,6 +220,7 @@
 				var context = e.target.getContext('2d');
 				var x = e.offsetX;
 				var y = e.offsetY;
+<<<<<<< HEAD
 
 				if (selectMode == 0) {
 					if (context.isPointInPath(defense1, x, y)) {
@@ -227,6 +296,65 @@
 							};
 						}
 					} else if (context.isPointInPath(spyBotPath, x, y)) {
+=======
+				
+				if (selectMode == 0)
+				{
+					if (context.isPointInPath(defense1, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance != "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:170, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:173, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense2, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance != "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:254, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:257, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense3, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance != "Red")
+			  			{
+				  			positionToPlaceDefense = {x:137, y:340, width:74, height:84};
+			  			}
+			  			else
+			  			{
+				  			positionToPlaceDefense = {x:138, y:343, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(defense4, x, y))
+					{
+			  			selectMode = 1;
+			  			drawDefenseSelection();
+			  			if (alliance != "Red")
+			  			{
+			  				positionToPlaceDefense = {x:137, y:425, width:74, height:84};
+			  			}
+			  			else
+			  			{
+			  				positionToPlaceDefense = {x:138, y:428, width:74, height:84};
+			  			}
+					}
+					else if (context.isPointInPath(spyBotPath, x, y))
+					{
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						selectMode = 2;
 						drawTeamSelection();
 					} else if (context.isPointInPath(spyHumanPath, x, y)) {
@@ -286,57 +414,89 @@
 					if (context.isPointInPath(portcullisPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(portcullis,
 								positionToPlaceDefense, 1);
+=======
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1, "Portcullis");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(chevalDeFrisePath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(chevalDeFrise,
 								positionToPlaceDefense, 1);
+=======
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1, "Cheval De Frise");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(moatPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(moat,
 								positionToPlaceDefense, 2);
+=======
+						var newDefense = new defense(moat, positionToPlaceDefense, 2, "Moat");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(rampartsPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(ramparts,
 								positionToPlaceDefense, 2);
+=======
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2, "Ramparts");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(drawbridgePath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(drawbridge,
 								positionToPlaceDefense, 3);
+=======
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3, "Drawbridge");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(sallyPortPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(sallyPort,
 								positionToPlaceDefense, 3);
+=======
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3, "Sally Port");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(rockWallPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(rockWall,
 								positionToPlaceDefense, 4);
+=======
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4, "Rock Wall");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(roughTerrainPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(roughTerrain,
 								positionToPlaceDefense, 4);
+=======
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4, "Rough Terrain");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else {
@@ -391,8 +551,16 @@
 					}
 				}
 			}
+<<<<<<< HEAD
 		} else {
 			if (alliance == "Red") {
+=======
+		}
+		else
+		{
+			if (alliance != "Red")
+			{
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 				arena = document.getElementById("redArenaBG");
 			} else {
 				arena = document.getElementById("blueArenaBG");
@@ -579,57 +747,89 @@
 					if (context.isPointInPath(portcullisPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(portcullis,
 								positionToPlaceDefense, 1);
+=======
+						var newDefense = new defense(portcullis, positionToPlaceDefense, 1, "Portcullis");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(chevalDeFrisePath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(chevalDeFrise,
 								positionToPlaceDefense, 1);
+=======
+						var newDefense = new defense(chevalDeFrise, positionToPlaceDefense, 1, "Cheval De Frise");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(moatPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(moat,
 								positionToPlaceDefense, 2);
+=======
+						var newDefense = new defense(moat, positionToPlaceDefense, 2, "Moat");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(rampartsPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(ramparts,
 								positionToPlaceDefense, 2);
+=======
+						var newDefense = new defense(ramparts, positionToPlaceDefense, 2, "Ramparts");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(drawbridgePath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(drawbridge,
 								positionToPlaceDefense, 3);
+=======
+						var newDefense = new defense(drawbridge, positionToPlaceDefense, 3, "Drawbridge");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(sallyPortPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(sallyPort,
 								positionToPlaceDefense, 3);
+=======
+						var newDefense = new defense(sallyPort, positionToPlaceDefense, 3, "Sally Port");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(rockWallPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(rockWall,
 								positionToPlaceDefense, 4);
+=======
+						var newDefense = new defense(rockWall, positionToPlaceDefense, 4, "Rock Wall");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else if (context.isPointInPath(roughTerrainPath, x, y)) {
 						ctx.drawImage(arena, 0, 0);
 						selectMode = 0;
+<<<<<<< HEAD
 						var newDefense = new defense(roughTerrain,
 								positionToPlaceDefense, 4);
+=======
+						var newDefense = new defense(roughTerrain, positionToPlaceDefense, 4, "Rough Terrain");
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 						defensePositions.push(newDefense);
 						drawArenaWithChanges();
 					} else {
@@ -719,9 +919,17 @@
 				teamAsSpyBot = "";
 			}
 		}
+<<<<<<< HEAD
 
 		if (teamAsSpyBot != "") {
 			if (side == "Near") {
+=======
+		
+		if (teamAsSpyBot != "")
+		{
+			if (side != "Near")
+			{
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 				ctx.font = "24px serif";
 				ctx.textAlign = "center";
 				ctx.fillStyle = "white";
@@ -852,11 +1060,118 @@
 					break;
 				}
 			}
+			switch (checkboxNumber)
+			{
+			case 1:
+				if (team1Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			case 2:
+				if (team2Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			case 3:
+				if (team3Div.innerHTML.includes(teamAsSpyBot))
+				{
+					teamAsSpyBot = "";
+					ctx.drawImage(arena, 0, 0);
+					drawArenaWithChanges();
+				}
+				break;
+			}
 		}
+	}
+	
+	function loadNextPage() {
+//		var dataToPass = new data(robotPositions, defensePositions, teamAsSpyBot, hasSpyHuman);
+
+		var form = document.getElementById("actionForm");
+		
+		var team1Checked = document.getElementById("team1Checkbox").checked;
+		var team2Checked = document.getElementById("team2Checkbox").checked;
+		var team3Checked = document.getElementById("team3Checkbox").checked;
+		
+		for (var i = 0; i < robotPositions.length; i++)
+		{
+			var robotToParse = robotPositions[i];
+			
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'teamNumber" value="' + robotToParse.teamNumber + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'xPosition" value="' + robotToParse.position.x + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'yPosition" value="' + robotToParse.position.y + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'width" value="' + robotToParse.position.width + '"/>';
+			form.innerHTML += '<input type="hidden" name="robot' + i + 'height" value="' + robotToParse.position.height + '"/>';
+		}
+		
+		for (var i = 0; i < defensePositions.length; i++)
+		{
+			var defenseToParse = defensePositions[i];
+			
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'name" value="' + defenseToParse.name + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'xPosition" value="' + defenseToParse.position.x + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'yPosition" value="' + defenseToParse.position.y + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'width" value="' + defenseToParse.position.width + '"/>';
+			form.innerHTML += '<input type="hidden" name="defense' + i + 'height" value="' + defenseToParse.position.height + '"/>';
+		}
+		
+		if (teamAsSpyBot != "")
+		{
+			form.innerHTML += '<input type="hidden" name="robotAsSpyBot" value="' + teamAsSpyBot + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="robotAsSpyBot" value="' + "0" + '"/>';
+		}
+		
+		if (hasSpyHuman)
+		{
+			form.innerHTML += '<input type="hidden" name="hasSpyHuman" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="hasSpyHuman" value="' + "NO" + '"/>';
+		}
+		
+		if (team1Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team1NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team1NoShow" value="' + "NO" + '"/>';
+		}
+		
+		if (team2Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team2NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team2NoShow" value="' + "NO" + '"/>';
+		}
+		
+		if (team3Checked)
+		{
+			form.innerHTML += '<input type="hidden" name="Team3NoShow" value="' + "YES" + '"/>';
+		}
+		else
+		{
+			form.innerHTML += '<input type="hidden" name="Team3NoShow" value="' + "NO" + '"/>';
+		}
+		
+		form.submit();
 	}
 </script>
 </head>
 <body onload="loadPage();">
+<<<<<<< HEAD
 	<canvas id="arena" width="575" height="700"
 		style="border: 1px solid black"> </canvas>
 	<div class="main">
@@ -876,6 +1191,25 @@
 				<input id="team3Checkbox" name="Team3NoShow" type="checkbox"
 					onclick="removeDuplicates(3);" />
 			</div>
+=======
+<div class="main">
+	<canvas id="arena" width="575" height="700">
+		
+	</canvas>
+	<div id="NoShow" class="box">
+		No Show:
+		<br>
+		<div id="team1NoShow">
+		<input id="team1Checkbox" name="Team1NoShow" type="checkbox" onclick="removeDuplicates(1);"/>
+		</div>
+		<br>
+		<div id="team2NoShow">
+		<input id="team2Checkbox" name="Team2NoShow" type="checkbox" onclick="removeDuplicates(2);"/>
+		</div>
+		<br>
+		<div id="team3NoShow">
+		<input id="team3Checkbox" name="Team3NoShow" type="checkbox" onclick="removeDuplicates(3);"/>
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 		</div>
 
 		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1"
@@ -906,5 +1240,34 @@
 			src="Images/woodBG-defense.jpg" id="defenseBG"
 			style="visibility: hidden" width="1" height="1">
 	</div>
+<<<<<<< HEAD
+=======
+	<br>
+		<div id="nav">
+			<div style="padding-top: 10px; padding-bottom: 10px;">
+				<input type="button" name="btnChooseMatch" value="Next" onclick="loadNextPage();"/>
+			</div>
+		</div>
+	</div>
+	
+	<form class="main" action="pre-match.jsp" method="post" id="actionForm">
+	</form>
+	
+		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
+		<img id="chevalDeFrise" src="Images/Defenses/ChevaldeFrise.png" width="1" height="1" style="visibility: hidden">
+		<img id="moat" src="Images/Defenses/Moat.png" width="1" height="1" style="visibility: hidden">
+		<img id="ramparts" src="Images/Defenses/Ramparts.png" width="1" height="1" style="visibility: hidden">
+		<img id="drawbridge" src="Images/Defenses/Drawbridge.png" width="1" height="1" style="visibility: hidden">
+		<img id="sallyPort" src="Images/Defenses/Sally Port.png" width="1" height="1" style="visibility: hidden">
+		<img id="rockWall" src="Images/Defenses/Rock Wall.png" width="1" height="1" style="visibility: hidden">
+		<img id="roughTerrain" src="Images/Defenses/Rough Terrain.png" width="1" height="1" style="visibility: hidden">
+		<img id="lowBar" src="Images/Defenses/Low Bar.png" width="1" height="1" style="visibility: hidden">
+	<img src="Images/bluearena.png" id="blueArenaBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/redarena.png" id="redArenaBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/bluearena-flipped.png" id="blueArenaFlippedBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/redarena-flipped.png" id="redArenaFlippedBG" style="visibility: hidden" width="1" height="1">
+	<img src="Images/woodBG-defense.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
+	
+>>>>>>> 1a8d2959421520cea8412eb2d6150bbd8eb646b1
 </body>
 </html>
