@@ -43,7 +43,7 @@ input[type=radio] {
 	-webkit-border-radius: 2em;
 }
 
-input[type=radio]:checked {
+input[type=checkbox]:checked, input[type=radio]:checked {
 background: -moz-radial-gradient(center, ellipse cover, rgba(255,5,5,1) 0%, rgba(255,5,5,1) 6%, rgba(122,100,70,1) 100%); /* ff3.6+ */
 background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,5,5,1)), color-stop(6%, rgba(255,5,5,1)), color-stop(100%, rgba(122,100,70,1))); /* safari4+,chrome */
 background:-webkit-radial-gradient(center, ellipse cover, rgba(255,5,5,1) 0%, rgba(255,5,5,1) 6%, rgba(122,100,70,1) 100%); /* safari5.1+,chrome10+ */
@@ -94,4 +94,15 @@ input, textarea, select {
 	width: 200px;
 	/*display: flex;*/
 	align-items: right;
+}
+/* Box for pre-match */
+.box {
+	border: 1px solid black;
+	width: 400px;
+	float: center;
+	margin: auto;
+}
+
+.header{
+	margin-bottom: 20px;
 }
