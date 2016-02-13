@@ -9,7 +9,6 @@
 	.box {
 		border: 1px solid black;
 		width: 400px;
-		height: 100px;
 		float: right;
 		margin: auto;
 	}
@@ -44,9 +43,13 @@ var robot = function(teamNumber, position){
 }
 
 	function loadPage() {
-		document.getElementById("team1NoShow").outerText = "Team " + team1;
-		document.getElementById("team2NoShow").outerText = "Team " + team2;
-		document.getElementById("team3NoShow").outerText = "Team " + team3;
+		team1Div = document.getElementById("team1NoShow");
+		team2Div = document.getElementById("team2NoShow");
+		team3Div = document.getElementById("team3NoShow");
+		
+		team1Div.innerHTML += "Team " + team1;
+		team2Div.innerHTML += "Team " + team2;
+		team3Div.innerHTML += "Team " + team3;
 		
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
@@ -709,8 +712,6 @@ var robot = function(teamNumber, position){
 				}
 			}
 		}
-		
-
 	}
 	
 	function drawArenaWithChanges() {
@@ -740,6 +741,14 @@ var robot = function(teamNumber, position){
 		{
 			var defenseToDraw = defensePositions[i];
 			ctx.drawImage(defenseToDraw.image, defenseToDraw.position.x, defenseToDraw.position.y, defenseToDraw.position.width, defenseToDraw.position.height);
+		}
+		for (var i = 0; i < robotPositions.length; i++)
+		{
+			var robotToCheck = robotPositions[i];
+			if (robotToCheck.teamNumber == teamAsSpyBot)
+			{
+				teamAsSpyBot = "";
+			}
 		}
 		
 		if (teamAsSpyBot != "")
@@ -802,8 +811,12 @@ var robot = function(teamNumber, position){
 			
 			if (robotToCheck.teamNumber == teamAsSpyBot)
 			{
-				robotPositions.splice(i, 1);
+				teamAsSpyBot = "";
 				break;
+			}
+			if (team1Div.innerHTML.includes(robotToCheck.teamNumber) && document.getElementById("team1Checkbox").checked || team2Div.innerHTML.includes(robotToCheck.teamNumber) && document.getElementById("team2Checkbox").checked || team3Div.innerHTML.includes(robotToCheck.teamNumber) && document.getElementById("team3Checkbox").checked)
+			{
+				robotPositions.splice(i, 1);
 			}
 		}
 		for (var i = 0; i < robotPositions.length; i++)
@@ -844,6 +857,44 @@ var robot = function(teamNumber, position){
 		
 		ctx.shadowBlur = 0;
 	}
+	
+	function removeDuplicates(checkboxNumber) {
+		if (document.getElementById("team" + checkboxNumber + "Checkbox").checked)
+		{
+			for (var i = 0; i < robotPositions.length; i++)
+			{
+				var robotToCheck = robotPositions[i];
+				
+				switch (checkboxNumber)
+				{
+				case 1:
+					if (team1Div.innerHTML.includes(robotToCheck.teamNumber))
+					{
+						robotPositions.splice(i, 1);
+						ctx.drawImage(arena, 0, 0);
+						drawArenaWithChanges();
+					}
+					break;
+				case 2:
+					if (team2Div.innerHTML.includes(robotToCheck.teamNumber))
+					{
+						robotPositions.splice(i, 1);
+						ctx.drawImage(arena, 0, 0);
+						drawArenaWithChanges();
+					}
+					break;
+				case 3:
+					if (team3Div.innerHTML.includes(robotToCheck.teamNumber))
+					{
+						robotPositions.splice(i, 1);
+						ctx.drawImage(arena, 0, 0);
+						drawArenaWithChanges();
+					}
+					break;
+				}
+			}
+		}
+	}
 </script>
 </head>
 <body onload="loadPage();">
@@ -853,16 +904,16 @@ var robot = function(teamNumber, position){
 	<div class="box">
 		No Show:
 		<br>
-		<input name="Team1NoShow" type="checkbox"/>
 		<div id="team1NoShow">
+		<input id="team1Checkbox" name="Team1NoShow" type="checkbox" onclick="removeDuplicates(1);"/>
 		</div>
 		<br>
-		<input name="Team2NoShow" type="checkbox"/>
 		<div id="team2NoShow">
+		<input id="team2Checkbox" name="Team2NoShow" type="checkbox" onclick="removeDuplicates(2);"/>
 		</div>
 		<br>
-		<input name="Team3NoShow" type="checkbox"/>
 		<div id="team3NoShow">
+		<input id="team3Checkbox" name="Team3NoShow" type="checkbox" onclick="removeDuplicates(3);"/>
 		</div>
 	</div>
 	
