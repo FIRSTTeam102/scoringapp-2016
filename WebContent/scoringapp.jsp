@@ -9,8 +9,14 @@
      user="scoring102"  password="GearBrainz"/>
 
 <sql:query dataSource="${snapshot}" var="result">
-SELECT * FROM tournaments WHERE active = "Y"'
+SELECT * FROM tournaments WHERE active = "Y"
 </sql:query>
+<c:set var="tournament" scope="session" value="${result}"/>
+<%
+	String tournamentName = "g";
+	session.setAttribute(tournamentNameKey, tournamentName);
+%>
+
 <%
 	String allianceInput = (String)request.getParameter("rdoAlliance");
 	session.setAttribute(allianceKey, allianceInput);
@@ -41,7 +47,7 @@ SELECT * FROM tournaments WHERE active = "Y"'
 			<jsp:include page="title.html"></jsp:include>
 			<form id="CompetitionForm" action="scoringapp.jsp" method="post">
 				<div id="Tournament" class="header">
-				<%= tournamentTitle %>
+				<c:out value="${tournament}"/>
 				</div>
 				<div id="Alliance">
 					<div>Choose an Alliance</div>
