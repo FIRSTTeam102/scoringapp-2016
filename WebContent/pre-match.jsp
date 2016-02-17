@@ -16,6 +16,7 @@
 	}
 	if (data.size() > 2)
 	{
+		session.setAttribute("arenaData", data);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "autonomous.jsp");
 	}
@@ -879,8 +880,9 @@
 </script>
 </head>
 <body onload="loadPage();">
-	<canvas id="arena" width="575" height="700"
-		style="border: 1px solid black"> </canvas>
+	<canvas id="arena" width="575" height="700">
+	
+	</canvas>
 	<div class="main">
 		<div class="box">
 			No Show: <br>
@@ -900,33 +902,20 @@
 			</div>
 		</div>
 
-		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1"
-			height="1" style="visibility: hidden"> <img id="chevalDeFrise"
-			src="Images/Defenses/ChevaldeFrise.png" width="1" height="1"
-			style="visibility: hidden"> <img id="moat"
-			src="Images/Defenses/Moat.png" width="1" height="1"
-			style="visibility: hidden"> <img id="ramparts"
-			src="Images/Defenses/Ramparts.png" width="1" height="1"
-			style="visibility: hidden"> <img id="drawbridge"
-			src="Images/Defenses/Drawbridge.png" width="1" height="1"
-			style="visibility: hidden"> <img id="sallyPort"
-			src="Images/Defenses/Sally Port.png" width="1" height="1"
-			style="visibility: hidden"> <img id="rockWall"
-			src="Images/Defenses/Rock Wall.png" width="1" height="1"
-			style="visibility: hidden"> <img id="roughTerrain"
-			src="Images/Defenses/Rough Terrain.png" width="1" height="1"
-			style="visibility: hidden"> <img id="lowBar"
-			src="Images/Defenses/Low Bar.png" width="1" height="1"
-			style="visibility: hidden"> <img src="Images/bluearena.png"
-			id="blueArenaBG" style="visibility: hidden" width="1" height="1">
-		<img src="Images/redarena.png" id="redArenaBG"
-			style="visibility: hidden" width="1" height="1"> <img
-			src="Images/bluearena-flipped.png" id="blueArenaFlippedBG"
-			style="visibility: hidden" width="1" height="1"> <img
-			src="Images/redarena-flipped.png" id="redArenaFlippedBG"
-			style="visibility: hidden" width="1" height="1"> <img
-			src="Images/woodBG-defense.jpg" id="defenseBG"
-			style="visibility: hidden" width="1" height="1">
+		<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
+			<img id="chevalDeFrise" src="Images/Defenses/ChevaldeFrise.png" width="1" height="1" style="visibility: hidden">
+			<img id="moat" src="Images/Defenses/Moat.png" width="1" height="1" style="visibility: hidden">
+			<img id="ramparts" src="Images/Defenses/Ramparts.png" width="1" height="1" style="visibility: hidden">
+			<img id="drawbridge" src="Images/Defenses/Drawbridge.png" width="1" height="1" style="visibility: hidden">
+			<img id="sallyPort" src="Images/Defenses/Sally Port.png" width="1" height="1" style="visibility: hidden">
+			<img id="rockWall" src="Images/Defenses/Rock Wall.png" width="1" height="1" style="visibility: hidden">
+			<img id="roughTerrain" src="Images/Defenses/Rough Terrain.png" width="1" height="1" style="visibility: hidden">
+			<img id="lowBar" src="Images/Defenses/Low Bar.png" width="1" height="1" style="visibility: hidden">
+			<img src="Images/bluearena.png" id="blueArenaBG" style="visibility: hidden" width="1" height="1">
+		<img src="Images/redarena.png" id="redArenaBG" style="visibility: hidden" width="1" height="1">
+			<img src="Images/bluearena-flipped.png" id="blueArenaFlippedBG" style="visibility: hidden" width="1" height="1">
+			<img src="Images/redarena-flipped.png" id="redArenaFlippedBG" style="visibility: hidden" width="1" height="1">
+			<img src="Images/woodBG-defense.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
 	</div>
 </body>
 </html>
