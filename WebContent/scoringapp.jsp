@@ -5,34 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!-- WORK IN PROGRESS -->
 <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-     url="jdbc:mysql://localhost/scoring2016"
+     url="jdbc:mysql://Gearheads-5/scoring2016"
      user="scoring102"  password="GearBrainz"/>
-<sql:query dataSource="${snapshot}" var="result">
-select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3, mt1.initials
-			from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
-			where t.active = 'Y'
-			and m.tournament_id = t.id
-			and mt1.tournament_id = m.tournament_id
-			and mt1.match_number = m.match_number
-			and mt1.completed = 'N'
-			and mt1.alliance = '%s'
-			and mt1.seq_no = 1
-			and mt2.team_number != mt1.team_number
-			and mt2.tournament_id = mt1.tournament_id
-			and mt2.match_number = mt1.match_number
-			and mt2.completed = mt1.completed
-			and mt2.alliance = mt1.alliance
-			and mt2.seq_no = 2
-			and mt3.team_number != mt1.team_number
-			and mt3.team_number != mt2.team_number
-			and mt3.tournament_id = mt1.tournament_id
-			and mt3.match_number = mt1.match_number
-			and mt3.completed = mt1.completed
-			and mt3.alliance = mt1.alliance
-			and mt3.seq_no = 3
-			order by m.match_number;
-</sql:query>
 
+<sql:query dataSource="${snapshot}" var="result">
+SELECT * FROM tournaments WHERE active = "Y"'
+</sql:query>
 <%
 	String allianceInput = (String)request.getParameter("rdoAlliance");
 	session.setAttribute(allianceKey, allianceInput);
@@ -40,7 +18,10 @@ select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number
 	String tournamentTitle = "Temporary value.";
 %>
 
-
+<%! void setBlock(){
+	
+}
+%>
 
 
 
