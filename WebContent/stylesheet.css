@@ -23,6 +23,13 @@ body div {
 	max-width: 90%;
 }
 
+.team_holder {
+	float:left; 
+	width:3em;
+	text-align:right; 
+	padding: 3px 2px;
+}
+
 .title {
 	max-width: 90%;
 }

@@ -1,32 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="STUDENTRUN.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<!-- WORK IN PROGRESS -->
-<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-     url="jdbc:mysql://Gearheads-5/scoring2016"
-     user="scoring102"  password="GearBrainz"/>
+<%@include file="STUDENTRUN.jsp"%>
 
-<sql:query dataSource="${snapshot}" var="result">
-SELECT * FROM tournaments WHERE active = "Y"
+<sql:query dataSource="${database}" var="result">
+<%="SELECT * FROM tournaments WHERE active = 'Y'"%>
 </sql:query>
-<c:set var="tournament" scope="session" value="${result}"/>
-<%
-	String tournamentName = "g";
-	session.setAttribute(tournamentNameKey, tournamentName);
-%>
+<c:set var="tournament" scope="session" value="${result}" />
 
 <%
-	String allianceInput = (String)request.getParameter("rdoAlliance");
-	session.setAttribute(allianceKey, allianceInput);
-	
-	String tournamentTitle = "Temporary value.";
-%>
-
-<%! void setBlock(){
-	
-}
+	String allianceInput = (String) request.getParameter("rdoAlliance");
+	if (allianceInput != null) {
+		session.setAttribute(allianceKey, allianceInput);
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "choosematch.jsp");
+	}
 %>
 
 
@@ -47,7 +34,9 @@ SELECT * FROM tournaments WHERE active = "Y"
 			<jsp:include page="title.html"></jsp:include>
 			<form id="CompetitionForm" action="scoringapp.jsp" method="post">
 				<div id="Tournament" class="header">
-				<c:out value="${tournament}"/>
+					<c:forEach var="t" items="${tournament.rows}">
+						<c:out value="${t.title}" />
+					</c:forEach>
 				</div>
 				<div id="Alliance">
 					<div>Choose an Alliance</div>
