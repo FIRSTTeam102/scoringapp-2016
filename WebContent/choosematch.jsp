@@ -1,5 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <sql:query dataSource="${snapshot}" var="result">
+select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3, mt1.initials
+			from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t
+			where t.active = 'Y'
+			and m.tournament_id = t.id
+			and mt1.tournament_id = m.tournament_id
+			and mt1.match_number = m.match_number
+			and mt1.completed = 'N'
+			and mt1.alliance = '%s'
+			and mt1.seq_no = 1
+			and mt2.team_number != mt1.team_number
+			and mt2.tournament_id = mt1.tournament_id
+			and mt2.match_number = mt1.match_number
+			and mt2.completed = mt1.completed
+			and mt2.alliance = mt1.alliance
+			and mt2.seq_no = 2
+			and mt3.team_number != mt1.team_number
+			and mt3.team_number != mt2.team_number
+			and mt3.tournament_id = mt1.tournament_id
+			and mt3.match_number = mt1.match_number
+			and mt3.completed = mt1.completed
+			and mt3.alliance = mt1.alliance
+			and mt3.seq_no = 3
+			order by m.match_number;
+</sql:query>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
