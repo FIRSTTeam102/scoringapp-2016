@@ -73,13 +73,17 @@
 								}
 							 -->
 					<c:forEach var="row" items="${matches.rows}">
-						
-						<c:out value="${row.match_number}" />
-						<c:out value="${row.start_time}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.initials}" />
+						<div class="match_number">
+							<input type="radio" name="rdoMatch" id="rdoMatch{matchNumber}"
+								value="{matchNumber}" />
+							<%="#"%><c:out value="${row.match_number}" /> @ <c:out value="${row.start_time}" />
+						</div>
+						<div class="team_holder"><c:out value="${row.team1}" /></div>
+						<div class="team_holder"><c:out value="${row.team2}" /></div>
+						<div class="team_holder"><c:out value="${row.team3}" /></div>
+						<div class="team_holder"><c:out value="${row.initials}" /></div>
+						<div style="clear: both;"></div>
+					
 						
 					</c:forEach>
 				</div>
