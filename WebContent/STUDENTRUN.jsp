@@ -17,8 +17,13 @@ final String userKey = "user";
 final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
-
-boolean isLoggedIn = (Boolean)session.getAttribute(loginKey);
+boolean isLoggedIn = true;
+try {
+	isLoggedIn = (Boolean)session.getAttribute(loginKey);
+}
+catch (Exception e) {
+	
+}
 String user = (String)session.getAttribute(userKey);
 String alliance = (String)session.getAttribute(allianceKey);
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
