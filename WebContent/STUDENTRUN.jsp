@@ -7,27 +7,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="fmt" 
            uri="http://java.sun.com/jsp/jstl/fmt" %>
+           
 <%
-
-//public static final String loggedIn = "isLoggedIn";
-
 final String allianceKey = "allianceColor";
 final String loginKey = "isLoggedIn";
 final String userKey = "user";
 final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
-boolean isLoggedIn = true;
-try {
-	isLoggedIn = (Boolean)session.getAttribute(loginKey);
-}
-catch (Exception e) {
+%>
+<%
+if(session.isNew()){
 	
+	session.setAttribute("isLoggedIn", false);
 }
+%>
+
+<%
+boolean isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
 String user = (String)session.getAttribute(userKey);
 String alliance = (String)session.getAttribute(allianceKey);
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
 %>
+
 <%
 	//Check if logged in
 	if (!isLoggedIn) {
@@ -36,5 +38,5 @@ HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribut
 	}
 %>
 <sql:setDataSource var="database" driver="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://Gearheads-5/scoring2016" user="scoring102"
+	url="jdbc:mysql://Gearheads-5/scoring2016?useOldAliasMetadataBehavior=true" user="scoring102"
 	password="GearBrainz"/>

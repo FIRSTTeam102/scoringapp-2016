@@ -15,8 +15,7 @@
 								+ " and mt3.team_number != mt1.team_number  and mt3.team_number != mt2.team_number"
 								+ " and mt3.tournament_id = mt1.tournament_id"
 								+ " and mt3.match_number = mt1.match_number  and mt3.completed = mt1.completed"
-								+ " and mt3.alliance = mt1.alliance  and mt3.seq_no = 3"
-								+ " order by m.match_number;"%>
+								+ " and mt3.alliance = mt1.alliance  and mt3.seq_no = 3" + " order by m.match_number;"%>
 </sql:query>
 <c:set var="matches" scope="page" value="${result}" />
 
@@ -48,8 +47,8 @@
 				<div id="MatchList"
 					style="margin-left: auto; margin-right: auto; width: 100%; font-size: .8em;">
 					<!-- BEGIN oneMatch -->
-					<label for="rdoMatch{matchNumber}">
-						<div class="match_number">
+
+					<!-- <div class="match_number">
 							<input type="radio" name="rdoMatch" id="rdoMatch{matchNumber}"
 								value="{matchNumber}" />
 							<%="#"%>{matchNumber} @ {matchStartTime}
@@ -58,9 +57,10 @@
 						<div class="team_holder">{team2}</div>
 						<div class="team_holder">{team3}</div>
 						<div class="team_holder">{initials}</div>
-						<div style="clear: both;"></div>
-					</label>
-							<!-- 
+						<div style="clear: both;"></div> 
+						 -->
+
+					<!-- 
 							while($row = mysql_fetch_assoc($matches)) {
 									$tpl->setCurrentBlock("oneMatch");
 									$tpl->setVariable("matchNumber", $row['match_number']) ;
@@ -72,16 +72,31 @@
 									$tpl->parseCurrentBlock() ;		
 								}
 							 -->
-					<c:forEach var="row" items="${matches.rows}">
-						
-						<c:out value="${row.match_number}" />
-						<c:out value="${row.start_time}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.team_number}" />
-						<c:out value="${row.initials}" />
-						
-					</c:forEach>
+					<label for="rdoMatch{matchNumber}"> <c:forEach var="row"
+							items="${matches.rows}">
+							<div class="match_number">
+								<input type="radio" name="rdoMatch"
+									id="<c:out value="${row.match_number}" />"
+									value="<c:out value="${row.match_number}" />" />
+								<%="#"%><c:out value="${row.match_number}" />
+								@
+								<c:out value="${row.start_time}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.team1}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.team2}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.team3}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.initials}" />
+							</div>
+							<div style="clear: both;"></div>
+						</c:forEach>
+					</label>
 				</div>
 			</div>
 		</form>
