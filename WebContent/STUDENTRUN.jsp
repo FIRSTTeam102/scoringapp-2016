@@ -15,28 +15,19 @@ final String userKey = "user";
 final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
-%>
-<%
-if(session.isNew()){
-	
-	session.setAttribute("isLoggedIn", false);
+if(session.getAttribute(loginKey) == null){
+	response.setStatus(response.SC_MOVED_TEMPORARILY);
+	response.setHeader("Location", "index.jsp");
+
 }
 %>
+<%	
 
-<%
-boolean isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
 String user = (String)session.getAttribute(userKey);
 String alliance = (String)session.getAttribute(allianceKey);
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
 %>
 
-<%
-	//Check if logged in
-	if (!isLoggedIn) {
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", "index.jsp");
-	}
-%>
 <sql:setDataSource var="database" driver="com.mysql.jdbc.Driver"
 	url="jdbc:mysql://Gearheads-5/scoring2016?useOldAliasMetadataBehavior=true" user="scoring102"
 	password="GearBrainz"/>
