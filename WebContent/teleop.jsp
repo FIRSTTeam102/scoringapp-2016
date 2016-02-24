@@ -23,6 +23,7 @@
 	
 	out.println(script);
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,6 +35,7 @@
 var robotPositions = [];
 var defensePositions = [];
 var selectMode = 0;
+var selectedDefense;
 
 var defense = function(image, position, category, name){
 	this.image = image;
@@ -53,7 +55,9 @@ var robot = function(teamNumber, position){
 		
 		if (robot0teamNumber)
 		{
-			robotPositions.push(new robot(robot0teamNumber, {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height}));
+			var positionToPlaceRobot = {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height};
+			var newRobot = new robot(robot0teamNumber, positionToPlaceRobot);
+			robotPositions.push(newRobot);
 		}
 
 		if (robot1teamNumber != null)
@@ -249,6 +253,33 @@ var robot = function(teamNumber, position){
 			}
 		}
 		
+		defense1Path = new Path2D();
+		defense2Path = new Path2D();
+		defense3Path = new Path2D();
+		defense4Path = new Path2D();
+		lowBarPath = new Path2D();
+		
+		for (var i = 0; i < defensePositions.length; i++)
+		{
+			var robot = robotPositions.get(i);
+			if (i == 0)
+			{
+				defense1Path.rect(robot.position.x, robot.position.y, robot.position.width, robot.position.height);
+			}
+			else if (i == 1)
+			{
+				defense2Path.rect(robot.position.x, robot.position.y, robot.position.width, robot.position.height);
+			}
+			else if (i == 2)
+			{
+				defense3Path.rect(robot.position.x, robot.position.y, robot.position.width, robot.position.height);
+			}
+			else if (i == 3)
+			{
+				defense4Path.rect(robot.position.x, robot.position.y, robot.position.width, robot.position.height);
+			}
+		}
+		
 		failedPath = new Path2D();
 		failedPath.rect(105, 652, 78, 33);
 		
@@ -260,10 +291,12 @@ var robot = function(teamNumber, position){
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaFlippedBG");
+				lowBarPath.rect(137, 91, 74, 85);
 			}
 			else
 			{
 				arena = document.getElementById("blueArenaFlippedBG");
+				lowBarPath.rect(138, 92, 74, 85);
 			}
 			ctx.drawImage(arena, 0, 0);
 		}
@@ -272,10 +305,12 @@ var robot = function(teamNumber, position){
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaBG");
+				lowBarPath.rect(364, 533, 74, 85);
 			}
 			else
 			{
 				arena = document.getElementById("blueArenaBG");
+				lowBarPath.rect(363, 531, 74, 85);
 			}
 			ctx.drawImage(arena, 0, 0);
 		}
@@ -291,7 +326,34 @@ var robot = function(teamNumber, position){
 			
 			if (selectMode == 0)
 			{
-				if (context.isPointInPath())
+				if (context.isPointInPath(defense1Path, x, y))
+				{
+					selectedDefense = defensePositions.get(0);
+					ctx.fill(defense1Path);
+				}
+				else if (context.isPointInPath(defense2Path, x, y))
+				{
+					selectedDefense = defensePositions.get(1);
+					ctx.fill(defense2Path);
+				}
+				else if (context.isPointInPath(defense3Path, x, y))
+				{
+					selectedDefense = defensePositions.get(2);
+					ctx.fill(defense3Path);
+				}
+				else if (context.isPointInPath(defense4Path, x, y))
+				{
+					selectedDefense = defensePositions.get(3);
+					ctx.fill(defense4Path);
+				}
+				else if (context.isPointInPath(failedPath, x, y))
+				{
+					
+				}
+				else if (context.isPointInPath(succeededPath, x, y))
+				{
+					
+				}
 			}
 		}
 	}

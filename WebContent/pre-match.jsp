@@ -3,6 +3,19 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+<c:set var="hasSpyHuman" value='<%=request.getParameterValues("hasSpyHuman")%>' />
+<c:set var="alliance" value="<%=alliance %>" />
+<c:if test="${fn.containsIgnoreCase(hasSpyHuman, 'yes') && fn.containsIgnoreCase(alliance, 'Blue')}">
+	<sql:update dataSource="${database}">
+		INSERT INTO matches VALUES 
+	</sql:update>
+</c:if>
+<c:if test="${fn.containsIgnoreCase(hasSpyHuman, 'yes') && fn.containsIgnoreCase(alliance, 'Red')}">
+	<sql:update dataSource="${database}">
+		INSERT INTO matches VALUES
+	</sql:update>
+</c:if>
+
 <% Enumeration<String> info = request.getParameterNames();
 
    Map<String, String> data = new HashMap<String, String>();

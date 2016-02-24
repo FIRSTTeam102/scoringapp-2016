@@ -38,7 +38,7 @@
 			<div id="AllianceColor" class="{allianceColor}">{allianceColor}
 				Alliance</div>
 		</div>
-		<form id="MatchForm" action="choosematch.php" method="POST">
+		<form id="MatchForm" action="choosematch.jsp" method="POST">
 			<div id="nav">
 				<input type="submit" name="btnNext" value="Next" />
 			</div>
