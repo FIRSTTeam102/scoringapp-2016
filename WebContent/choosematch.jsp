@@ -2,6 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
+<%
+
+%>
+
 <sql:query dataSource="${database}" var="result">
 	<%="select mt1.match_number, m.start_time, mt1.team_number as team1, mt2.team_number as team2, mt3.team_number as team3, mt1.initials"
 								+ " from matches m, match_teams mt1, match_teams mt2, match_teams mt3, tournaments t"
@@ -46,32 +50,6 @@
 				<div>Choose a Match</div>
 				<div id="MatchList"
 					style="margin-left: auto; margin-right: auto; width: 100%; font-size: .8em;">
-					<!-- BEGIN oneMatch -->
-
-					<!-- <div class="match_number">
-							<input type="radio" name="rdoMatch" id="rdoMatch{matchNumber}"
-								value="{matchNumber}" />
-							<%="#"%>{matchNumber} @ {matchStartTime}
-						</div>
-						<div class="team_holder">{team1}</div>
-						<div class="team_holder">{team2}</div>
-						<div class="team_holder">{team3}</div>
-						<div class="team_holder">{initials}</div>
-						<div style="clear: both;"></div> 
-						 -->
-
-					<!-- 
-							while($row = mysql_fetch_assoc($matches)) {
-									$tpl->setCurrentBlock("oneMatch");
-									$tpl->setVariable("matchNumber", $row['match_number']) ;
-									$tpl->setVariable("matchStartTime", $row['start_time']) ;
-									$tpl->setVariable("team1", $row['team1']) ;
-									$tpl->setVariable("team2", $row['team2']) ;
-									$tpl->setVariable("team3", $row['team3']) ;
-									$tpl->setVariable("initials", $row['initials']) ;
-									$tpl->parseCurrentBlock() ;		
-								}
-							 -->
 					<label for="rdoMatch{matchNumber}"> <c:forEach var="row"
 							items="${matches.rows}">
 							<div class="match_number">

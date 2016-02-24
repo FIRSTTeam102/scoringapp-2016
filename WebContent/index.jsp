@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*"%>
-<%--@ include file="STUDENTRUN.jsp"--%>
 
 <%  Enumeration<String> formInputs = request.getParameterNames();   
 	String passwordInput = request.getParameter("txtPassword");
@@ -26,27 +25,27 @@
 		if (passwordInput.equals("Gearheads")){
 			
 			session.setAttribute("isLoggedIn", true);
-		}else{
+			initializeRedirect(response, btnInput);
 			
-			session.setAttribute("isLoggedIn", false);
 		}
 	}
 	
 	
 	session.setAttribute(initialsKey, initialsInput);
 	session.setAttribute(buttonKey, btnInput);
-	
-	
-	if(btnInput.equals("btnScoringApp")){
-		newLocation = "scoringapp.jsp";
-	}else if(btnInput.equals("btnNew")){
-		newLocation = "NewFile.jsp";
-	}
-	
-	if(!newLocation.equals("")){
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", newLocation);
-	}
+
+%>
+<%! public void initializeRedirect(HttpServletResponse response, String btnInput) {
+		if (btnInput.equals("btnScoringApp")) {
+			redirect(response, "scoringapp.jsp");
+		} else if (btnInput.equals("btnNew")) {
+			redirect(response, "NewFile.jsp");
+		}
+	}%>
+<%! public void redirect(HttpServletResponse response, String newLocation){
+	response.setStatus(response.SC_MOVED_TEMPORARILY);
+	response.setHeader("Location", newLocation);
+}
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
