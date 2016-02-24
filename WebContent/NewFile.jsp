@@ -37,6 +37,5 @@ SELECT * from Employees;
 </tr>
 </c:forEach>
 </table>
- 
 </body>
 </html>
