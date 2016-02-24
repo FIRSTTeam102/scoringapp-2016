@@ -31,7 +31,7 @@
 <body class="no-js">
 	<div id="page">
 		<div class="main">
-			<jsp:include page="title.html"></jsp:include>
+			<jsp:include page="title-small.html"></jsp:include>
 			<form id="CompetitionForm" action="scoringapp.jsp" method="post">
 				<div id="Tournament" class="header">
 					<c:forEach var="t" items="${tournament.rows}">
@@ -40,7 +40,7 @@
 				</div>
 				<div id="Alliance">
 					<div>Choose an Alliance</div>
-					<div id="AllianceList">
+					<div id="allianceList">
 						<label for="rdoAllianceRed" id="lblRed"> <input
 							type="radio" name="rdoAlliance" id="rdoAllianceRed" value="Red"
 							tabindex="2" />Red

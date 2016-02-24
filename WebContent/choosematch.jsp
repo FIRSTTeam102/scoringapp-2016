@@ -3,7 +3,11 @@
 <%@include file="STUDENTRUN.jsp"%>
 
 <%
-
+	if (match != null) {
+		session.setAttribute(matchKey, match);
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "pre-match.jsp");
+	}
 %>
 
 <sql:query dataSource="${database}" var="result">
@@ -23,12 +27,14 @@
 </sql:query>
 <c:set var="matches" scope="page" value="${result}" />
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%-- HTML --%>
 <html lang="en">
 <head>
 <meta charset="utf-8" http-equiv="Content-Type"
 	content="text/html; charset=ISO-8859-1" />
-<title>{tournamentTitle} Selection</title>
+<title><c:forEach var="t" items="${tournament.rows}">
+		<c:out value="${t.title}" />
+	</c:forEach> Selection</title>
 <meta name="viewport"
 	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />
 <script type='text/javascript' src='jqueryui/js/jquery-1.10.2.js'></script>
@@ -36,11 +42,17 @@
 </head>
 <body class="no-js">
 	<div id="page">
+		<jsp:include page="title-small.html"></jsp:include>
 		<div class="header">
-			<div id="competition">{tournamentTitle}</div>
+			<div id="competition">
+				<c:forEach var="t" items="${tournament.rows}">
+					<c:out value="${t.title}" />
+				</c:forEach>
+			</div>
 			<div id="competition"></div>
-			<div id="AllianceColor" class="{allianceColor}">{allianceColor}
-				Alliance</div>
+			<div id="allianceColor" class="<%=alliance%>"><%=alliance%>
+				Alliance
+			</div>
 		</div>
 		<form id="MatchForm" action="choosematch.jsp" method="POST">
 			<div id="nav">
@@ -48,33 +60,32 @@
 			</div>
 			<div id="Match">
 				<div>Choose a Match</div>
-				<div id="MatchList"
-					style="margin-left: auto; margin-right: auto; width: 100%; font-size: .8em;">
-					<label for="rdoMatch{matchNumber}"> <c:forEach var="row"
-							items="${matches.rows}">
-							<div class="match_number">
-								<input type="radio" name="rdoMatch"
-									id="<c:out value="${row.match_number}" />"
-									value="<c:out value="${row.match_number}" />" />
-								<%="#"%><c:out value="${row.match_number}" />
-								@
-								<c:out value="${row.start_time}" />
-							</div>
-							<div class="team_holder">
-								<c:out value="${row.team1}" />
-							</div>
-							<div class="team_holder">
-								<c:out value="${row.team2}" />
-							</div>
-							<div class="team_holder">
-								<c:out value="${row.team3}" />
-							</div>
-							<div class="team_holder">
-								<c:out value="${row.initials}" />
-							</div>
-							<div style="clear: both;"></div>
-						</c:forEach>
+				<div style="font-size: 0.8em">
+				<c:forEach var="row" items="${matches.rows}">
+					<label for="rdoMatch<c:out value="${row.match_number}" />">
+						<div class="match_number">
+							<input type="radio" name="rdoMatch"
+								id="<c:out value="rdoMatch${row.match_number}" />"
+								value="<c:out value="${row.match_number}" />" />
+							<%="#"%><c:out value="${row.match_number}" />
+							@
+							<c:out value="${row.start_time}" />
+						</div>
+						<div class="team_holder">
+							<c:out value="${row.team1}" />
+						</div>
+						<div class="team_holder">
+							<c:out value="${row.team2}" />
+						</div>
+						<div class="team_holder">
+							<c:out value="${row.team3}" />
+						</div>
+						<div class="team_holder">
+							<c:out value="${row.initials}" />
+						</div>
+						<div style="clear: both;"></div>
 					</label>
+				</c:forEach>
 				</div>
 			</div>
 		</form>

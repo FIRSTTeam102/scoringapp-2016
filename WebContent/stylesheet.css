@@ -19,19 +19,41 @@ body div {
 
 .main {
 	margin-bottom: 40px;
-	margin-top: 40px;
-	max-width: 90%;
+	/*margin-top: 40px;
+	max-width: 90%;*/
 }
 
-.team_holder {
+#Match .match_number
+{
+	float: none; 
+	width:25em;
+	text-align:left;
+	padding: 3px 2px; 
+	margin-left: 5px;
+}
+
+#Match .team_holder {
 	float:left; 
 	width:3em;
 	text-align:right; 
 	padding: 3px 2px;
 }
 
+#Match .team_holder_holder{
+	margin-left: 25px;
+}
+
+#Match .time_holder{
+	
+}
+
 .title {
 	max-width: 90%;
+}
+.title-small {
+	max-height: 10%;
+	max-height: 150px;
+	margin: 0px 0px 0px 0px;
 }
 
 input[type=checkbox], input[type=radio] {
@@ -110,6 +132,22 @@ input, textarea, select {
 	margin: auto;
 }
 
+#allianceList{
+	margin-top: 25px;
+}
+
+#allianceColor{
+	margin-top: 10px;
+}
+
 .header{
 	margin-bottom: 20px;
+}
+
+.Blue{
+	background-color: blue;
+}
+
+.Red{
+	background-color: red;
 }

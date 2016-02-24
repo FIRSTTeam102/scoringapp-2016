@@ -15,6 +15,7 @@ final String userKey = "user";
 final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
+final String matchKey = "matchNumber";
 if(session.getAttribute(loginKey) == null){
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", "index.jsp");
@@ -25,6 +26,10 @@ if(session.getAttribute(loginKey) == null){
 
 String user = (String)session.getAttribute(userKey);
 String alliance = (String)session.getAttribute(allianceKey);
+String tournament = (String)session.getAttribute(tournamentNameKey);
+String tournamentID = (String)session.getAttribute(tournamentIDKey);
+String match = (String)session.getAttribute(matchKey);
+
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
 %>
 
