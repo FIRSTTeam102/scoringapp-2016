@@ -16,6 +16,10 @@ final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
 final String matchKey = "matchNumber";
+final String team1Key = "team1";
+final String team2Key = "team2";
+final String team3Key = "team3";
+
 if(session.getAttribute(loginKey) == null){
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", "index.jsp");
@@ -29,6 +33,10 @@ String alliance = (String)session.getAttribute(allianceKey);
 String tournament = (String)session.getAttribute(tournamentNameKey);
 String tournamentID = (String)session.getAttribute(tournamentIDKey);
 String match = (String)session.getAttribute(matchKey);
+//Using Integer objects to avoid null pointer exceptions.
+Integer team1 = (Integer)session.getAttribute(team1Key);
+Integer team2 = (Integer)session.getAttribute(team2Key);
+Integer team3 = (Integer)session.getAttribute(team3Key);
 
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
 %>

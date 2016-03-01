@@ -2,8 +2,24 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
-<%
+<%	
+	match = request.getParameter("rdoMatch");
+
+	//for(int i = 0; strings.hasMoreElements(); i++){
+	//	String str = strings.nextElement();
+	//	out.println(str);
+	//}
+	
 	if (match != null) {
+		
+		team1 = Integer.parseInt(request.getParameter("team1"));
+		team2 = Integer.parseInt(request.getParameter("team2"));
+		team3 = Integer.parseInt(request.getParameter("team3"));
+	
+		session.setAttribute("team1", team1);
+		session.setAttribute("team2", team2);
+		session.setAttribute("team3", team3);
+		
 		session.setAttribute(matchKey, match);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "pre-match.jsp");
@@ -71,6 +87,9 @@
 							@
 							<c:out value="${row.start_time}" />
 						</div>
+						<input type="hidden" value="<c:out value="${row.team1}"/>" name="team1"></input>
+						<input type="hidden" value="<c:out value="${row.team2}"/>" name="team2"></input>
+						<input type="hidden" value="<c:out value="${row.team3}"/>" name="team3"></input>
 						<div class="team_holder">
 							<c:out value="${row.team1}" />
 						</div>
