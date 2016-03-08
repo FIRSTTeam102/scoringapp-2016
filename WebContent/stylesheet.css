@@ -151,3 +151,13 @@ input, textarea, select {
 .Red{
 	background-color: red;
 }
+
+#autonomousForm div div div {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+a:hover
+{
+	text-decoration: underline;	
+}

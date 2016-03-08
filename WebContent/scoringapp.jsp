@@ -31,13 +31,8 @@
 <body class="no-js">
 	<div id="page">
 		<div class="main">
-			<jsp:include page="title-small.html"></jsp:include>
+			<%@include file="title-small.jsp" %>
 			<form id="CompetitionForm" action="scoringapp.jsp" method="post">
-				<div id="Tournament" class="header">
-					<c:forEach var="t" items="${tournament.rows}">
-						<c:out value="${t.title}" />
-					</c:forEach>
-				</div>
 				<div id="Alliance">
 					<div>Choose an Alliance</div>
 					<div id="allianceList">

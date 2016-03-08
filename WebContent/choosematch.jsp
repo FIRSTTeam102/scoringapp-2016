@@ -2,24 +2,37 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
-<%	
+<%
 	match = request.getParameter("rdoMatch");
 
 	//for(int i = 0; strings.hasMoreElements(); i++){
 	//	String str = strings.nextElement();
 	//	out.println(str);
 	//}
-	
+
 	if (match != null) {
-		
-		team1 = Integer.parseInt(request.getParameter("team1"));
-		team2 = Integer.parseInt(request.getParameter("team2"));
-		team3 = Integer.parseInt(request.getParameter("team3"));
-	
+
+		int matchIndex = match.indexOf('m');
+		int team1Index = match.indexOf("a");
+		int team2Index = match.indexOf("b");
+		int team3Index = match.indexOf("c");
+
+		//out.print(match);
+
+		String matchNum = match.substring(matchIndex + 2, team1Index);
+
+		team1 = Integer.parseInt(match.substring(team1Index + 2, team2Index));
+		team2 = Integer.parseInt(match.substring(team2Index + 2, team3Index));
+		team3 = Integer.parseInt(match.substring(team3Index + 2));
+
+		//out.println(team1);
+		//out.println(team2);
+		//out.println(team3);
+
 		session.setAttribute("team1", team1);
 		session.setAttribute("team2", team2);
 		session.setAttribute("team3", team3);
-		
+
 		session.setAttribute(matchKey, match);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "pre-match.jsp");
@@ -58,13 +71,9 @@
 </head>
 <body class="no-js">
 	<div id="page">
-		<jsp:include page="title-small.html"></jsp:include>
+		<%@include file="title-small.jsp"%>
 		<div class="header">
-			<div id="competition">
-				<c:forEach var="t" items="${tournament.rows}">
-					<c:out value="${t.title}" />
-				</c:forEach>
-			</div>
+			<div>Choose a Match</div>
 			<div id="competition"></div>
 			<div id="allianceColor" class="<%=alliance%>"><%=alliance%>
 				Alliance
@@ -75,36 +84,35 @@
 				<input type="submit" name="btnNext" value="Next" />
 			</div>
 			<div id="Match">
-				<div>Choose a Match</div>
 				<div style="font-size: 0.8em">
-				<c:forEach var="row" items="${matches.rows}">
-					<label for="rdoMatch<c:out value="${row.match_number}" />">
-						<div class="match_number">
-							<input type="radio" name="rdoMatch"
-								id="<c:out value="rdoMatch${row.match_number}" />"
-								value="<c:out value="${row.match_number}" />" />
-							<%="#"%><c:out value="${row.match_number}" />
-							@
-							<c:out value="${row.start_time}" />
-						</div>
-						<input type="hidden" value="<c:out value="${row.team1}"/>" name="team1"></input>
-						<input type="hidden" value="<c:out value="${row.team2}"/>" name="team2"></input>
-						<input type="hidden" value="<c:out value="${row.team3}"/>" name="team3"></input>
-						<div class="team_holder">
-							<c:out value="${row.team1}" />
-						</div>
-						<div class="team_holder">
-							<c:out value="${row.team2}" />
-						</div>
-						<div class="team_holder">
-							<c:out value="${row.team3}" />
-						</div>
-						<div class="team_holder">
-							<c:out value="${row.initials}" />
-						</div>
-						<div style="clear: both;"></div>
-					</label>
-				</c:forEach>
+					<c:forEach var="row" items="${matches.rows}">
+						<label for="rdoMatch<c:out value="${row.match_number}" />">
+							<div class="match_number">
+								<input type="radio" name="rdoMatch"
+									id="<c:out value="rdoMatch${row.match_number}" />"
+									value="m:<c:out value="${row.match_number}" />a:<c:out value="${row.team1}"/>b:<c:out value="${row.team2}"/>c:<c:out value="${row.team3}"/>" />
+								<%="#"%><c:out value="${row.match_number}" />
+								@
+								<c:out value="${row.start_time}" />
+							</div> <input type="hidden" value="<c:out value="${row.team1}"/>"
+							name="team1"></input> <input type="hidden"
+							value="<c:out value="${row.team2}"/>" name="team2"></input> <input
+							type="hidden" value="<c:out value="${row.team3}"/>" name="team3"></input>
+							<div class="team_holder">
+								<c:out value="${row.team1}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.team2}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.team3}" />
+							</div>
+							<div class="team_holder">
+								<c:out value="${row.initials}" />
+							</div>
+							<div style="clear: both;"></div>
+						</label>
+					</c:forEach>
 				</div>
 			</div>
 		</form>
