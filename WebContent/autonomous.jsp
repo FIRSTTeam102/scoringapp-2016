@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Auto</title>
+<title>Autonomous</title>
 <link rel="stylesheet" href="stylesheet.css">
 <script src="js/jquery-1.12.0.min.js"></script>
 <style>
@@ -70,7 +70,7 @@ input:focus, textarea:focus, select:focus {
 		<br> <input value="Tele-Op" type="button"
 			onclick="window.location = 'teleop.jsp';" /-->
 		<p id="TEST"></p>
-		<form id="autonomousForm" action="/2014/autonomous.php" method="POST">
+		<form id="autonomousForm" action="autonomous.jsp" method="POST">
 			<div id="Team1" class="team">
 				<div id="Team1Number" class="teamNumber"><%= team1 %></div>
 				<div id="Team1AutoScore">
