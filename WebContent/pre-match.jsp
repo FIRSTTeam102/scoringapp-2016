@@ -3,19 +3,35 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
-<c:set var="hasSpyHuman"
-	value='<%=request.getParameterValues("hasSpyHuman")%>' />
+<c:out value="${requestScope}" />
+
+<c:if test="${requestScope.info != null}">
+	<c:set var="hasSpyHuman" value='<%=request.getParameterValues("hasSpyHuman")[0]%>' />
+</c:if>
+
 <c:set var="alliance" value="<%=alliance%>" />
-<c:if
-	test="${fn.containsIgnoreCase(hasSpyHuman, 'yes') && fn.containsIgnoreCase(alliance, 'Blue')}">
+<c:set var="tournamentID" value="<%=alliance%>" />
+<c:set var="matchNumber" value="<%=alliance%>" />
+<c:if test="${hasSpyHuman == 'yes' && alliance == 'Blue'}">
 	<sql:update dataSource="${database}">
-		INSERT INTO matches VALUES 
+		UPDATE matches
+		SET blue_spy_human = ?
+		WHERE tournament_id = ?
+		AND match_number = ?
+		<sql:param value="Y" />
+		<sql:param value="B" />
+		<sql:param value="1" />
 	</sql:update>
 </c:if>
-<c:if
-	test="${fn.containsIgnoreCase(hasSpyHuman, 'yes') && fn.containsIgnoreCase(alliance, 'Red')}">
+<c:if test="${hasSpyHuman == 'yes' && alliance == 'Red'}">
 	<sql:update dataSource="${database}">
-		INSERT INTO matches VALUES
+		UPDATE matches
+		SET red_spy_human = ?
+		WHERE tournament_id = ?
+		AND match_number = ?
+		<sql:param value="Y" />
+		<sql:param value="B" />
+		<sql:param value="1" />
 	</sql:update>
 </c:if>
 

@@ -218,8 +218,28 @@ var robot = function(teamNumber, position){
 				defensePositions.push(new defense(image, {x:defense3xPosition, y:defense3yPosition, width:defense3width, height:defense3height}, category, defense3name));
 			}
 		}
-		defensePositions.push(new defense())
-		
+		if (side != "Near")
+		{
+			if (alliance != "Red")
+			{
+				defensePositions.push(new defense(document.getElementById("lowBar"), {x:137, y:91, width:74, height:79}, 0, "Low Bar"));
+			}
+			else
+			{
+				defensePositions.push(new defense(document.getElementById("lowBar"), {x:137, y:91, width:73, height:77}, 0, "Low Bar"));
+			}
+		}
+		else
+		{
+			if (alliance != "Red")
+			{
+				defensePositions.push(new defense(document.getElementById("lowBar"), {x:364, y:533, width:73, height:77}, 0, "Low Bar"));
+			}
+			else
+			{
+				defensePositions.push(new defense(document.getElementById("lowBar"), {x:363, y:531, width:74, height:79}, 0, "Low Bar"));
+			}
+		}		
 		defense1Path = new Path2D();
 		defense2Path = new Path2D();
 		defense3Path = new Path2D();
@@ -245,6 +265,10 @@ var robot = function(teamNumber, position){
 			{
 				defense4Path.rect(defenseToParse.position.x, defenseToParse.position.y, defenseToParse.position.width, defenseToParse.position.height);
 			}
+			else if (i == 4)
+			{
+				lowBarPath.rect(defenseToParse.position.x, defenseToParse.position.y, defenseToParse.position.width, defenseToParse.position.height);
+			}
 		}
 		
 		failedPath = new Path2D();
@@ -258,12 +282,10 @@ var robot = function(teamNumber, position){
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaFlippedBG");
-				lowBarPath.rect(137, 91, 74, 85);
 			}
 			else
 			{
 				arena = document.getElementById("blueArenaFlippedBG");
-				lowBarPath.rect(138, 92, 74, 85);
 			}
 			ctx.drawImage(arena, 0, 0);
 		}
@@ -272,12 +294,10 @@ var robot = function(teamNumber, position){
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaBG");
-				lowBarPath.rect(364, 533, 74, 85);
 			}
 			else
 			{
 				arena = document.getElementById("blueArenaBG");
-				lowBarPath.rect(363, 531, 74, 85);
 			}
 			ctx.drawImage(arena, 0, 0);
 		}
@@ -306,7 +326,9 @@ var robot = function(teamNumber, position){
 				else if (context.isPointInPath(defense3Path, x, y))
 				{
 					selectedDefense = defensePositions[2];
+					ctx.globalAlpha = 0.5;
 					ctx.fill(defense3Path);
+					ctx.globalAlpha = 1.0;
 				}
 				else if (context.isPointInPath(defense4Path, x, y))
 				{
@@ -315,7 +337,8 @@ var robot = function(teamNumber, position){
 				}
 				else if (context.isPointInPath(lowBarPath, x, y))
 				{
-					selectedDefense = 
+					selectedDefense = defensePositions[4];
+					ctx.fill(lowBarPath);
 				}
 				else if (context.isPointInPath(failedPath, x, y))
 				{

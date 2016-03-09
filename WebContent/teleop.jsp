@@ -48,6 +48,7 @@
 	<img id="sallyPort" src="Images/Defenses/Sally Port.png" width="1" height="1" style="visibility: hidden">
 	<img id="rockWall" src="Images/Defenses/Rock Wall.png" width="1" height="1" style="visibility: hidden">
 	<img id="roughTerrain" src="Images/Defenses/Rough Terrain.png" width="1" height="1" style="visibility: hidden">
+	<img id="lowBar" src="Images/Defenses/Low Bar.png" width="1" height="1" style="visibility: hidden">	
 	<img src="Images/TObluearena.png" id="blueArenaBG" style="visibility: hidden" width="1" height="1">
 	<img src="Images/TOredarena.png" id="redArenaBG" style="visibility: hidden" width="1" height="1">
 	<img src="Images/TObluearena-flipped.png" id="blueArenaFlippedBG" style="visibility: hidden" width="1" height="1">
