@@ -41,7 +41,7 @@
 	//Place in head.	
 	//Set alliance and team variables.
 	String allianceColor = (String) session.getAttribute(allianceKey);
-	String script = "<script id='allianceSet' type='text/javascript'>" + "alliance = '" + "Blue" + "'; "
+	String script = "<script id='allianceSet' type='text/javascript'>" + "alliance = '" + allianceColor + "'; "
 			+ "side = '" + "Near" + "';" + "team1 = " + team1 + ";" + "team2 = " + team2 + ";" + "team3 = "
 			+ team3 + ";" + "</script>";
 	out.println(script);

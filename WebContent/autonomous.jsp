@@ -2,6 +2,28 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+
+
+<sql:update dataSource="${database}">
+	UPDATE match_teams
+		SET auto_reach = ?
+			, auto_cross = ?
+			, auto_low = ?
+			, auto_high = ?
+		WHERE
+			tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+	<sql:param value="Y" />
+	<sql:param value="N" />
+	<sql:param value="Y" />
+	<sql:param value="Y" />
+	<sql:param value="${tournament.rows[0].id}" />
+	<sql:param value="${SessionScope.matchNumber }" />
+	<sql:param value="111" />
+</sql:update>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
