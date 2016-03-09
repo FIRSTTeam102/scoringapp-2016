@@ -2,10 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
-<sql:query dataSource="${database}" var="result">
+<sql:query dataSource="${database}" var="tournamentQuery">
 <%="SELECT * FROM tournaments WHERE active = 'Y'"%>
 </sql:query>
-<c:set var="tournament" scope="session" value="${result}" />
+<c:set var="tournament" scope="session" value="${tournamentQuery}" />
 
 <%
 	String allianceInput = (String) request.getParameter("rdoAlliance");
@@ -13,6 +13,7 @@
 		session.setAttribute(allianceKey, allianceInput);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "choosematch.jsp");
+		
 	}
 %>
 
