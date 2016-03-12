@@ -17,8 +17,6 @@
 		int team2Index = match.indexOf("b");
 		int team3Index = match.indexOf("c");
 
-		//out.print(match);
-
 		String matchNum = match.substring(matchIndex + 2, team1Index);
 
 		team1 = Integer.parseInt(match.substring(team1Index + 2, team2Index));

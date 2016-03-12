@@ -2,7 +2,21 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
-
+<%
+	String firstResp = request.getParameter("chkTeam1Reached");
+	if(firstResp != null){
+		
+		pageContext.setAttribute("team1reach",request.getParameter("chkTeam1Reached"));
+		pageContext.setAttribute("team1cross",request.getParameter("chkTeam1Crossed"));
+		String score = request.getParameter("rdoScore1");
+		if(score == "L"){
+			pageContext.setAttribute("team1low","L");
+		}else if(score == "H"){
+			pageContext.setAttribute("team1high","H");
+		}
+	}
+%>
+<c:out value="${team1reach }"></c:out>
 
 <sql:update dataSource="${database}">
 	UPDATE match_teams
@@ -14,13 +28,13 @@
 			tournament_id = ?
 			AND match_number = ?
 			AND team_number = ?
-	<sql:param value="Y" />
-	<sql:param value="N" />
-	<sql:param value="Y" />
+	<sql:param value="${team1reach }" />
+	<sql:param value="${team1cross }" />
+	<sql:param value="${team1low }" />
 	<sql:param value="Y" />
 	<sql:param value="${tournament.rows[0].id}" />
 	<sql:param value="${SessionScope.matchNumber }" />
-	<sql:param value="111" />
+	<sql:param value="${SessionScope.team1 }" />
 </sql:update>
 
 
@@ -32,77 +46,22 @@
 <link rel="stylesheet" href="stylesheet.css">
 <script src="js/jquery-1.12.0.min.js"></script>
 <style>
-#AllianceList>input:hover {
-	cursor: pointer;
-}
-
-#AllianceList>input {
-	border: none;
-}
-
-body div {
-	text-align: center;
-}
-
-.teamNumber {
-	padding: 5px;
-}
-
-.team {
-	border: solid 1px white;
-	float: left;
-	width: 32%;
-}
-
-.team div {
-	padding: .2em 0 .2em 0;
-}
-
-#Score {
-	color: white;
-	padding: 20;
-}
-
-input:focus, textarea:focus, select:focus {
-	outline-color: #c00;
-}
 </style>
 </head>
 <body>
 	<div class="main">
 		<%@include file="title-small.jsp"%>
-
-		<!-- div class="box">
-			<div>Crossed Line</div>
-			<br> <input type="CheckBox"> <br> <input
-				type="CheckBox"> <br> <input type="CheckBox"> <br>
-		</div>
-		<br>
-		<div class="box">
-			<div>Crossed Defense</div>
-			<br> <input type="CheckBox"> <br> <input
-				type="CheckBox"> <br> <input type="CheckBox"> <br>
-		</div>
-		<br>
-		<div class="box">
-			<div>Score High/Low</div>
-			<br> <input type="CheckBox"> <br> <input
-				type="CheckBox"> <br> <input type="CheckBox"> <br>
-		</div>
-		<br> <input value="Tele-Op" type="button"
-			onclick="window.location = 'teleop.jsp';" /-->
-		<p id="TEST"></p>
 		<form id="autonomousForm" action="autonomous.jsp" method="POST">
 			<div id="Team1" class="team">
 				<div id="Team1Number" class="teamNumber"><%=team1%></div>
 				<div id="Team1AutoScore">
 					<div id="Team1Reached">
-						<input type="checkbox" name="chkTeam1HasBallName"
+						<input type="checkbox" name="chkTeam1Reached"
 							id="chkTeam1Reached" value="Y" checked=""> <label
 							for="chkTeam1Reached">Reached Defense</label>
 					</div>
 					<div id="Team1Crossed">
-						<input type="checkbox" name="chkTeam1HasBallName"
+						<input type="checkbox" name="chkTeam1Crossed"
 							id="chkTeam1Crossed" value="Y" checked=""> <label
 							for="chkTeam1Crossed">Crossed Defense</label>
 					</div>
@@ -162,19 +121,15 @@ input:focus, textarea:focus, select:focus {
 					</div>
 				</div>
 			</div>
+			<div style="clear: both;"></div>
+			<div class="footer">
+				<input type="hidden" name="scoreFieldName" id="scoreField" value="0">
+				<div id="nav" style="padding-top: 25px; padding-bottom: 10px;">
+					<input type="submit" name="btnNext" value=" Next ">
+				</div>
+			</div>
+		</form>
 	</div>
-
-	<div style="clear: both;"></div>
-	<div class="footer">
-		<input type="hidden" name="scoreFieldName" id="scoreField" value="0">
-		<div id="nav" style="padding-top: 25px; padding-bottom: 10px;">
-			<input type="submit" name="btnNext" value=" Next ">
-		</div>
-	</div>
-	</form>
-	</div>
-	<script src="js/autonomous.js">
-		
-	</script>
+	<script src="js/autonomous.js"></script>
 </body>
 </html>

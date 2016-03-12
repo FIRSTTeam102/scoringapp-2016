@@ -161,3 +161,70 @@ a:hover
 {
 	text-decoration: underline;	
 }
+#AllianceList>input:hover {
+	cursor: pointer;
+}
+
+#AllianceList>input {
+	border: none;
+}
+
+body div {
+	text-align: center;
+}
+
+.teamNumber {
+	padding: 5px;
+}
+
+.team {
+	border: solid 1px white;
+	float: left;
+	width: 32%;
+}
+
+.team div {
+	padding: .2em 0 .2em 0;
+}
+
+#Score {
+	color: white;
+	padding: 20;
+}
+
+input:focus, textarea:focus, select:focus {
+	outline-color: #c00;
+}#AllianceList>input:hover {
+	cursor: pointer;
+}
+
+#AllianceList>input {
+	border: none;
+}
+
+body div {
+	text-align: center;
+}
+
+.teamNumber {
+	padding: 5px;
+}
+
+.team {
+	border: solid 1px white;
+	float: left;
+	width: 32%;
+}
+
+.team div {
+	padding: .2em 0 .2em 0;
+}
+
+#Score {
+	color: white;
+	padding: 20;
+}
+
+input:focus, textarea:focus, select:focus {
+	outline-color: #c00;
+}
