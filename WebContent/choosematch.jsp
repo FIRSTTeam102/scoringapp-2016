@@ -31,7 +31,7 @@
 		session.setAttribute("team2", team2);
 		session.setAttribute("team3", team3);
 
-		session.setAttribute(matchKey, match);
+		session.setAttribute(matchKey, matchNum);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "pre-match.jsp");
 	}

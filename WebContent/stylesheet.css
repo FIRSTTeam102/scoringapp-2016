@@ -192,8 +192,6 @@ body div {
 	padding: 20;
 }
 
-input:focus, textarea:focus, select:focus {
-	outline-color: #c00;
 }#AllianceList>input:hover {
 	cursor: pointer;
 }
@@ -226,5 +224,5 @@ body div {
 }
 
 input:focus, textarea:focus, select:focus {
-	outline-color: #c00;
+	outline-color: #000000;
 }

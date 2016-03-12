@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.io.*,java.util.*"%>
+<%@ page import="java.io.*,java.util.*,java.net.*"%>
 
 <%  Enumeration<String> formInputs = request.getParameterNames();   
 	String passwordInput = request.getParameter("txtPassword");
@@ -19,17 +19,33 @@
 			btnInput = str;
 		}
 	}
+%>
+
+<%-- Check for password --%>
+<%
+	String line;
 	
+	URL url = new URL("http://localhost:8080/ScoringApp-2016/junk");
+	InputStream is = url.openStream();
+    InputStreamReader read = new InputStreamReader(is);
+	BufferedReader bufferedReader = new BufferedReader(read);
+		
+	line = bufferedReader.readLine();
+	
+	bufferedReader.close();
+	read.close();
+	is.close();
 	
 	if(passwordInput != null){
-		if (passwordInput.equals("Gearheads")){
+		if (passwordInput.equals(line)){
 			
 			session.setAttribute("isLoggedIn", true);
 			initializeRedirect(response, btnInput);
 			
 		}
 	}
-	
+%>
+<%	
 	
 	session.setAttribute(initialsKey, initialsInput);
 	session.setAttribute(buttonKey, btnInput);
