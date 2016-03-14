@@ -2,6 +2,7 @@ var robotPositions = [];
 var defensePositions = [];
 var selectMode = 0;
 var selectedDefense;
+var operationAttempted = "";
 
 var defense = function(image, position, category, name){
 	this.image = image;
@@ -271,6 +272,12 @@ var robot = function(teamNumber, position){
 			}
 		}
 		
+		highGoalPath = new Path2D();
+		highGoalPath.rect();
+		
+		lowGoalPath = new Path2D();
+		lowGoalPath.rect();
+		
 		failedPath = new Path2D();
 		failedPath.rect(105, 652, 78, 33);
 		
@@ -316,37 +323,196 @@ var robot = function(teamNumber, position){
 				if (context.isPointInPath(defense1Path, x, y))
 				{
 					selectedDefense = defensePositions[0];
-					ctx.fill(defense1Path);
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(defense1Path);
+					if (selectedDefense.name == "Portcullis")
+					{
+						operationAttempted = "1";
+					}
+					else if (selectedDefense.name = "Cheval De Frise")
+					{
+						operationAttempted = "2";
+					}
+					else if (selectedDefense.name == "Moat")
+					{
+						operationAttempted = "3";
+					}
+					else if (selectedDefense.name == "Ramparts")
+					{
+						operationAttempted = "4";
+					}
+					else if (selectedDefense.name == "Drawbridge")
+					{
+						operationAttempted = "5";
+					}
+					else if (selectedDefense.name == "Sally Port")
+					{
+						operationAttempted = "6";
+					}
+					else if (selectedDefense.name == "Rock Wall")
+					{
+						operationAttempted = "7";
+					}
+					else if (selectedDefense.name == "Rough Terrain")
+					{
+						operationAttempted = "8";
+					}
 				}
 				else if (context.isPointInPath(defense2Path, x, y))
 				{
 					selectedDefense = defensePositions[1];
-					ctx.fill(defense2Path);
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(defense2Path);
+					if (selectedDefense.name == "Portcullis")
+					{
+						operationAttempted = "1";
+					}
+					else if (selectedDefense.name = "Cheval De Frise")
+					{
+						operationAttempted = "2";
+					}
+					else if (selectedDefense.name == "Moat")
+					{
+						operationAttempted = "3";
+					}
+					else if (selectedDefense.name == "Ramparts")
+					{
+						operationAttempted = "4";
+					}
+					else if (selectedDefense.name == "Drawbridge")
+					{
+						operationAttempted = "5";
+					}
+					else if (selectedDefense.name == "Sally Port")
+					{
+						operationAttempted = "6";
+					}
+					else if (selectedDefense.name == "Rock Wall")
+					{
+						operationAttempted = "7";
+					}
+					else if (selectedDefense.name == "Rough Terrain")
+					{
+						operationAttempted = "8";
+					}
 				}
 				else if (context.isPointInPath(defense3Path, x, y))
 				{
 					selectedDefense = defensePositions[2];
-					ctx.globalAlpha = 0.5;
-					ctx.fill(defense3Path);
-					ctx.globalAlpha = 1.0;
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(defense3Path);
+					if (selectedDefense.name == "Portcullis")
+					{
+						operationAttempted = "1";
+					}
+					else if (selectedDefense.name = "Cheval De Frise")
+					{
+						operationAttempted = "2";
+					}
+					else if (selectedDefense.name == "Moat")
+					{
+						operationAttempted = "3";
+					}
+					else if (selectedDefense.name == "Ramparts")
+					{
+						operationAttempted = "4";
+					}
+					else if (selectedDefense.name == "Drawbridge")
+					{
+						operationAttempted = "5";
+					}
+					else if (selectedDefense.name == "Sally Port")
+					{
+						operationAttempted = "6";
+					}
+					else if (selectedDefense.name == "Rock Wall")
+					{
+						operationAttempted = "7";
+					}
+					else if (selectedDefense.name == "Rough Terrain")
+					{
+						operationAttempted = "8";
+					}
 				}
 				else if (context.isPointInPath(defense4Path, x, y))
 				{
 					selectedDefense = defensePositions[3];
-					ctx.fill(defense4Path);
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(defense4Path);
+					if (selectedDefense.name == "Portcullis")
+					{
+						operationAttempted = "1";
+					}
+					else if (selectedDefense.name = "Cheval De Frise")
+					{
+						operationAttempted = "2";
+					}
+					else if (selectedDefense.name == "Moat")
+					{
+						operationAttempted = "3";
+					}
+					else if (selectedDefense.name == "Ramparts")
+					{
+						operationAttempted = "4";
+					}
+					else if (selectedDefense.name == "Drawbridge")
+					{
+						operationAttempted = "5";
+					}
+					else if (selectedDefense.name == "Sally Port")
+					{
+						operationAttempted = "6";
+					}
+					else if (selectedDefense.name == "Rock Wall")
+					{
+						operationAttempted = "7";
+					}
+					else if (selectedDefense.name == "Rough Terrain")
+					{
+						operationAttempted = "8";
+					}
 				}
 				else if (context.isPointInPath(lowBarPath, x, y))
 				{
 					selectedDefense = defensePositions[4];
-					ctx.fill(lowBarPath);
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(lowBarPath);
+					operationAttempted = "0";
 				}
 				else if (context.isPointInPath(failedPath, x, y))
 				{
-					
+					if (operationAttempted != "")
+					{
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
+					}
 				}
 				else if (context.isPointInPath(succeededPath, x, y))
 				{
-					
+					if (operationAttempted != "")
+					{
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
+					}
+				}
+				else if (context.isPointInPath(highGoalPath, x, y))
+				{
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(highGoalPath);
+					operationAttempted = "H";
+				}
+				else if (context.isPointInPath(lowGoalPath, x, y))
+				{
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(lowGoalPath);
+					operationAttempted = "L";
 				}
 			}
 		}
