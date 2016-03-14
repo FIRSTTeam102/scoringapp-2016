@@ -6,7 +6,7 @@ body {
 	font-size: 1.3em;
 	color: white;
 	font-family: verdana, Sans-serif;
-	max-width: 700px;
+	max-width: 850px;
 }
 
 body div {
@@ -152,10 +152,12 @@ input, textarea, select {
 	background-color: red;
 }
 
-#autonomousForm div div div {
+#autonomousForm div div div, #postMatchForm div div div {
 	margin-top: 6px;
 	margin-bottom: 6px;
 }
+
+
 
 a:hover
 {
@@ -180,7 +182,7 @@ body div {
 .team {
 	border: solid 1px white;
 	float: left;
-	width: 32%;
+	width: 38%;
 }
 
 .team div {
@@ -225,4 +227,15 @@ body div {
 
 input:focus, textarea:focus, select:focus {
 	outline-color: #000000;
+}
+
+#BreachScale {
+	align-content: center;
+	padding-top: 20px;
+}
+
+#BreachScale td{
+	padding: 40px;
+	/*height: 18%;
+	width: 32%;*/
 }
