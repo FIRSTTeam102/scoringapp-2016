@@ -3,6 +3,18 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+<%
+if(match == null){
+	if(alliance == null){
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "scoringapp.jsp");
+	}else{
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "choosematch.jsp");
+	}
+}
+%>
+
 <c:out value="${requestScope}" />
 
 <c:if test="${requestScope.info != null}">
@@ -47,6 +59,7 @@
 		data.put(currentName, currentValue);
 	}
 	if (data.size() > 6) {
+		session.setAttribute(preMatchKey, true);
 		session.setAttribute(arenaDataKey, data);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "autonomous.jsp");

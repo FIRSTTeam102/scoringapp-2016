@@ -229,12 +229,12 @@ input:focus, textarea:focus, select:focus {
 	outline-color: #000000;
 }
 
-#BreachScale {
+#BreachCapture {
 	align-content: center;
 	padding-top: 20px;
 }
 
-#BreachScale td{
+#BreachCapture td{
 	padding: 40px;
 	/*height: 18%;
 	width: 32%;*/
