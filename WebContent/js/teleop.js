@@ -2,6 +2,8 @@ var robotPositions = [];
 var defensePositions = [];
 var selectMode = 0;
 var selectedDefense;
+var defensePath;
+var selectedRobot;
 var operationAttempted = "";
 
 var defense = function(image, position, category, name){
@@ -273,10 +275,17 @@ var robot = function(teamNumber, position){
 		}
 		
 		highGoalPath = new Path2D();
-		highGoalPath.rect();
-		
 		lowGoalPath = new Path2D();
-		lowGoalPath.rect();
+		
+		robot0Path = new Path2D();
+		robot0Path.rect(robotPositions[0].position.x, robotPositions[0].position.y, robotPositions[0].position.width, robotPositions[0].position.height);
+		
+		robot1Path = new Path2D();
+		robot1Path.rect(robotPositions[1].position.x, robotPositions[1].position.y, robotPositions[1].position.width, robotPositions[1].position.height);
+		
+		robot2Path = new Path2D();
+		robot2Path.rect(robotPositions[2].position.x, robotPositions[2].position.y, robotPositions[2].position.width, robotPositions[2].position.height);
+		
 		
 		failedPath = new Path2D();
 		failedPath.rect(105, 652, 78, 33);
@@ -286,6 +295,9 @@ var robot = function(teamNumber, position){
 		
 		if (side != "Near")
 		{
+			lowGoalPath.rect(314, 369, 118, 38);
+			highGoalPath.rect(314, 311, 118, 38);
+			
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaFlippedBG");
@@ -298,6 +310,9 @@ var robot = function(teamNumber, position){
 		}
 		else
 		{
+			lowGoalPath.rect(147, 351, 118, 38);
+			highGoalPath.rect(147, 293, 118, 38);
+			
 			if (alliance != "Red")
 			{
 				arena = document.getElementById("redArenaBG");
@@ -323,9 +338,8 @@ var robot = function(teamNumber, position){
 				if (context.isPointInPath(defense1Path, x, y))
 				{
 					selectedDefense = defensePositions[0];
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(defense1Path);
+					defensePath = defense1Path;
+					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -362,9 +376,8 @@ var robot = function(teamNumber, position){
 				else if (context.isPointInPath(defense2Path, x, y))
 				{
 					selectedDefense = defensePositions[1];
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(defense2Path);
+					defensePath = defense2Path;
+					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -401,9 +414,8 @@ var robot = function(teamNumber, position){
 				else if (context.isPointInPath(defense3Path, x, y))
 				{
 					selectedDefense = defensePositions[2];
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(defense3Path);
+					defensePath = defense3Path;
+					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -440,9 +452,8 @@ var robot = function(teamNumber, position){
 				else if (context.isPointInPath(defense4Path, x, y))
 				{
 					selectedDefense = defensePositions[3];
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(defense4Path);
+					defensePath = defense4Path;
+					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -478,10 +489,9 @@ var robot = function(teamNumber, position){
 				}
 				else if (context.isPointInPath(lowBarPath, x, y))
 				{
+					defensePath = lowBarPath;
 					selectedDefense = defensePositions[4];
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(lowBarPath);
+					drawArenaWithChanges();
 					operationAttempted = "0";
 				}
 				else if (context.isPointInPath(failedPath, x, y))
@@ -490,6 +500,8 @@ var robot = function(teamNumber, position){
 					{
 						var form = document.getElementById("cycleForm");
 						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'N' + '"/>';
+						form.submit();
 					}
 				}
 				else if (context.isPointInPath(succeededPath, x, y))
@@ -498,27 +510,45 @@ var robot = function(teamNumber, position){
 					{
 						var form = document.getElementById("cycleForm");
 						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + selectedRobot.teamNumber + '"/>';
+						form.submit();
 					}
 				}
 				else if (context.isPointInPath(highGoalPath, x, y))
 				{
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(highGoalPath);
+					selectedDefense = null;
 					operationAttempted = "H";
+					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(lowGoalPath, x, y))
 				{
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
-					ctx.stroke(lowGoalPath);
+					selectedDefense = null;
 					operationAttempted = "L";
+					drawArenaWithChanges();
+				}
+				else if (context.isPointInPath(robot0Path, x, y))
+				{
+					selectedRobot = robotPositions[0].teamNumber;
+					drawArenaWithChanges();
+				}
+				else if (context.isPointInPath(robot1Path, x, y))
+				{
+					selectedRobot = robotPositions[1].teamNumber;
+					drawArenaWithChanges();
+				}
+				else if (context.isPointInPath(robot2Path, x, y))
+				{
+					selectedRobot = robotPositions[2].teamNumber;
+					drawArenaWithChanges();
 				}
 			}
 		}
 	}
 	
 	function drawArenaWithChanges() {
+		ctx.drawImage(arena, 0, 0);
+		
 		for (var i = 0; i < defensePositions.length; i++)
 		{
 			var defenseToDraw = defensePositions[i];
@@ -532,6 +562,41 @@ var robot = function(teamNumber, position){
 		{
 			var robotToDraw = robotPositions[i];
 			ctx.fillText("Team " + robotToDraw.teamNumber, robotToDraw.position.x + 77 / 2, robotToDraw.position.y + 58 / 2 + 3, robotToDraw.position.width);
+		}
+		
+		if (selectedDefense != null)
+		{
+			ctx.strokeStyle = "red";
+			ctx.lineWidth = 2;
+			ctx.stroke(defensePath);
+		}
+		else if (operationAttempted == "H")
+		{
+			ctx.strokeStyle = "red";
+			ctx.lineWidth = 2;
+			ctx.stroke(highGoalPath);
+		}
+		else if (operationAttempted == "L")
+		{
+			ctx.strokeStyle = "red";
+			ctx.lineWidth = 2;
+			ctx.stroke(lowGoalPath);
+		}
+		
+		if (selectedRobot != null)
+		{
+			for (var i = 0; i < robotPositions.length; i++)
+			{
+				var robotToCheck = robotPositions[i];
+				if (selectedRobot == robotToCheck.teamNumber)
+				{
+					var path = new Path2D();
+					path.rect(robotToCheck.position.x, robotToCheck.position.y, robotToCheck.position.width, robotToCheck.position.height);
+					ctx.strokeStyle = "red";
+					ctx.lineWidth = 2;
+					ctx.stroke(path);
+				}
+			}
 		}
 		
 		ctx.fillStyle = "red";
