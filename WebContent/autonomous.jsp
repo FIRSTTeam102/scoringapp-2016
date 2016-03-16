@@ -164,6 +164,10 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 		<sql:param value="${sessionScope.team3 }" />
 	</sql:update>
 	
+	<%
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "teleop.jsp");
+	%>
 </c:if>
 
 

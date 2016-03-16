@@ -3,36 +3,49 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
-<c:out value="${requestScope}" />
+<% 
+Enumeration<String> formInputs = request.getParameterNames(); 
 
-<c:if test="${requestScope.info != null}">
+for(int i = 0; formInputs.hasMoreElements(); i++){
+	String str = formInputs.nextElement();
+	
+	if(str.equals("hasSpyHuman")){
+		pageContext.setAttribute("isFormSubmitted",true);
+	}
+}
+%>
+
+<c:if test="${isFormSubmitted == true}">
 	<c:set var="hasSpyHuman" value='<%=request.getParameterValues("hasSpyHuman")[0]%>' />
-</c:if>
-
-<c:set var="alliance" value="<%=alliance%>" />
-<c:set var="tournamentID" value="<%=alliance%>" />
-<c:set var="matchNumber" value="<%=alliance%>" />
-<c:if test="${hasSpyHuman == 'yes' && alliance == 'Blue'}">
+	<%=request.getParameterValues("hasSpyHuman")[0]%>
+	
+	<c:set var="alliance" value="<%=alliance%>" />
+	<c:if test="${hasSpyHuman == 'YES'}">
+	<c:if test="${alliance == 'Blue'}">
 	<sql:update dataSource="${database}">
 		UPDATE matches
 		SET blue_spy_human = ?
 		WHERE tournament_id = ?
 		AND match_number = ?
 		<sql:param value="Y" />
-		<sql:param value="B" />
-		<sql:param value="1" />
+		<sql:param value="${tournament.rows[0].ID}" />
+		<sql:param value="${sessionScope.matchNumber }" />
 	</sql:update>
-</c:if>
-<c:if test="${hasSpyHuman == 'yes' && alliance == 'Red'}">
+	</c:if>
+	</c:if>
+	<c:if test="${hasSpyHuman == 'YES'}">
+	<c:if test="${alliance == 'Red'}">
 	<sql:update dataSource="${database}">
 		UPDATE matches
 		SET red_spy_human = ?
 		WHERE tournament_id = ?
 		AND match_number = ?
 		<sql:param value="Y" />
-		<sql:param value="B" />
-		<sql:param value="1" />
+		<sql:param value="${tournament.rows[0].ID}" />
+		<sql:param value="${sessionScope.matchNumber }" />
 	</sql:update>
+	</c:if>
+	</c:if>
 </c:if>
 
 <%
@@ -46,7 +59,7 @@
 
 		data.put(currentName, currentValue);
 	}
-	if (data.size() > 6) {
+	if (data.size() > 6 && request.getParameterValues("hasSpyHuman")[0].equals("YES")) {
 		session.setAttribute(arenaDataKey, data);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "autonomous.jsp");

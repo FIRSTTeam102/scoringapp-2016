@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.io.*,java.util.*"%>
-<%@ include file="STUDENTRUN.jsp"%> 
+<%@ include file="STUDENTRUN.jsp"%>
+
+<% 
+Enumeration<String> formInputs = request.getParameterNames(); 
+
+for(int i = 0; formInputs.hasMoreElements(); i++){
+	String str = formInputs.nextElement();
+	
+	if(str.equals("operationAttempted")){
+		pageContext.setAttribute("isFormSubmitted",true);
+	}
+}
+%>
+
+<c:if test="${isFormSubmitted == true}">
+	
+</c:if>
 
 <% 	HashMap<String, String> data = (HashMap<String, String>)session.getAttribute("arenaData");
 	String allianceColor = (String)session.getAttribute(allianceKey);
@@ -38,6 +54,9 @@
 <div class="main">
 	<canvas id="arena" style="border: 1px solid black;" width="575" height="700">
 	</canvas>
+	<br>
+	<br>
+	<input type="button" onclick="window.location = 'post-match.jsp';" value="Post Match"/>
 </div>
 	
 	<img id="portcullis" src="Images/Defenses/Portcullis.png" width="1" height="1" style="visibility: hidden">
