@@ -16,7 +16,15 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 %>
 
 <c:if test="${isFormSubmitted == true}">
-	
+	<sql:update dataSource="${database}">
+		UPDATE match_team_cycles
+		SET blue_spy_human = ?
+		WHERE tournament_id = ?
+		AND match_number = ?
+		<sql:param value="Y" />
+		<sql:param value="${tournament.rows[0].ID}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+	</sql:update>
 </c:if>
 
 <% 	HashMap<String, String> data = (HashMap<String, String>)session.getAttribute("arenaData");
