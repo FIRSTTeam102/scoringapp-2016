@@ -17,7 +17,6 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 
 <c:if test="${isFormSubmitted == true}">
 	<c:set var="hasSpyHuman" value='<%=request.getParameterValues("hasSpyHuman")[0]%>' />
-	<%=request.getParameterValues("hasSpyHuman")[0]%>
 	
 	<c:set var="alliance" value="<%=alliance%>" />
 	<c:if test="${hasSpyHuman == 'YES'}">
@@ -59,8 +58,10 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 
 		data.put(currentName, currentValue);
 	}
-	if (data.size() > 6 && request.getParameterValues("hasSpyHuman")[0].equals("YES")) {
+	if (data.size() > 6) {
 		session.setAttribute(arenaDataKey, data);
+		session.setAttribute("cycleNumber", 0);
+		session.setAttribute("preMatch", true);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "autonomous.jsp");
 	}

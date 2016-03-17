@@ -9,7 +9,10 @@ Enumeration<String> formInputs = request.getParameterNames();
 for(int i = 0; formInputs.hasMoreElements(); i++){
 	String str = formInputs.nextElement();
 	
-	if(str.equals("operationAttempted")){
+	if(str.equals("operationAttempted"))
+	{
+		session.setAttribute("cycleNumber", (Integer)session.getAttribute("cycleNumber") + 1);
+		pageContext.setAttribute("cycleNumber", (Integer)session.getAttribute("cycleNumber"));
 		pageContext.setAttribute("isFormSubmitted",true);
 	}
 }
@@ -17,34 +20,35 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 
 <c:if test="${isFormSubmitted == true}">
 	<sql:update dataSource="${database}">
-		UPDATE match_team_cycles
-		SET blue_spy_human = ?
-		WHERE tournament_id = ?
-		AND match_number = ?
-		<sql:param value="Y" />
+		INSERT INTO match_team_cycles VALUES (?, ?, ?, ?, ?, ?);
 		<sql:param value="${tournament.rows[0].ID}" />
-		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.matchNumber}" />
+		<sql:param value='<%=request.getParameterValues("teamNumber")[0]%>' />
+		<sql:param value='${cycleNumber}' />
+		<sql:param value='<%=request.getParameterValues("operationAttempted")[0]%>' />
+		<sql:param value='<%=request.getParameterValues("succeeded")[0]%>' />
 	</sql:update>
 </c:if>
 
-<% 	HashMap<String, String> data = (HashMap<String, String>)session.getAttribute("arenaData");
+<%
+	HashMap<String, String> data = (HashMap<String, String>)session.getAttribute("arenaData");
 	String allianceColor = (String)session.getAttribute(allianceKey);
-	
+
 	String script = "<script type='text/javascript'>\nrobot0teamNumber = '" + data.get("robot0teamNumber") + "';\nrobot0xPosition = " + data.get("robot0xPosition") + ";\nrobot0yPosition = " + data.get("robot0yPosition") + ";\nrobot0width = " + data.get("robot0width") + ";\nrobot0height = " + data.get("robot0height") + ";\n";
 	script += "robot1teamNumber = '" + data.get("robot1teamNumber") + "';\nrobot1xPosition = " + data.get("robot1xPosition") + ";\nrobot1yPosition = " + data.get("robot1yPosition") + ";\nrobot1width = " + data.get("robot1width") + ";\nrobot1height = " + data.get("robot1height") + ";\n";
 	script += "robot2teamNumber = '" + data.get("robot2teamNumber") + "';\nrobot2xPosition = " + data.get("robot2xPosition") + ";\nrobot2yPosition = " + data.get("robot2yPosition") + ";\nrobot2width = " + data.get("robot2width") + ";\nrobot2height = " + data.get("robot2height") + ";\n";
-	
+
 	script += "defense0name = '" + data.get("defense0name") + "';\ndefense0xPosition = " + data.get("defense0xPosition") + ";\ndefense0yPosition = " + data.get("defense0yPosition") + ";\ndefense0width = " + data.get("defense0width") + ";\ndefense0height = " + data.get("defense0height") + ";\ndefense0category = " + data.get("defense0category") + ";\n";
 	script += "defense1name = '" + data.get("defense1name") + "';\ndefense1xPosition = " + data.get("defense1xPosition") + ";\ndefense1yPosition = " + data.get("defense1yPosition") + ";\ndefense1width = " + data.get("defense1width") + ";\ndefense1height = " + data.get("defense1height") + ";\ndefense1category = " + data.get("defense1category") + ";\n";
 	script += "defense2name = '" + data.get("defense2name") + "';\ndefense2xPosition = " + data.get("defense2xPosition") + ";\ndefense2yPosition = " + data.get("defense2yPosition") + ";\ndefense2width = " + data.get("defense2width") + ";\ndefense2height = " + data.get("defense2height") + ";\ndefense2category = " + data.get("defense2category") + ";\n";
 	script += "defense3name = '" + data.get("defense3name") + "';\ndefense3xPosition = " + data.get("defense3xPosition") + ";\ndefense3yPosition = " + data.get("defense3yPosition") + ";\ndefense3width = " + data.get("defense3width") + ";\ndefense3height = " + data.get("defense3height") + ";\ndefense3category = " + data.get("defense3category") + ";\n";
-	
+
 	script += "robotAsSpyBot = '" + data.get("robotAsSpyBot") + "';\nhasSpyHuman = '" + data.get("hasSpyHuman") + "';\n";
 	script += "Team1NoShow = '" + data.get("Team1NoShow") + "';\nTeam2NoShow = '" + data.get("Team2NoShow") + "';\nTeam3NoShow = '" + data.get("Team3NoShow") + "';\n";
 	script += "alliance = '" + "Blue" + "';\nside = '" + "Near" +"';\nteam1 = '" + "102" + "';\nteam2 = '" + "105" + "';\nteam3 = '" + "108" + "';\n"; 
-	
+
 	script += "<" + "/" + "script>";
-	
+
 	out.println(script);
 %>
 

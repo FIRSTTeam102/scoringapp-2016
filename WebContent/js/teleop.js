@@ -18,7 +18,8 @@ var robot = function(teamNumber, position){
 	this.position = position;
 }
 
-	function loadPage() {
+	function loadPage()
+	{
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
 		
@@ -249,6 +250,16 @@ var robot = function(teamNumber, position){
 		defense4Path = new Path2D();
 		lowBarPath = new Path2D();
 		
+		defensivePlay1Path = new Path2D();
+		defensivePlay1Path.rect(50, 10, 140, 45);
+		
+		defensivePlay2Path = new Path2D();
+		defensivePlay2Path.rect(217.5, 10, 140, 45);
+		
+		defensivePlay3Path = new Path2D();
+		defensivePlay3Path.rect(385, 10, 140, 45);
+		
+		
 		for (var i = 0; i < defensePositions.length; i++)
 		{
 			var defenseToParse = defensePositions[i];
@@ -342,35 +353,35 @@ var robot = function(teamNumber, position){
 					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
-						operationAttempted = "1";
+						operationAttempted = "POR";
 					}
 					else if (selectedDefense.name = "Cheval De Frise")
 					{
-						operationAttempted = "2";
+						operationAttempted = "CDF";
 					}
 					else if (selectedDefense.name == "Moat")
 					{
-						operationAttempted = "3";
+						operationAttempted = "MOT";
 					}
 					else if (selectedDefense.name == "Ramparts")
 					{
-						operationAttempted = "4";
+						operationAttempted = "RMP";
 					}
 					else if (selectedDefense.name == "Drawbridge")
 					{
-						operationAttempted = "5";
+						operationAttempted = "DBW";
 					}
 					else if (selectedDefense.name == "Sally Port")
 					{
-						operationAttempted = "6";
+						operationAttempted = "SLP";
 					}
 					else if (selectedDefense.name == "Rock Wall")
 					{
-						operationAttempted = "7";
+						operationAttempted = "RCK";
 					}
 					else if (selectedDefense.name == "Rough Terrain")
 					{
-						operationAttempted = "8";
+						operationAttempted = "RGT";
 					}
 				}
 				else if (context.isPointInPath(defense2Path, x, y))
@@ -380,35 +391,35 @@ var robot = function(teamNumber, position){
 					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
-						operationAttempted = "1";
+						operationAttempted = "POR";
 					}
 					else if (selectedDefense.name = "Cheval De Frise")
 					{
-						operationAttempted = "2";
+						operationAttempted = "CDF";
 					}
 					else if (selectedDefense.name == "Moat")
 					{
-						operationAttempted = "3";
+						operationAttempted = "MOT";
 					}
 					else if (selectedDefense.name == "Ramparts")
 					{
-						operationAttempted = "4";
+						operationAttempted = "RMP";
 					}
 					else if (selectedDefense.name == "Drawbridge")
 					{
-						operationAttempted = "5";
+						operationAttempted = "DBW";
 					}
 					else if (selectedDefense.name == "Sally Port")
 					{
-						operationAttempted = "6";
+						operationAttempted = "SLP";
 					}
 					else if (selectedDefense.name == "Rock Wall")
 					{
-						operationAttempted = "7";
+						operationAttempted = "RCK";
 					}
 					else if (selectedDefense.name == "Rough Terrain")
 					{
-						operationAttempted = "8";
+						operationAttempted = "RGT";
 					}
 				}
 				else if (context.isPointInPath(defense3Path, x, y))
@@ -418,35 +429,35 @@ var robot = function(teamNumber, position){
 					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
-						operationAttempted = "1";
+						operationAttempted = "POR";
 					}
 					else if (selectedDefense.name = "Cheval De Frise")
 					{
-						operationAttempted = "2";
+						operationAttempted = "CDF";
 					}
 					else if (selectedDefense.name == "Moat")
 					{
-						operationAttempted = "3";
+						operationAttempted = "MOT";
 					}
 					else if (selectedDefense.name == "Ramparts")
 					{
-						operationAttempted = "4";
+						operationAttempted = "RMP";
 					}
 					else if (selectedDefense.name == "Drawbridge")
 					{
-						operationAttempted = "5";
+						operationAttempted = "DBW";
 					}
 					else if (selectedDefense.name == "Sally Port")
 					{
-						operationAttempted = "6";
+						operationAttempted = "SLP";
 					}
 					else if (selectedDefense.name == "Rock Wall")
 					{
-						operationAttempted = "7";
+						operationAttempted = "RCK";
 					}
 					else if (selectedDefense.name == "Rough Terrain")
 					{
-						operationAttempted = "8";
+						operationAttempted = "RGT";
 					}
 				}
 				else if (context.isPointInPath(defense4Path, x, y))
@@ -456,35 +467,35 @@ var robot = function(teamNumber, position){
 					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
-						operationAttempted = "1";
+						operationAttempted = "POR";
 					}
 					else if (selectedDefense.name = "Cheval De Frise")
 					{
-						operationAttempted = "2";
+						operationAttempted = "CDF";
 					}
 					else if (selectedDefense.name == "Moat")
 					{
-						operationAttempted = "3";
+						operationAttempted = "MOT";
 					}
 					else if (selectedDefense.name == "Ramparts")
 					{
-						operationAttempted = "4";
+						operationAttempted = "RMP";
 					}
 					else if (selectedDefense.name == "Drawbridge")
 					{
-						operationAttempted = "5";
+						operationAttempted = "DBW";
 					}
 					else if (selectedDefense.name == "Sally Port")
 					{
-						operationAttempted = "6";
+						operationAttempted = "SLP";
 					}
 					else if (selectedDefense.name == "Rock Wall")
 					{
-						operationAttempted = "7";
+						operationAttempted = "RCK";
 					}
 					else if (selectedDefense.name == "Rough Terrain")
 					{
-						operationAttempted = "8";
+						operationAttempted = "RGT";
 					}
 				}
 				else if (context.isPointInPath(lowBarPath, x, y))
@@ -492,39 +503,40 @@ var robot = function(teamNumber, position){
 					defensePath = lowBarPath;
 					selectedDefense = defensePositions[4];
 					drawArenaWithChanges();
-					operationAttempted = "0";
+					operationAttempted = "LOB";
 				}
 				else if (context.isPointInPath(failedPath, x, y))
 				{
-					if (operationAttempted != "")
+					if (operationAttempted != "" && selectedRobot != null)
 					{
 						var form = document.getElementById("cycleForm");
 						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
 						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'N' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + selectedRobot + '"/>';
 						form.submit();
 					}
 				}
 				else if (context.isPointInPath(succeededPath, x, y))
 				{
-					if (operationAttempted != "")
+					if (operationAttempted != "" && selectedRobot != null)
 					{
 						var form = document.getElementById("cycleForm");
 						form.innerHTML += '<input type="hidden" name="operationAttempted" value="' + operationAttempted + '"/>';
 						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
-						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + selectedRobot.teamNumber + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + selectedRobot + '"/>';
 						form.submit();
 					}
 				}
 				else if (context.isPointInPath(highGoalPath, x, y))
 				{
 					selectedDefense = null;
-					operationAttempted = "H";
+					operationAttempted = "HGH";
 					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(lowGoalPath, x, y))
 				{
 					selectedDefense = null;
-					operationAttempted = "L";
+					operationAttempted = "LOW";
 					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(robot0Path, x, y))
@@ -542,11 +554,42 @@ var robot = function(teamNumber, position){
 					selectedRobot = robotPositions[2].teamNumber;
 					drawArenaWithChanges();
 				}
+				else if (context.isPointInPath(defensivePlay1Path, x, y))
+				{
+					var robotToParse = robotPositions[0];
+					var form = document.getElementById("cycleForm");
+					form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+					form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+					form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+					form.submit();
+				}
+				else if (context.isPointInPath(defensivePlay2Path, x, y))
+				{
+					var robotToParse = robotPositions[1];
+					var form = document.getElementById("cycleForm");
+					form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+					form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+					form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+					form.submit();
+				}
+				else if (context.isPointInPath(defensivePlay3Path, x, y))
+				{
+					if (selectedRobot != null)
+					{
+						var robotToParse = robotPositions[2];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
+				}
 			}
 		}
 	}
 	
-	function drawArenaWithChanges() {
+	function drawArenaWithChanges()
+	{
 		ctx.drawImage(arena, 0, 0);
 		
 		for (var i = 0; i < defensePositions.length; i++)
@@ -564,19 +607,46 @@ var robot = function(teamNumber, position){
 			ctx.fillText("Team " + robotToDraw.teamNumber, robotToDraw.position.x + 77 / 2, robotToDraw.position.y + 58 / 2 + 3, robotToDraw.position.width);
 		}
 		
+		ctx.fillStyle = "red";
+		ctx.strokeStyle = "yellow";
+		ctx.lineWidth = 1;
+		ctx.stroke(defensivePlay1Path);
+		ctx.fill(defensivePlay1Path);
+		ctx.fillStyle = "white";
+		ctx.fillText("Team " + robotPositions[0].teamNumber, 50 + 70, 10 + 45 / 3, 140);
+		ctx.fillText("Defensive Play", 50 + 70, 10 + 45 / 1.4, 140);
+		
+		ctx.fillStyle = "red";
+		ctx.strokeStyle = "yellow";
+		ctx.lineWidth = 1;
+		ctx.stroke(defensivePlay2Path);
+		ctx.fill(defensivePlay2Path);
+		ctx.fillStyle = "white";
+		ctx.fillText("Team " + robotPositions[1].teamNumber, 217.5 + 70, 10 + 45 / 3, 140);
+		ctx.fillText("Defensive Play", 217.5 + 70, 10 + 45 / 1.4, 140);
+		
+		ctx.fillStyle = "red";
+		ctx.strokeStyle = "yellow";
+		ctx.lineWidth = 1;
+		ctx.stroke(defensivePlay3Path);
+		ctx.fill(defensivePlay3Path);
+		ctx.fillStyle = "white";
+		ctx.fillText("Team " + robotPositions[2].teamNumber, 385 + 70, 10 + 45 / 3, 140);
+		ctx.fillText("Defensive Play", 385 + 70, 10 + 45 / 1.4, 140);
+		
 		if (selectedDefense != null)
 		{
 			ctx.strokeStyle = "red";
 			ctx.lineWidth = 2;
 			ctx.stroke(defensePath);
 		}
-		else if (operationAttempted == "H")
+		else if (operationAttempted == "HGH")
 		{
 			ctx.strokeStyle = "red";
 			ctx.lineWidth = 2;
 			ctx.stroke(highGoalPath);
 		}
-		else if (operationAttempted == "L")
+		else if (operationAttempted == "LOW")
 		{
 			ctx.strokeStyle = "red";
 			ctx.lineWidth = 2;
