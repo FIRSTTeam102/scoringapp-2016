@@ -9,7 +9,10 @@
 	//	String str = strings.nextElement();
 	//	out.println(str);
 	//}
-
+	if(alliance == null){
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "scoringapp.jsp");
+	}
 	if (match != null) {
 
 		int matchIndex = match.indexOf('m');

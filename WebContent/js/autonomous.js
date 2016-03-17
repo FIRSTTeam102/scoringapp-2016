@@ -8,8 +8,8 @@
 				if(!this.checked){
 					$("#rdoScoreHigh1").attr("checked", false); 
 					$("#rdoScoreLow1").attr("checked", false); 
+					$("#chkTeam1Crossed").attr("checked", false);
 				}
-				$("#chkTeam1Crossed").attr("checked", this.checked ? true : false);
 			});
 			$("#chkTeam1Crossed").click(function(){
 				//$("[for='rdoScoreHigh1']").css("color", !this.checked ? "grey" : "white"); 
@@ -32,8 +32,8 @@
 				if(!this.checked){
 					$("#rdoScoreHigh2").attr("checked", false); 
 					$("#rdoScoreLow2").attr("checked", false); 
+					$("#chkTeam2Crossed").attr("checked", false);
 				}
-				$("#chkTeam2Crossed").attr("checked", this.checked ? true : false);
 			});
 			$("#chkTeam2Crossed").click(function(){
 				//$("[for='rdoScoreHigh2']").css("color", !this.checked ? "grey" : "white"); 
@@ -56,8 +56,8 @@
 				if(!this.checked){
 					$("#rdoScoreHigh3").attr("checked", false); 
 					$("#rdoScoreLow3").attr("checked", false); 
+					$("#chkTeam3Crossed").attr("checked", false);
 				}
-				$("#chkTeam3Crossed").attr("checked", this.checked ? true : false);
 			});
 			$("#chkTeam3Crossed").click(function(){
 				//$("[for='rdoScoreHigh3']").css("color", !this.checked ? "grey" : "white"); 
