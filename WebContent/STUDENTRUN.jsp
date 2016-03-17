@@ -20,6 +20,7 @@ final String team1Key = "team1";
 final String team2Key = "team2";
 final String team3Key = "team3";
 final String preMatchKey = "preMatch";
+final String cycleNumberKey = "cycleNumber";
 
 if(session.getAttribute(loginKey) == null){
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -39,6 +40,7 @@ Boolean isPreMatchComplete = (Boolean)session.getAttribute(preMatchKey);
 Integer team1 = (Integer)session.getAttribute(team1Key);
 Integer team2 = (Integer)session.getAttribute(team2Key);
 Integer team3 = (Integer)session.getAttribute(team3Key);
+Integer cycleNumber = (Integer)session.getAttribute(cycleNumberKey);
 
 HashMap<String, String> arenaData = (HashMap<String, String>)session.getAttribute(arenaDataKey);
 %>
