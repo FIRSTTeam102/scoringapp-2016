@@ -15,19 +15,21 @@
 //	}
 	
 	// Connect to the remote database.
-	$remotePwd = file_get_contents('localjunk');
-//	echo "Password: " . $_SESSION['password']."<br>";
-	$remoteLink = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
+	$remotePwd = file_get_contents('garbage');
+//	echo "Remote Password: " . $remotePwd."<br>";
+//	$remoteLink = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password']);
+	$remoteLink = mysql_connect('team102.org:3306', 'team102_webuser', $remotePwd);
 	
 	if (!mysql_select_db('team102_2016', $remoteLink)) {
     		echo sprintf('Could not select remote database, Err: %s', mysql_error());
     		exit;
 	}
-	$localPwd = file_get_contents('localjunk');
+	$localPwd = file_get_contents('trash');
+//	echo "Local Password: " . $localPwd."<br>";
 	// Connect to local database
-	$localLink = mysql_connect('team102.org:3306', 'team102_webuser', $_SESSION['password'], true);
+	$localLink = mysql_connect('gearheads-5:3306', 'scoring102', $localPwd, true);
 	
-	if (!mysql_select_db('team102_2016_Local', $localLink)) {
+	if (!mysql_select_db('scoring2016', $localLink)) {
     		echo sprintf('Could not select local database, Err: %s', mysql_error());
     		exit;
 	}
