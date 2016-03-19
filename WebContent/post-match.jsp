@@ -4,13 +4,6 @@
 
 <%
 teleOp = true;
-auto = true;
-preMatch = true;
-match = "hi";
-alliance = "Blue";
-%>
-
-<%
 if(teleOp == null){
 	if(auto == null){
 		if (preMatch == null) {
@@ -51,9 +44,17 @@ if(teleOp == null){
 %>
 <c:if test="${isFormSubmitted == true }">
 	<%-- Universal data --%>
-	<%
-		String foulPts = request.getParameter("foulPts");
-		String totalPts = request.getParameter("totalPts");
+	<%	
+		int foulPts = 0;
+		if(request.getParameter("foulPts").equals("")){
+			foulPts = 0;
+		}else{
+			foulPts = Integer.parseInt(request.getParameter("foulPts"));
+		}
+		//String totalPts = request.getParameter("totalPts");
+		
+		pageContext.setAttribute("foulPts", foulPts);
+		//pageContext.setAttribute("totalPts", totalPts);
 	%>
 	<%-- Team 1 data --%>
 	<%
@@ -98,11 +99,14 @@ if(teleOp == null){
 	<sql:update dataSource="${database}">
 		UPDATE match_teams
 			SET end_position = ?
+				, completed = 'Y'
+				, fouls = ?
 			WHERE
 				tournament_id = ?
 				AND match_number = ?
 				AND team_number = ?
 		<sql:param value="${end_position1 }" />
+		<sql:param value="${foulPts }" />
 		<sql:param value="${tournament.rows[0].id}" />
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team1 }" />
@@ -111,11 +115,14 @@ if(teleOp == null){
 	<sql:update dataSource="${database}">
 		UPDATE match_teams
 			SET end_position = ?
+				, completed = 'Y'
+				, fouls = ?
 			WHERE
 				tournament_id = ?
 				AND match_number = ?
 				AND team_number = ?
 		<sql:param value="${end_position2 }" />
+		<sql:param value="${foulPts }" />
 		<sql:param value="${tournament.rows[0].id}" />
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team2 }" />
@@ -125,44 +132,22 @@ if(teleOp == null){
 		UPDATE match_teams
 			SET end_position = ?
 				, completed = 'Y'
+				, fouls = ?
 			WHERE
 				tournament_id = ?
 				AND match_number = ?
 				AND team_number = ?
 		<sql:param value="${end_position3 }" />
+		<sql:param value="${foulPts }" />
 		<sql:param value="${tournament.rows[0].id}" />
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team3 }" />
 	</sql:update>
-
+	<% 
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "choosematch.jsp");
+	%>
 </c:if>
-
-<%
-	if (teleOp == null) {
-		if (auto == null) {
-			if (preMatch == null) {
-				if (match == null) {
-					if (alliance == null) {
-						response.setStatus(response.SC_MOVED_TEMPORARILY);
-						response.setHeader("Location", "scoringapp.jsp");
-					} else {
-						response.setStatus(response.SC_MOVED_TEMPORARILY);
-						response.setHeader("Location", "choosematch.jsp");
-					}
-				} else {
-					response.setStatus(response.SC_MOVED_TEMPORARILY);
-					response.setHeader("Location", "pre-match.jsp");
-				}
-			} else {
-				response.setStatus(response.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", "autonomous.jsp");
-			}
-		} else {
-			response.setStatus(response.SC_MOVED_TEMPORARILY);
-			response.setHeader("Location", "autonomous.jsp");
-		}
-	}
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -258,9 +243,10 @@ if(teleOp == null){
 					Penalty: <input name="foulPts" type="number" min="0" max="9999" width="90px"
 						style="width: 90px;" />
 				</div>
+				<%-->
 				<div id="TotalPts">
 					Total <% if(alliance!=null){out.println(alliance);} %> Points: <input name="totalPts" type="number" min="0" max="9999" width="90px" style="width: 90px;"/>
-				</div>
+				</div> --%>
 				<div id="nav" style="padding-top: 25px; padding-bottom: 10px;">
 					<input type="submit" name="btnNext" value=" Done ">
 				</div>
