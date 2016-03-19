@@ -11,7 +11,7 @@
 <%
 final String allianceKey = "allianceColor";
 final String loginKey = "isLoggedIn";
-final String userKey = "user";
+final String initialsKey = "initials";
 final String arenaDataKey = "arenaData";
 final String tournamentIDKey = "tournamentID";
 final String tournamentNameKey = "tournamentName";
@@ -19,8 +19,11 @@ final String matchKey = "matchNumber";
 final String team1Key = "team1";
 final String team2Key = "team2";
 final String team3Key = "team3";
+final String sideKey = "side";
 final String preMatchKey = "preMatch";
 final String cycleNumberKey = "cycleNumber";
+final String teleopKey = "teleOp";
+final String autoKey = "autonomous";
 
 if(session.getAttribute(loginKey) == null){
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -30,12 +33,16 @@ if(session.getAttribute(loginKey) == null){
 %>
 <%	
 
-String user = (String)session.getAttribute(userKey);
 String alliance = (String)session.getAttribute(allianceKey);
 String tournament = (String)session.getAttribute(tournamentNameKey);
 String tournamentID = (String)session.getAttribute(tournamentIDKey);
 String match = (String)session.getAttribute(matchKey);
-Boolean isPreMatchComplete = (Boolean)session.getAttribute(preMatchKey);
+String side = (String)session.getAttribute(sideKey);
+String initials = (String)session.getAttribute(initialsKey);
+
+Boolean preMatch = (Boolean)session.getAttribute(preMatchKey);
+Boolean teleOp = (Boolean)session.getAttribute(teleopKey);
+Boolean auto = (Boolean)session.getAttribute(autoKey);
 //Using Integer objects to avoid null pointer exceptions.
 Integer team1 = (Integer)session.getAttribute(team1Key);
 Integer team2 = (Integer)session.getAttribute(team2Key);

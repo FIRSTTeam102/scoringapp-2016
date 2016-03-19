@@ -180,6 +180,7 @@
 		<sql:param value="${sessionScope.team3 }" />
 	</sql:update>
 	<%
+	session.setAttribute(autoKey, true);
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
 	response.setHeader("Location", "teleop.jsp");
 	%>

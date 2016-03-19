@@ -5,8 +5,8 @@
 <%  Enumeration<String> formInputs = request.getParameterNames();   
 	String passwordInput = request.getParameter("txtPassword");
 	String initialsInput = request.getParameter("txtInitials");
-	String btnInput = "";
 	String initialsKey = "initials";
+	String btnInput = "";
 	String buttonKey = "button";
 	
 	String newLocation = new String();
@@ -17,7 +17,6 @@
 			
 		}else{
 			btnInput = str;
-			out.println(btnInput);
 		}
 	}
 %>
@@ -38,16 +37,14 @@
 	is.close();
 	
 	if(btnInput.equals("btnScoringApp")){
-		if(passwordInput != null && initialsInput != null){
-			if (passwordInput.equals(line)){
-				
-				
-				session.setAttribute("isLoggedIn", true);
-				initializeRedirect(response, btnInput);
-				
-			}
+		if (passwordInput.equals(line) && initialsInput.length() > 0){
+			
+			session.setAttribute("isLoggedIn", true);
+			session.setAttribute(initialsKey, initialsInput);
+			initializeRedirect(response, btnInput);
+			
 		}else{
-			out.println("alert('Password incorrect, or initials not inputted.');");
+			out.println("<script>alert('Password incorrect, or initials not inputted.');</script>");
 		}
 	}
 %>

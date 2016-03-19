@@ -2,6 +2,41 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
+<%
+teleOp = true;
+auto = true;
+preMatch = true;
+match = "hi";
+alliance = "Blue";
+%>
+
+<%
+if(teleOp == null){
+	if(auto == null){
+		if (preMatch == null) {
+			if (match == null) {
+				if (alliance == null) {
+					response.setStatus(response.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", "scoringapp.jsp");
+				} else {
+					response.setStatus(response.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", "choosematch.jsp");
+				}
+			} else {
+				response.setStatus(response.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", "pre-match.jsp");
+			}
+		}else{
+			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", "autonomous.jsp");
+		}
+	}else{
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "teleop.jsp");
+	}	
+}
+%>
+
 <%-- Check if the form has been submitted already. --%>
 <%
 	Enumeration<String> formInputs = request.getParameterNames();
@@ -15,6 +50,11 @@
 	}
 %>
 <c:if test="${isFormSubmitted == true }">
+	<%-- Universal data --%>
+	<%
+		String foulPts = request.getParameter("foulPts");
+		String totalPts = request.getParameter("totalPts");
+	%>
 	<%-- Team 1 data --%>
 	<%
 		String challenge1 = request.getParameter("chkTeam1Challenge");
@@ -98,7 +138,7 @@
 </c:if>
 
 <%
-	if (teleop == null) {
+	if (teleOp == null) {
 		if (auto == null) {
 			if (preMatch == null) {
 				if (match == null) {
@@ -215,8 +255,11 @@
 							}
 						}
 					%>
-					Penalty: <input type="number" min="0" max="9999" width="90px"
+					Penalty: <input name="foulPts" type="number" min="0" max="9999" width="90px"
 						style="width: 90px;" />
+				</div>
+				<div id="TotalPts">
+					Total <% if(alliance!=null){out.println(alliance);} %> Points: <input name="totalPts" type="number" min="0" max="9999" width="90px" style="width: 90px;"/>
 				</div>
 				<div id="nav" style="padding-top: 25px; padding-bottom: 10px;">
 					<input type="submit" name="btnNext" value=" Done ">

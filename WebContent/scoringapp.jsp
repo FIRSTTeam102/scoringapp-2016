@@ -3,17 +3,19 @@
 <%@include file="STUDENTRUN.jsp"%>
 
 <sql:query dataSource="${database}" var="tournamentQuery">
-<%="SELECT * FROM tournaments WHERE active = 'Y'"%>
+	<%="SELECT * FROM tournaments WHERE active = 'Y'"%>
 </sql:query>
 <c:set var="tournament" scope="session" value="${tournamentQuery}" />
 
 <%
-	String allianceInput = (String) request.getParameter("rdoAlliance");
-	if (allianceInput != null) {
+	String allianceInput = (String) request.getParameter("rdoAlliance"),
+			sideInput = (String) request.getParameter("rdoSide");
+	if (allianceInput != null && sideInput != null) {
 		session.setAttribute(allianceKey, allianceInput);
+		session.setAttribute(sideKey, sideInput);
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "choosematch.jsp");
-		
+
 	}
 %>
 
@@ -32,7 +34,7 @@
 <body class="no-js">
 	<div id="page">
 		<div class="main">
-			<%@include file="title-small.jsp" %>
+			<%@include file="title-small.jsp"%>
 			<form id="CompetitionForm" action="scoringapp.jsp" method="post">
 				<div id="Alliance">
 					<div>Choose an Alliance</div>
@@ -43,6 +45,17 @@
 						</label> &nbsp;&nbsp; <label for="rdoAllianceBlue" id="lblBlue"> <input
 							type="radio" name="rdoAlliance" id="rdoAllianceBlue" value="Blue"
 							tabindex="3" />Blue
+						</label>
+					</div>
+				</div>
+				<div id="allianceList">
+					<div>What side is the secret passage?</div>
+					<div id="allianceList">
+						<label for="rdoSideNear" id="lblNear"> <input type="radio"
+							name="rdoSide" id="rdoSideNear" value="Near" tabindex="2" />Near
+						</label> &nbsp;&nbsp; <label for="rdoSideFar" id="lblFar"> <input
+							type="radio" name="rdoSide" id="rdoSideFar" value="Far"
+							tabindex="3" />Far
 						</label>
 					</div>
 				</div>

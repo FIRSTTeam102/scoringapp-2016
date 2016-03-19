@@ -3,6 +3,28 @@
     <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+<%
+if(auto == null){
+	if (preMatch == null) {
+		if (match == null) {
+			if (alliance == null) {
+				response.setStatus(response.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", "scoringapp.jsp");
+			} else {
+				response.setStatus(response.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", "choosematch.jsp");
+			}
+		} else {
+			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", "pre-match.jsp");
+		}
+	}else{
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "autonomous.jsp");
+	}
+}
+%>
+
 <% 
 Enumeration<String> formInputs = request.getParameterNames(); 
 

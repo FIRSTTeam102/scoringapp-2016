@@ -35,6 +35,29 @@
 		session.setAttribute("team3", team3);
 
 		session.setAttribute(matchKey, matchNum);
+		
+%>
+
+<% 
+	pageContext.setAttribute(initialsKey, initials);
+%>
+
+<c:if test="${initials != null }">
+	<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET initials = ?
+				WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${initials }"/>
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team3 }" />
+	</sql:update>
+</c:if>
+
+<%
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "pre-match.jsp");
 	}
@@ -56,6 +79,8 @@
 								+ " and mt3.alliance = mt1.alliance  and mt3.seq_no = 3" + " order by m.match_number;"%>
 </sql:query>
 <c:set var="matches" scope="page" value="${result}" />
+
+
 
 <%-- HTML --%>
 <html lang="en">

@@ -72,7 +72,7 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 	//Set alliance and team variables.
 	String allianceColor = (String) session.getAttribute(allianceKey);
 	String script = "<script id='allianceSet' type='text/javascript'>" + "alliance = '" + allianceColor + "'; "
-			+ "side = '" + "Near" + "';" + "team1 = " + team1 + ";" + "team2 = " + team2 + ";" + "team3 = "
+			+ "side = '" + side + "';" + "team1 = " + team1 + ";" + "team2 = " + team2 + ";" + "team3 = "
 			+ team3 + ";" + "</script>";
 	out.println(script);
 %>
