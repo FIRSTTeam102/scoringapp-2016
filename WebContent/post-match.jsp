@@ -2,15 +2,127 @@
 	pageEncoding="ISO-8859-1"%>
 <%@include file="STUDENTRUN.jsp"%>
 
-<%--
--Official score
--Result (win/loss/tie)
--(Difference between ours and theirs
--Challenge
--Capture
--Scale
--Fouls
- --%>
+<%-- Check if the form has been submitted already. --%>
+<%
+	Enumeration<String> formInputs = request.getParameterNames();
+
+	for (int i = 0; formInputs.hasMoreElements(); i++) {
+		String str = formInputs.nextElement();
+
+		if (str.equals("btnNext")) {
+			pageContext.setAttribute("isFormSubmitted", true);
+		}
+	}
+%>
+<c:if test="${isFormSubmitted == true }">
+	<%-- Team 1 data --%>
+	<%
+		String challenge1 = request.getParameter("chkTeam1Challenge");
+		String scale1 = request.getParameter("chkTeam1Scale");
+		
+		if (scale1 != null) {
+			pageContext.setAttribute("end_position1", "S");
+		} else if (challenge1 != null) {
+			pageContext.setAttribute("end_position1", "C");
+		}else{
+			pageContext.setAttribute("end_position1", "N");
+		}
+	%>
+	<%-- Team 2 data --%>
+	<%
+		String challenge2 = request.getParameter("chkTeam2Challenge");
+		String scale2 = request.getParameter("chkTeam2Scale");
+		
+		if (scale2 != null) {
+			pageContext.setAttribute("end_position2", "S");
+		} else if (challenge2 != null) {
+			pageContext.setAttribute("end_position2", "C");
+		}else{
+			pageContext.setAttribute("end_position2", "N");
+		}
+	%>
+	<%-- Team 3 data --%>
+	<%
+		String challenge3 = request.getParameter("chkTeam3Challenge");
+		String scale3 = request.getParameter("chkTeam3Scale");
+		
+		if (scale3 != null) {
+			pageContext.setAttribute("end_position3", "S");
+		} else if (challenge3 != null) {
+			pageContext.setAttribute("end_position3", "C");
+		}else{
+			pageContext.setAttribute("end_position3", "N");
+		}
+	%>
+
+	<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET end_position = ?
+			WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${end_position1 }" />
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team1 }" />
+	</sql:update>
+
+	<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET end_position = ?
+			WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${end_position2 }" />
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team2 }" />
+	</sql:update>
+	
+		<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET end_position = ?
+				, completed = 'Y'
+			WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${end_position3 }" />
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team3 }" />
+	</sql:update>
+
+</c:if>
+
+<%
+	if (teleop == null) {
+		if (auto == null) {
+			if (preMatch == null) {
+				if (match == null) {
+					if (alliance == null) {
+						response.setStatus(response.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", "scoringapp.jsp");
+					} else {
+						response.setStatus(response.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", "choosematch.jsp");
+					}
+				} else {
+					response.setStatus(response.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", "pre-match.jsp");
+				}
+			} else {
+				response.setStatus(response.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", "autonomous.jsp");
+			}
+		} else {
+			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", "autonomous.jsp");
+		}
+	}
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -92,16 +204,22 @@
 							width="150" height="150" /></td>
 					</tr>
 				</table>
-				
+
 				<div id="FoulPts">
-					<% 
-					if(alliance.equals("Red")){
-						out.print("Blue");
-					}else{
-						out.print("Red");
-					}
-					%> Penalty:
-					<input type="number" min="0" max="9999" width="90px" style="width: 90px;"/>
+					<%
+						if (alliance != null) {
+							if (alliance.equals("Red")) {
+								out.print("Blue");
+							} else {
+								out.print("Red");
+							}
+						}
+					%>
+					Penalty: <input type="number" min="0" max="9999" width="90px"
+						style="width: 90px;" />
+				</div>
+				<div id="nav" style="padding-top: 25px; padding-bottom: 10px;">
+					<input type="submit" name="btnNext" value=" Done ">
 				</div>
 			</form>
 		</center>

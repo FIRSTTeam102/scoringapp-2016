@@ -339,7 +339,6 @@ var robot = function(teamNumber, position){
 				{
 					selectedDefense = defensePositions[0];
 					defensePath = defense1Path;
-					drawArenaWithChanges();
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -372,12 +371,13 @@ var robot = function(teamNumber, position){
 					{
 						operationAttempted = "8";
 					}
+					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(defense2Path, x, y))
 				{
 					selectedDefense = defensePositions[1];
 					defensePath = defense2Path;
-					drawArenaWithChanges();
+
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -410,12 +410,14 @@ var robot = function(teamNumber, position){
 					{
 						operationAttempted = "8";
 					}
+					drawArenaWithChanges();
+
 				}
 				else if (context.isPointInPath(defense3Path, x, y))
 				{
 					selectedDefense = defensePositions[2];
 					defensePath = defense3Path;
-					drawArenaWithChanges();
+					
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -448,12 +450,13 @@ var robot = function(teamNumber, position){
 					{
 						operationAttempted = "8";
 					}
+					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(defense4Path, x, y))
 				{
 					selectedDefense = defensePositions[3];
 					defensePath = defense4Path;
-					drawArenaWithChanges();
+					
 					if (selectedDefense.name == "Portcullis")
 					{
 						operationAttempted = "1";
@@ -486,6 +489,7 @@ var robot = function(teamNumber, position){
 					{
 						operationAttempted = "8";
 					}
+					drawArenaWithChanges();
 				}
 				else if (context.isPointInPath(lowBarPath, x, y))
 				{

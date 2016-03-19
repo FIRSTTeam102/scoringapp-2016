@@ -20,6 +20,8 @@ final String team1Key = "team1";
 final String team2Key = "team2";
 final String team3Key = "team3";
 final String preMatchKey = "preMatch";
+final String autoKey = "autonomous";
+final String teleKey = "teleop";
 
 if(session.getAttribute(loginKey) == null){
 	response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -34,7 +36,9 @@ String alliance = (String)session.getAttribute(allianceKey);
 String tournament = (String)session.getAttribute(tournamentNameKey);
 String tournamentID = (String)session.getAttribute(tournamentIDKey);
 String match = (String)session.getAttribute(matchKey);
-Boolean isPreMatchComplete = (Boolean)session.getAttribute(preMatchKey);
+Boolean preMatch = true;//(Boolean)session.getAttribute(preMatchKey);
+Boolean auto = (Boolean)session.getAttribute(autoKey);
+Boolean teleop = true;//(Boolean)session.getAttribute(teleKey);
 //Using Integer objects to avoid null pointer exceptions.
 Integer team1 = (Integer)session.getAttribute(team1Key);
 Integer team2 = (Integer)session.getAttribute(team2Key);

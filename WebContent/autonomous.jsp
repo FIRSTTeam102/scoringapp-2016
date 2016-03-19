@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="STUDENTRUN.jsp"%>
 <%
-	if (isPreMatchComplete == null) {
+	if (preMatch == null) {
 		if (match == null) {
 			if (alliance == null) {
 				response.setStatus(response.SC_MOVED_TEMPORARILY);

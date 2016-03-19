@@ -17,6 +17,7 @@
 			
 		}else{
 			btnInput = str;
+			out.println(btnInput);
 		}
 	}
 %>
@@ -36,12 +37,17 @@
 	read.close();
 	is.close();
 	
-	if(passwordInput != null){
-		if (passwordInput.equals(line)){
-			
-			session.setAttribute("isLoggedIn", true);
-			initializeRedirect(response, btnInput);
-			
+	if(btnInput.equals("btnScoringApp")){
+		if(passwordInput != null && initialsInput != null){
+			if (passwordInput.equals(line)){
+				
+				
+				session.setAttribute("isLoggedIn", true);
+				initializeRedirect(response, btnInput);
+				
+			}
+		}else{
+			out.println("alert('Password incorrect, or initials not inputted.');");
 		}
 	}
 %>
@@ -106,9 +112,10 @@
 						<input type="submit" name="btnScoringApp"
 							value="Team 102 Scoring App" />
 					</div>
+					<%--
 					<div style="padding-top: 10px; padding-bottom: 10px;">
 						<input type="submit" name="btnNew" value="NewFile JSP Tests" />
-					</div>
+					</div> --%>
 					<div style="padding-top: 10px; padding-bottom: 10px;">
 						<input type="submit" name="btnSurvey"
 							value="Team 102 Scouting Survey" />
