@@ -1,33 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="STUDENTRUN.jsp"%>
 
 <%
-teleOp = true;
-if(teleOp == null){
-	if(auto == null){
-		if (preMatch == null) {
-			if (match == null) {
-				if (alliance == null) {
-					response.setStatus(response.SC_MOVED_TEMPORARILY);
-					response.setHeader("Location", "scoringapp.jsp");
+	teleOp = true;
+	if (teleOp == null) {
+		if (auto == null) {
+			if (preMatch == null) {
+				if (match == null) {
+					if (alliance == null) {
+						response.setStatus(response.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", "scoringapp.jsp");
+					} else {
+						response.setStatus(response.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", "choosematch.jsp");
+					}
 				} else {
 					response.setStatus(response.SC_MOVED_TEMPORARILY);
-					response.setHeader("Location", "choosematch.jsp");
+					response.setHeader("Location", "pre-match.jsp");
 				}
 			} else {
 				response.setStatus(response.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", "pre-match.jsp");
+				response.setHeader("Location", "autonomous.jsp");
 			}
-		}else{
+		} else {
 			response.setStatus(response.SC_MOVED_TEMPORARILY);
-			response.setHeader("Location", "autonomous.jsp");
+			response.setHeader("Location", "teleop.jsp");
 		}
-	}else{
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", "teleop.jsp");
-	}	
-}
+	}
+%>
+<%
+	pageContext.setAttribute(allianceKey, alliance);
+	String oppositeAlliance = "Red";
+	if (alliance != null) {
+		if (alliance.equals("Red")) {
+			oppositeAlliance = "Blue";
+		}
+	}
 %>
 
 <%-- Check if the form has been submitted already. --%>
@@ -44,56 +54,91 @@ if(teleOp == null){
 %>
 <c:if test="${isFormSubmitted == true }">
 	<%-- Universal data --%>
-	<%	
+	<%
 		int foulPts = 0;
-		if(request.getParameter("foulPts").equals("")){
-			foulPts = 0;
-		}else{
-			foulPts = Integer.parseInt(request.getParameter("foulPts"));
-		}
-		//String totalPts = request.getParameter("totalPts");
-		
-		pageContext.setAttribute("foulPts", foulPts);
-		//pageContext.setAttribute("totalPts", totalPts);
+			if (request.getParameter("foulPts").equals("")) {
+				foulPts = 0;
+			} else {
+				foulPts = Integer.parseInt(request.getParameter("foulPts"));
+			}
+			String breach = request.getParameter("BreachInput");
+			String capture = request.getParameter("CaptureInput");
+
+			pageContext.setAttribute("foulPts", foulPts);
+			pageContext.setAttribute("breach", breach);
+			pageContext.setAttribute("capture", capture);
+			
+			
 	%>
+	<c:if test="${allianceColor == 'Blue' }">
+		<sql:update dataSource="${database }">
+		UPDATE matches
+			SET
+				blue_breach = ?
+				, blue_capture = ?
+			WHERE 
+				tournament_id = ?
+				AND match_number = ?
+			<sql:param value="${breach }" />
+			<sql:param value="${capture }" />
+			<sql:param value="${tournament.rows[0].id}" />
+			<sql:param value="${sessionScope.matchNumber }" />
+		</sql:update>
+	</c:if>
+	<c:if test="${allianceColor == 'Red' }">
+		<sql:update dataSource="${database }">
+		UPDATE matches
+			SET
+				red_breach = ?
+				, red_capture = ?
+			WHERE 
+				tournament_id = ?
+				AND match_number = ?
+			<sql:param value="${breach }" />
+			<sql:param value="${capture }" />
+			<sql:param value="${tournament.rows[0].id}" />
+			<sql:param value="${sessionScope.matchNumber }" />
+		</sql:update>
+	</c:if>
+	
 	<%-- Team 1 data --%>
 	<%
 		String challenge1 = request.getParameter("chkTeam1Challenge");
-		String scale1 = request.getParameter("chkTeam1Scale");
-		
-		if (scale1 != null) {
-			pageContext.setAttribute("end_position1", "S");
-		} else if (challenge1 != null) {
-			pageContext.setAttribute("end_position1", "C");
-		}else{
-			pageContext.setAttribute("end_position1", "N");
-		}
+			String scale1 = request.getParameter("chkTeam1Scale");
+
+			if (scale1 != null) {
+				pageContext.setAttribute("end_position1", "S");
+			} else if (challenge1 != null) {
+				pageContext.setAttribute("end_position1", "C");
+			} else {
+				pageContext.setAttribute("end_position1", "N");
+			}
 	%>
 	<%-- Team 2 data --%>
 	<%
 		String challenge2 = request.getParameter("chkTeam2Challenge");
-		String scale2 = request.getParameter("chkTeam2Scale");
-		
-		if (scale2 != null) {
-			pageContext.setAttribute("end_position2", "S");
-		} else if (challenge2 != null) {
-			pageContext.setAttribute("end_position2", "C");
-		}else{
-			pageContext.setAttribute("end_position2", "N");
-		}
+			String scale2 = request.getParameter("chkTeam2Scale");
+
+			if (scale2 != null) {
+				pageContext.setAttribute("end_position2", "S");
+			} else if (challenge2 != null) {
+				pageContext.setAttribute("end_position2", "C");
+			} else {
+				pageContext.setAttribute("end_position2", "N");
+			}
 	%>
 	<%-- Team 3 data --%>
 	<%
 		String challenge3 = request.getParameter("chkTeam3Challenge");
-		String scale3 = request.getParameter("chkTeam3Scale");
-		
-		if (scale3 != null) {
-			pageContext.setAttribute("end_position3", "S");
-		} else if (challenge3 != null) {
-			pageContext.setAttribute("end_position3", "C");
-		}else{
-			pageContext.setAttribute("end_position3", "N");
-		}
+			String scale3 = request.getParameter("chkTeam3Scale");
+
+			if (scale3 != null) {
+				pageContext.setAttribute("end_position3", "S");
+			} else if (challenge3 != null) {
+				pageContext.setAttribute("end_position3", "C");
+			} else {
+				pageContext.setAttribute("end_position3", "N");
+			}
 	%>
 
 	<sql:update dataSource="${database}">
@@ -127,8 +172,8 @@ if(teleOp == null){
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team2 }" />
 	</sql:update>
-	
-		<sql:update dataSource="${database}">
+
+	<sql:update dataSource="${database}">
 		UPDATE match_teams
 			SET end_position = ?
 				, completed = 'Y'
@@ -143,7 +188,7 @@ if(teleOp == null){
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team3 }" />
 	</sql:update>
-	<% 
+	<%
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "choosematch.jsp");
 	%>
@@ -157,8 +202,8 @@ if(teleOp == null){
 <script src="js/jquery-1.12.0.min.js"></script>
 <script>
 	
-<%out.print("var alliance = '" + alliance + "'; alliance = alliance.toLowerCase();" + "var breach = false; "
-					+ "var capture = false; ");%>
+<%out.print("var alliance = '" + oppositeAlliance + "'; alliance = alliance.toLowerCase();"
+					+ "var breach = false; " + "var capture = false; ");%>
 	
 </script>
 <script src="js/post-match.js"></script>
@@ -229,7 +274,8 @@ if(teleOp == null){
 							width="150" height="150" /></td>
 					</tr>
 				</table>
-
+				<input type="hidden" name="BreachInput" id="BreachInput" value="N" />
+				<input type="hidden" name="CaptureInput" id="CaptureInput" value="N" />
 				<div id="FoulPts">
 					<%
 						if (alliance != null) {
@@ -240,8 +286,8 @@ if(teleOp == null){
 							}
 						}
 					%>
-					Penalty: <input name="foulPts" type="number" min="0" max="9999" width="90px"
-						style="width: 90px;" />
+					Penalty: <input name="foulPts" type="number" min="0" max="9999"
+						width="90px" style="width: 90px;" />
 				</div>
 				<%-->
 				<div id="TotalPts">

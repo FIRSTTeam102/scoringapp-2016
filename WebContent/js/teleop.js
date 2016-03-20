@@ -350,35 +350,35 @@ var robot = function(teamNumber, position){
 				{
 					selectedDefense = defensePositions[0];
 					defensePath = defense1Path;
-					if (selectedDefense.name == "Portcullis")
+					if (selectedDefense.image == document.getElementById("portcullis"))
 					{
 						operationAttempted = "POR";
 					}
-					else if (selectedDefense.name = "Cheval De Frise")
+					else if (selectedDefense.image == document.getElementById("chevalDeFrise"))
 					{
 						operationAttempted = "CDF";
 					}
-					else if (selectedDefense.name == "Moat")
+					else if (selectedDefense.image == document.getElementById("moat"))
 					{
 						operationAttempted = "MOT";
 					}
-					else if (selectedDefense.name == "Ramparts")
+					else if (selectedDefense.image == document.getElementById("ramparts"))
 					{
 						operationAttempted = "RMP";
 					}
-					else if (selectedDefense.name == "Drawbridge")
+					else if (selectedDefense.image == document.getElementById("drawbridge"))
 					{
 						operationAttempted = "DBW";
 					}
-					else if (selectedDefense.name == "Sally Port")
+					else if (selectedDefense.image == document.getElementById("sallyPort"))
 					{
 						operationAttempted = "SLP";
 					}
-					else if (selectedDefense.name == "Rock Wall")
+					else if (selectedDefense.image == document.getElementById("rockWall"))
 					{
 						operationAttempted = "RCK";
 					}
-					else if (selectedDefense.name == "Rough Terrain")
+					else if (selectedDefense.image == document.getElementById("roughTerrain"))
 					{
 						operationAttempted = "RGT";
 					}
@@ -389,35 +389,35 @@ var robot = function(teamNumber, position){
 					selectedDefense = defensePositions[1];
 					defensePath = defense2Path;
 
-					if (selectedDefense.name == "Portcullis")
+					if (selectedDefense.image == document.getElementById("portcullis"))
 					{
 						operationAttempted = "POR";
 					}
-					else if (selectedDefense.name = "Cheval De Frise")
+					else if (selectedDefense.image == document.getElementById("chevalDeFrise"))
 					{
 						operationAttempted = "CDF";
 					}
-					else if (selectedDefense.name == "Moat")
+					else if (selectedDefense.image == document.getElementById("moat"))
 					{
 						operationAttempted = "MOT";
 					}
-					else if (selectedDefense.name == "Ramparts")
+					else if (selectedDefense.image == document.getElementById("ramparts"))
 					{
 						operationAttempted = "RMP";
 					}
-					else if (selectedDefense.name == "Drawbridge")
+					else if (selectedDefense.image == document.getElementById("drawbridge"))
 					{
 						operationAttempted = "DBW";
 					}
-					else if (selectedDefense.name == "Sally Port")
+					else if (selectedDefense.image == document.getElementById("sallyPort"))
 					{
 						operationAttempted = "SLP";
 					}
-					else if (selectedDefense.name == "Rock Wall")
+					else if (selectedDefense.image == document.getElementById("rockWall"))
 					{
 						operationAttempted = "RCK";
 					}
-					else if (selectedDefense.name == "Rough Terrain")
+					else if (selectedDefense.image == document.getElementById("roughTerrain"))
 					{
 						operationAttempted = "RGT";
 					}
@@ -429,35 +429,35 @@ var robot = function(teamNumber, position){
 					selectedDefense = defensePositions[2];
 					defensePath = defense3Path;
 					
-					if (selectedDefense.name == "Portcullis")
+					if (selectedDefense.image == document.getElementById("portcullis"))
 					{
 						operationAttempted = "POR";
 					}
-					else if (selectedDefense.name = "Cheval De Frise")
+					else if (selectedDefense.image == document.getElementById("chevalDeFrise"))
 					{
 						operationAttempted = "CDF";
 					}
-					else if (selectedDefense.name == "Moat")
+					else if (selectedDefense.image == document.getElementById("moat"))
 					{
 						operationAttempted = "MOT";
 					}
-					else if (selectedDefense.name == "Ramparts")
+					else if (selectedDefense.image == document.getElementById("ramparts"))
 					{
 						operationAttempted = "RMP";
 					}
-					else if (selectedDefense.name == "Drawbridge")
+					else if (selectedDefense.image == document.getElementById("drawbridge"))
 					{
 						operationAttempted = "DBW";
 					}
-					else if (selectedDefense.name == "Sally Port")
+					else if (selectedDefense.image == document.getElementById("sallyPort"))
 					{
 						operationAttempted = "SLP";
 					}
-					else if (selectedDefense.name == "Rock Wall")
+					else if (selectedDefense.image == document.getElementById("rockWall"))
 					{
 						operationAttempted = "RCK";
 					}
-					else if (selectedDefense.name == "Rough Terrain")
+					else if (selectedDefense.image == document.getElementById("roughTerrain"))
 					{
 						operationAttempted = "RGT";
 					}
@@ -468,35 +468,35 @@ var robot = function(teamNumber, position){
 					selectedDefense = defensePositions[3];
 					defensePath = defense4Path;
 					
-					if (selectedDefense.name == "Portcullis")
+					if (selectedDefense.image == document.getElementById("portcullis"))
 					{
 						operationAttempted = "POR";
 					}
-					else if (selectedDefense.name = "Cheval De Frise")
+					else if (selectedDefense.image == document.getElementById("chevalDeFrise"))
 					{
 						operationAttempted = "CDF";
 					}
-					else if (selectedDefense.name == "Moat")
+					else if (selectedDefense.image == document.getElementById("moat"))
 					{
 						operationAttempted = "MOT";
 					}
-					else if (selectedDefense.name == "Ramparts")
+					else if (selectedDefense.image == document.getElementById("ramparts"))
 					{
 						operationAttempted = "RMP";
 					}
-					else if (selectedDefense.name == "Drawbridge")
+					else if (selectedDefense.image == document.getElementById("drawbridge"))
 					{
 						operationAttempted = "DBW";
 					}
-					else if (selectedDefense.name == "Sally Port")
+					else if (selectedDefense.image == document.getElementById("sallyPort"))
 					{
 						operationAttempted = "SLP";
 					}
-					else if (selectedDefense.name == "Rock Wall")
+					else if (selectedDefense.image == document.getElementById("rockWall"))
 					{
 						operationAttempted = "RCK";
 					}
-					else if (selectedDefense.name == "Rough Terrain")
+					else if (selectedDefense.image == document.getElementById("roughTerrain"))
 					{
 						operationAttempted = "RGT";
 					}

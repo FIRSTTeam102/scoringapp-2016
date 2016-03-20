@@ -5,11 +5,13 @@ $(window).load(function(){
 	$("#Breach").click(function(){
 		$("#Breach").html("<img src='Images/icons/br-" + alliance + "-" + (breach ? "n" : "y") + ".png' width='150' height='150'/>");
 		breach = breach ? false : true;
+		$("#BreachInput").attr("value", breach ? "Y" : "N");
 	});
 	$("#Capture").click(function(){
 		$("#Capture").html("<img src='Images/icons/capt-" + alliance + "-" + (capture ? "n" : "y") + ".png' width='150' height='150'/>");
 		//console.log("<img src='Images/icons/capt-" + alliance + "-" + (capture ? "n" : "y") + ".png' width='150' height='150'/>")
 		capture = capture ? false : true;
+		$("#CaptureInput").attr("value", capture ? "Y" : "N");
 	});
 	
 	

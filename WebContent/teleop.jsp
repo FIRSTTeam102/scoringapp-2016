@@ -67,7 +67,7 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 
 	script += "robotAsSpyBot = '" + data.get("robotAsSpyBot") + "';\nhasSpyHuman = '" + data.get("hasSpyHuman") + "';\n";
 	script += "Team1NoShow = '" + data.get("Team1NoShow") + "';\nTeam2NoShow = '" + data.get("Team2NoShow") + "';\nTeam3NoShow = '" + data.get("Team3NoShow") + "';\n";
-	script += "alliance = '" + "Blue" + "';\nside = '" + "Near" +"';\nteam1 = '" + "102" + "';\nteam2 = '" + "105" + "';\nteam3 = '" + "108" + "';\n"; 
+	script += "alliance = '" + alliance + "';\nside = '" + side +"';\nteam1 = '" + "102" + "';\nteam2 = '" + "105" + "';\nteam3 = '" + "108" + "';\n"; 
 
 	script += "<" + "/" + "script>";
 
