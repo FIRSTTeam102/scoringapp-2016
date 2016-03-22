@@ -23,7 +23,7 @@ var robot = function(teamNumber, position){
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
 		
-		if (robot0teamNumber)
+		if (robot0teamNumber != null)
 		{
 			var positionToPlaceRobot = {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height};
 			var newRobot = new robot(robot0teamNumber, positionToPlaceRobot);
@@ -682,4 +682,22 @@ var robot = function(teamNumber, position){
 		ctx.fillStyle = "white";
 		ctx.fillText("Failed", 143.75, 677);
 		ctx.fillText("Succeeded", 431.25, 677);
+		
+		if (robotAsSpyBot != "0")
+		{
+			if (side != "Near")
+			{
+				ctx.font = "24px serif";
+				ctx.textAlign = "center";
+				ctx.fillStyle = "white";
+				ctx.fillText("Team " + robotAsSpyBot, 341 + 134 / 2, 127 + 102 / 2 + 7, 134);
+			}
+			else
+			{
+				ctx.font = "24px serif";
+				ctx.textAlign = "center";
+				ctx.fillStyle = "white";
+				ctx.fillText("Team " + robotAsSpyBot, 99 + 134 / 2, 472 + 102 / 2 + 7, 134);
+			}
+		}
 	}

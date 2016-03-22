@@ -50,11 +50,13 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 		<sql:param value='<%=request.getParameterValues("operationAttempted")[0]%>' />
 		<sql:param value='<%=request.getParameterValues("succeeded")[0]%>' />
 	</sql:update>
+	<% 
+		session.setAttribute("arenaData", null);
+	%>
 </c:if>
 
 <%
 	HashMap<String, String> data = (HashMap<String, String>)session.getAttribute("arenaData");
-	String allianceColor = (String)session.getAttribute(allianceKey);
 
 	String script = "<script type='text/javascript'>\nrobot0teamNumber = '" + data.get("robot0teamNumber") + "';\nrobot0xPosition = " + data.get("robot0xPosition") + ";\nrobot0yPosition = " + data.get("robot0yPosition") + ";\nrobot0width = " + data.get("robot0width") + ";\nrobot0height = " + data.get("robot0height") + ";\n";
 	script += "robot1teamNumber = '" + data.get("robot1teamNumber") + "';\nrobot1xPosition = " + data.get("robot1xPosition") + ";\nrobot1yPosition = " + data.get("robot1yPosition") + ";\nrobot1width = " + data.get("robot1width") + ";\nrobot1height = " + data.get("robot1height") + ";\n";
