@@ -26,10 +26,15 @@ body div {
 #Match .match_number
 {
 	float: none; 
-	width:25em;
+	/*width:25em;*/
 	text-align:left;
 	padding: 3px 2px; 
 	margin-left: 5px;
+}
+
+.ignore{
+	float: right;
+	margin-right: 50px;
 }
 
 #Match .team_holder {

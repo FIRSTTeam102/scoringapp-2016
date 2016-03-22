@@ -9,7 +9,7 @@
 	//	String str = strings.nextElement();
 	//	out.println(str);
 	//}
-	if(alliance == null){
+	if (alliance == null) {
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "scoringapp.jsp");
 	}
@@ -35,10 +35,9 @@
 		session.setAttribute("team3", team3);
 
 		session.setAttribute(matchKey, matchNum);
-		
 %>
 
-<% 
+<%
 	pageContext.setAttribute(initialsKey, initials);
 %>
 
@@ -50,7 +49,31 @@
 				tournament_id = ?
 				AND match_number = ?
 				AND team_number = ?
-		<sql:param value="${initials }"/>
+		<sql:param value="${initials }" />
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team1 }" />
+	</sql:update>
+	<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET initials = ?
+				WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${initials }" />
+		<sql:param value="${tournament.rows[0].id}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+		<sql:param value="${sessionScope.team2 }" />
+	</sql:update>
+	<sql:update dataSource="${database}">
+		UPDATE match_teams
+			SET initials = ?
+				WHERE
+				tournament_id = ?
+				AND match_number = ?
+				AND team_number = ?
+		<sql:param value="${initials }" />
 		<sql:param value="${tournament.rows[0].id}" />
 		<sql:param value="${sessionScope.matchNumber }" />
 		<sql:param value="${sessionScope.team3 }" />
@@ -58,7 +81,7 @@
 </c:if>
 
 <%
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
+	response.setStatus(response.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "pre-match.jsp");
 	}
 %>
@@ -120,6 +143,7 @@
 								<%="#"%><c:out value="${row.match_number}" />
 								@
 								<c:out value="${row.start_time}" />
+								<input type="checkbox" name="chkIgnore<c:out value="Ignore Match"/>" class="ignore">Ignore Match</div>
 							</div> <input type="hidden" value="<c:out value="${row.team1}"/>"
 							name="team1"></input> <input type="hidden"
 							value="<c:out value="${row.team2}"/>" name="team2"></input> <input

@@ -108,7 +108,6 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 	<img src="Images/TOredarena-flipped.png" id="redArenaFlippedBG" style="visibility: hidden" width="1" height="1">
 	<img src="Images/woodBG-defense.jpg" id="defenseBG" style="visibility: hidden" width="1" height="1">
 	<form id="cycleForm" name="cycleSubmit" action="teleop.jsp" method="POST">
-		
 	</form>
 </body>
 </html>

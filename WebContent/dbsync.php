@@ -1,25 +1,25 @@
 <?php
+//set_include_path(get_include_path() . PATH_SEPARATOR . "../" . PATH_SEPARATOR . "../../" . PATH_SEPARATOR . "../../../");
 
-// Page that can sync remote database and local database.
-// NOTE: this needs to run on the local web server.
-
-	set_include_path(get_include_path() . PATH_SEPARATOR . "../" . PATH_SEPARATOR . "../../" . PATH_SEPARATOR . "../../../");
-
-	session_start();
+set_time_limit(300);
+	
+	$tournament = 'SEN';
+//	session_start();
 	
 	// Connect to the remote database.
 	$remotePwd = file_get_contents('garbage');
 //	$remotePwd = $_SESSION['password'];
 //	echo "Remote Password: " . $remotePwd."<br>";
-	$remoteLink = new mysqli('team102.org', 'team102_webuser', $remotePwd, 'team102_2016');	// :3306
+	//$remoteLink = new mysqli('208.100.19.247', 'team102_webuser', $remotePwd, 'team102_2016');	// :3306
+//	$remoteLink = new mysqli('208.100.19.247', 'team102_mike', $remotePwd, 'team102_2016');	// :3306
 	if ($remoteLink->connect_errno) 
 	{
 		echo sprintf('Could not connect to remote database, Err: %s', $remoteLink->connect_error);
 		exit;
 	}
 	$localPwd = file_get_contents('trash');
-//	$localPwd = $_SESSION['password'];
-//	echo "Local Password: " . $localPwd."<br>";
+	//$localPwd = $_SESSION['password'];
+	echo "Local Password: " . $localPwd."<br>";
 	// Connect to local database
 //	$localLink = new mysqli('team102.org', 'team102_webuser', $localPwd, 'team102_2016_Local');
 	$localLink = new mysqli('gearheads-5', 'scoring102', $localPwd, 'scoring2016');
@@ -32,7 +32,7 @@
 	/* Use internal libxml errors -- turn on in production, off for debugging */
 	libxml_use_internal_errors(true);
 	
-	// MOVE NEW TOURNAMENTS TO LOCAL
+/*	// MOVE NEW TOURNAMENTS TO LOCAL
 	$selectReturn = $remoteLink->query("select * from tournaments");
 	if(!$selectReturn)
 		die(sprintf("Error selecting tournaments, Err: %s", $remoteLink->error));
@@ -109,8 +109,9 @@
 			echo "inserted tournament_team: " . $row["tournament_id"] . '-' . $row["team_number"] . "<br>";
 		}
 	}
+*/
 	// MOVE NEW MATCHES TO LOCAL
-	$selectReturn = $remoteLink->query("select * from matches");
+	$selectReturn = $remoteLink->query(sprintf("select * from matches where tournament_id = '%s'", $tournament));
 	if(!$selectReturn)
 		die(sprintf("Error selecting matches, Err: %s", $remoteLink->error));
 	
@@ -124,8 +125,8 @@
 						 , $remoteLink->real_escape_string($row["tournament_id"])
 						 , $row["match_number"]
 						 , $remoteLink->real_escape_string($row["start_time"])
-						 , $row["red_score"]
-						 , $row["blue_score"]
+						 , ($row["red_score"] == "") ? 0 : $row["red_score"]
+						 , ($row["blue_score"] == "") ? 0 : $row["blue_score"]
 						 , $remoteLink->real_escape_string($row["ignore_match"])
 						 , $remoteLink->real_escape_string($row["red_breach"])
 						 , $remoteLink->real_escape_string($row["blue_breach"])
@@ -133,8 +134,8 @@
 						 , $remoteLink->real_escape_string($row["blue_capture"])
 						 , $remoteLink->real_escape_string($row["red_spy_human"])
 						 , $remoteLink->real_escape_string($row["blue_spy_human"])
-						 , $row["red_score"]
-						 , $row["blue_score"]
+						 , ($row["red_score"] == "") ? 0 : $row["red_score"]
+						 , ($row["blue_score"] == "") ? 0 : $row["blue_score"]
 						);
 //		echo $sql;
 //		echo "<br>";				
@@ -147,7 +148,7 @@
 		}
 	}
 	// UPDATE EXISTING MATCHES FROM LOCAL TO REMOTE
-	$selectReturn = $localLink->query("select * from matches");
+	$selectReturn = $localLink->query(sprintf("select * from matches where tournament_id = '%s'", $tournament));
 	if(!$selectReturn)
 		die(sprintf("Error selecting local matches, Err: %s", $localLink->error));
 	
@@ -185,7 +186,7 @@
 	}
 
 	// MOVE NEW MATCHES-TEAMS TO LOCAL
-	$selectReturn = $remoteLink->query("select * from match_teams");
+/*	$selectReturn = $remoteLink->query("select * from match_teams");
 	if(!$selectReturn)
 		die(sprintf("Error selecting match_teams, Err: %s", $remoteLink->error));
 	
@@ -225,8 +226,9 @@
 			echo "inserted match_team: " . $row["tournament_id"] . '-' . $row["match_number"] . '-' . $row["team_number"] . "<br>";
 		}
 	}
+	*/
 	// UPDATE EXISTING MATCH-TEAMS FROM LOCAL TO REMOTE
-	$selectReturn = $localLink->query("select * from match_teams");
+	$selectReturn = $localLink->query(sprintf("select * from match_teams where tournament_id = '%s'", $tournament));
 	if(!$selectReturn)
 		die(sprintf("Error selecting local match_teams, Err: %s", $LocalLink->error));
 	
@@ -271,7 +273,7 @@
 
 	// BIG NOTE: MATCH-TEAM-CYCLES are only ever created locally and copied to the remote.
 	// MOVE NEW MATCHES-TEAM-CYCLES TO REMOTE
-	$selectReturn = $localLink->query("select * from match_team_cycles");
+	$selectReturn = $localLink->query(sprintf("select * from match_team_cycles where tournament_id = '%s'", $tournament));
 	if(!$selectReturn)
 		die(sprintf("Error selecting match_team_cycles, Err: %s", $localLink->error));
 	
@@ -302,4 +304,5 @@
 	// NO NEED TO UPDATE MATCH-TEAM-CYCLES
 
 	echo "done.";
+
 ?>
