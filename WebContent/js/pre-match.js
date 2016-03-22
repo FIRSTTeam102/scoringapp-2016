@@ -32,6 +32,229 @@ var robot = function(teamNumber, position){
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
 		
+		if (defense0name != "")
+		{
+			if (robot0teamNumber != null)
+			{
+				var positionToPlaceRobot = {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height};
+				var newRobot = new robot(robot0teamNumber, positionToPlaceRobot);
+				robotPositions.push(newRobot);
+			}
+
+			if (robot1teamNumber != null)
+			{
+				robotPositions.push(new robot(robot1teamNumber, {x:robot1xPosition, y:robot1yPosition, width:robot1width, height:robot1height}));
+			}
+			
+			if (robot2teamNumber != null)
+			{
+				robotPositions.push(new robot(robot2teamNumber, {x:robot2xPosition, y:robot2yPosition, width:robot2width, height:robot2height}));
+			}
+			
+			for (var i = 0; i < 4; i++)
+			{
+				var image;
+				var category;
+				
+				if (i == 0)
+				{
+					if (defense0name == "Portcullis")
+					{
+						image = document.getElementById("portcullis");
+						category = 1;
+					}
+					else if (defense0name == "Cheval De Frise")
+					{
+						image = document.getElementById("chevalDeFrise");
+						category = 1;
+					}
+					else if (defense0name == "Moat")
+					{
+						image = document.getElementById("moat");
+						category = 2;
+					}
+					else if (defense0name == "Ramparts")
+					{
+						image = document.getElementById("ramparts");
+						category = 2;
+					}
+					else if (defense0name == "Drawbridge")
+					{
+						image = document.getElementById("drawbridge");
+						category = 3;
+					}
+					else if (defense0name == "Sally Port")
+					{
+						image = document.getElementById("sallyPort");
+						category = 3;
+					}
+					else if (defense0name == "Rock Wall")
+					{
+						image = document.getElementById("rockWall");
+						category = 4;
+					}
+					else if (defense0name == "Rough Terrain")
+					{
+						image = document.getElementById("roughTerrain");
+						category = 4;
+					}
+					
+					if (image != null)
+					{
+						defensePositions.push(new defense(image, {x:defense0xPosition, y:defense0yPosition, width:defense0width, height:defense0height}, category, defense0name));
+					}
+				}
+				else if (i == 1)
+				{
+					if (defense1name == "Portcullis")
+					{
+						image = document.getElementById("portcullis");
+						category = 1;
+					}
+					else if (defense1name == "Cheval De Frise")
+					{
+						image = document.getElementById("chevalDeFrise");
+						category = 1;
+					}
+					else if (defense1name == "Moat")
+					{
+						image = document.getElementById("moat");
+						category = 2;
+					}
+					else if (defense1name == "Ramparts")
+					{
+						image = document.getElementById("ramparts");
+						category = 2;
+					}
+					else if (defense1name == "Drawbridge")
+					{
+						image = document.getElementById("drawbridge");
+						category = 3;
+					}
+					else if (defense1name == "Sally Port")
+					{
+						image = document.getElementById("sallyPort");
+						category = 3;
+					}
+					else if (defense1name == "Rock Wall")
+					{
+						image = document.getElementById("rockWall");
+						category = 4;
+					}
+					else if (defense1name == "Rough Terrain")
+					{
+						image = document.getElementById("roughTerrain");
+						category = 4;
+					}
+					
+					if (image != null)
+					{
+						defensePositions.push(new defense(image, {x:defense1xPosition, y:defense1yPosition, width:defense1width, height:defense1height}, category, defense1name));
+					}
+				}
+				else if (i == 2)
+				{
+					if (defense2name == "Portcullis")
+					{
+						image = document.getElementById("portcullis");
+						category = 1;
+					}
+					else if (defense2name == "Cheval De Frise")
+					{
+						image = document.getElementById("chevalDeFrise");
+						category = 1;
+					}
+					else if (defense2name == "Moat")
+					{
+						image = document.getElementById("moat");
+						category = 2;
+					}
+					else if (defense2name == "Ramparts")
+					{
+						image = document.getElementById("ramparts");
+						category = 2;
+					}
+					else if (defense2name == "Drawbridge")
+					{
+						image = document.getElementById("drawbridge");
+						category = 3;
+					}
+					else if (defense2name == "Sally Port")
+					{
+						image = document.getElementById("sallyPort");
+						category = 3;
+					}
+					else if (defense2name == "Rock Wall")
+					{
+						image = document.getElementById("rockWall");
+						category = 4;
+					}
+					else if (defense2name == "Rough Terrain")
+					{
+						image = document.getElementById("roughTerrain");
+						category = 4;
+					}
+					
+					if (image != null)
+					{
+						defensePositions.push(new defense(image, {x:defense2xPosition, y:defense2yPosition, width:defense2width, height:defense2height}, category, defense2name));
+					}
+				}
+				else
+				{
+					if (defense3name == "Portcullis")
+					{
+						image = document.getElementById("portcullis");
+						category = 1;
+					}
+					else if (defense3name == "Cheval De Frise")
+					{
+						image = document.getElementById("chevalDeFrise");
+						category = 1;
+					}
+					else if (defense3name == "Moat")
+					{
+						image = document.getElementById("moat");
+						category = 2;
+					}
+					else if (defense3name == "Ramparts")
+					{
+						image = document.getElementById("ramparts");
+						category = 2;
+					}
+					else if (defense3name == "Drawbridge")
+					{
+						image = document.getElementById("drawbridge");
+						category = 3;
+					}
+					else if (defense3name == "Sally Port")
+					{
+						image = document.getElementById("sallyPort");
+						category = 3;
+					}
+					else if (defense3name == "Rock Wall")
+					{
+						image = document.getElementById("rockWall");
+						category = 4;
+					}
+					else if (defense3name == "Rough Terrain")
+					{
+						image = document.getElementById("roughTerrain");
+						category = 4;
+					}
+					
+					if (image != null)
+					{
+						defensePositions.push(new defense(image, {x:defense3xPosition, y:defense3yPosition, width:defense3width, height:defense3height}, category, defense3name));
+					}
+				}
+				
+				if (robotAsSpyBot != "0")
+				{
+					teamAsSpyBot = robotAsSpyBot;
+				}
+			}
+		
 		if (side != "Near")
 		{
 			if (alliance != "Red")
@@ -44,6 +267,30 @@ var robot = function(teamNumber, position){
 			}
 			
 			ctx.drawImage(arena, 0, 0);
+				
+				if (side != "Near")
+				{
+					if (alliance != "Red")
+					{
+						defensePositions.push(new defense(document.getElementById("lowBar"), {x:137, y:91, width:74, height:79}, 0, "Low Bar"));
+					}
+					else
+					{
+						defensePositions.push(new defense(document.getElementById("lowBar"), {x:137, y:91, width:73, height:77}, 0, "Low Bar"));
+					}
+				}
+				else
+				{
+					if (alliance != "Red")
+					{
+						defensePositions.push(new defense(document.getElementById("lowBar"), {x:364, y:533, width:73, height:77}, 0, "Low Bar"));
+					}
+					else
+					{
+						defensePositions.push(new defense(document.getElementById("lowBar"), {x:363, y:531, width:74, height:79}, 0, "Low Bar"));
+					}
+				}
+			}
 			
 			selectMode = 0;
 

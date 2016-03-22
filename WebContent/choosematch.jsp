@@ -35,6 +35,7 @@
 		session.setAttribute("team3", team3);
 
 		session.setAttribute(matchKey, matchNum);
+		session.setAttribute("arenaData", null);
 		
 %>
 
