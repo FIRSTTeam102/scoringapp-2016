@@ -3,6 +3,7 @@
 <%@ page import="java.io.*,java.util.*"%>
 <%@ include file="STUDENTRUN.jsp"%>
 
+
 <% 
 Enumeration<String> formInputs = request.getParameterNames(); 
 
@@ -11,16 +12,37 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 	
 	if(str.equals("hasSpyHuman")){
 		pageContext.setAttribute("isFormSubmitted",true);
+		
+		pageContext.setAttribute("Team1", team1);
+		pageContext.setAttribute("Team2", team2);
+		pageContext.setAttribute("Team3", team3);
 	}
 }
 %>
 
 <c:if test="${isFormSubmitted == true}">
 	<c:set var="hasSpyHuman" value='<%=request.getParameterValues("hasSpyHuman")[0]%>' />
+	<c:set var="team1ShowUp" value='<%=request.getParameterValues("Team1NoShow")[0]%>' />
+	<c:set var="team2ShowUp" value='<%=request.getParameterValues("Team2NoShow")[0]%>' />
+	<c:set var="team3ShowUp" value='<%=request.getParameterValues("Team3NoShow")[0]%>' />
 	
 	<c:set var="alliance" value="<%=alliance%>" />
 	<c:if test="${hasSpyHuman == 'YES'}">
 	<c:if test="${alliance == 'Blue'}">
+	<sql:update dataSource="${database}">
+		UPDATE matches
+		SET red_spy_human = ?
+		WHERE tournament_id = ?
+		AND match_number = ?
+		<sql:param value="Y" />
+		<sql:param value="${tournament.rows[0].ID}" />
+		<sql:param value="${sessionScope.matchNumber }" />
+	</sql:update>
+	</c:if>
+	</c:if>
+	
+	<c:if test="${hasSpyHuman == 'YES'}">
+	<c:if test="${alliance == 'Red'}">
 	<sql:update dataSource="${database}">
 		UPDATE matches
 		SET blue_spy_human = ?
@@ -32,18 +54,85 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 	</sql:update>
 	</c:if>
 	</c:if>
-	<c:if test="${hasSpyHuman == 'YES'}">
-	<c:if test="${alliance == 'Red'}">
-	<sql:update dataSource="${database}">
-		UPDATE matches
-		SET red_spy_human = ?
-		WHERE tournament_id = ?
-		AND match_number = ?
-		<sql:param value="Y" />
-		<sql:param value="${tournament.rows[0].ID}" />
-		<sql:param value="${sessionScope.matchNumber }" />
-	</sql:update>
+	
+	<c:if test="${team1ShowUp == 'NO'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="Y" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team1}" />
+		</sql:update>
 	</c:if>
+	<c:if test="${team2ShowUp == 'NO'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="Y" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team2}" />
+		</sql:update>
+	</c:if>
+	<c:if test="${team3ShowUp == 'NO'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="Y" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team3}" />
+		</sql:update>
+	</c:if>
+	
+	<c:if test="${team1ShowUp == 'YES'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="N" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team1}" />
+		</sql:update>
+	</c:if>
+	<c:if test="${team2ShowUp == 'YES'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="N" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team2}" />
+		</sql:update>
+	</c:if>
+	<c:if test="${team3ShowUp == 'YES'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_show_up = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="N" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value="${Team3}" />
+		</sql:update>
 	</c:if>
 </c:if>
 
@@ -63,10 +152,14 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 		
 		script += "robotAsSpyBot = '" + data.get("robotAsSpyBot") + "';\nhasSpyHuman = '" + data.get("hasSpyHuman") + "';\n";
 		script += "Team1NoShow = '" + data.get("Team1NoShow") + "';\nTeam2NoShow = '" + data.get("Team2NoShow") + "';\nTeam3NoShow = '" + data.get("Team3NoShow") + "';\n";
-		script += "alliance = '" + alliance + "';\nside = '" + side +"';\nteam1 = '" + "102" + "';\nteam2 = '" + "105" + "';\nteam3 = '" + "108" + "';\n"; 
 		
 		script += "<" + "/" + "script>";
 		
+		out.println(script);
+	}
+	else
+	{
+		String script = "<script type='text/javascript'>\ndefense0name = '';\n</script>";
 		out.println(script);
 	}
 	
@@ -129,6 +222,8 @@ span.no_selection {
 <body onload="loadPage();">
 	<div class="main">
 		<%@include file="title-small.jsp"%>
+		<br>
+		<br>
 		<canvas id="arena" width="575" height="700"> </canvas>
 
 		<div id="nav">

@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@include file="STUDENTRUN.jsp"%>
 
+<% 
+	session.setAttribute("arenaData", null);
+%>
+
 <%
 	teleOp = true;
 	if (teleOp == null) {

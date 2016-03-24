@@ -25,6 +25,11 @@ if(auto == null){
 }
 %>
 
+<%
+	String javascriptScript = "<script id='allianceSet' type='text/javascript'>" + "team1 = " + team1 + ";" + "team2 = " + team2 + ";" + "team3 = " + team3 + ";" + "</script>";
+	out.println(javascriptScript);
+%>
+
 <% 
 Enumeration<String> formInputs = request.getParameterNames(); 
 
@@ -35,24 +40,37 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 	{
 		session.setAttribute("cycleNumber", (Integer)session.getAttribute("cycleNumber") + 1);
 		pageContext.setAttribute("cycleNumber", (Integer)session.getAttribute("cycleNumber"));
+		pageContext.setAttribute("operation", request.getParameterValues("operationAttempted")[0]);
 		pageContext.setAttribute("isFormSubmitted",true);
 	}
 }
 %>
 
 <c:if test="${isFormSubmitted == true}">
-	<sql:update dataSource="${database}">
-		INSERT INTO match_team_cycles VALUES (?, ?, ?, ?, ?, ?);
-		<sql:param value="${tournament.rows[0].ID}" />
-		<sql:param value="${sessionScope.matchNumber}" />
-		<sql:param value='<%=request.getParameterValues("teamNumber")[0]%>' />
-		<sql:param value='${cycleNumber}' />
-		<sql:param value='<%=request.getParameterValues("operationAttempted")[0]%>' />
-		<sql:param value='<%=request.getParameterValues("succeeded")[0]%>' />
-	</sql:update>
-	<% 
-		session.setAttribute("arenaData", null);
-	%>
+	<c:if test="${operation == 'BRK'}">
+		<sql:update dataSource="${database}">
+			UPDATE match_teams
+			SET did_break_down = ?
+			WHERE tournament_id = ?
+			AND match_number = ?
+			AND team_number = ?
+			<sql:param value="Y" />
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value='<%=request.getParameterValues("teamNumber")[0]%>' />
+		</sql:update>
+	</c:if>
+	<c:if test="${operation != 'BRK'}">
+		<sql:update dataSource="${database}">
+			INSERT INTO match_team_cycles VALUES (?, ?, ?, ?, ?, ?);
+			<sql:param value="${tournament.rows[0].ID}" />
+			<sql:param value="${sessionScope.matchNumber}" />
+			<sql:param value='<%=request.getParameterValues("teamNumber")[0]%>' />
+			<sql:param value='${cycleNumber}' />
+			<sql:param value='<%=request.getParameterValues("operationAttempted")[0]%>' />
+			<sql:param value='<%=request.getParameterValues("succeeded")[0]%>' />
+		</sql:update>
+	</c:if>
 </c:if>
 
 <%
@@ -88,7 +106,7 @@ for(int i = 0; formInputs.hasMoreElements(); i++){
 </head>
 <body onload="loadPage();">
 <div class="main">
-	<canvas id="arena" style="border: 1px solid black;" width="575" height="700">
+	<canvas id="arena" style="border: 1px solid black;" width="575" height="750">
 	</canvas>
 	<br>
 	<br>

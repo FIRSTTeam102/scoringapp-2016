@@ -23,21 +23,32 @@ var robot = function(teamNumber, position){
 		canvas = document.getElementById("arena");
 		ctx = canvas.getContext('2d');
 		
-		if (robot0teamNumber != null)
+		if (robot0teamNumber != 'null')
 		{
 			var positionToPlaceRobot = {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height};
 			var newRobot = new robot(robot0teamNumber, positionToPlaceRobot);
 			robotPositions.push(newRobot);
 		}
 
-		if (robot1teamNumber != null)
+		if (robot1teamNumber != 'null')
 		{
 			robotPositions.push(new robot(robot1teamNumber, {x:robot1xPosition, y:robot1yPosition, width:robot1width, height:robot1height}));
 		}
 		
-		if (robot2teamNumber != null)
+		if (robot2teamNumber != 'null')
 		{
 			robotPositions.push(new robot(robot2teamNumber, {x:robot2xPosition, y:robot2yPosition, width:robot2width, height:robot2height}));
+		}
+		if (robotAsSpyBot != '0')
+		{
+			if (side != 'Near')
+			{
+				robotPositions.push(new robot(robotAsSpyBot, {x:341, y:127, width:134, height:102}));
+			}
+			else
+			{
+				robotPositions.push(new robot(robotAsSpyBot, {x:99, y:472, width:134, height:102}));
+			}
 		}
 		
 		for (var i = 0; i < 4; i++)
@@ -259,6 +270,15 @@ var robot = function(teamNumber, position){
 		defensivePlay3Path = new Path2D();
 		defensivePlay3Path.rect(385, 10, 140, 45);
 		
+		team1BrokeDownPath = new Path2D();
+		team1BrokeDownPath.rect(50, 700, 140, 43);
+		
+		team2BrokeDownPath = new Path2D();
+		team2BrokeDownPath.rect(217.5, 700, 140, 43);
+		
+		team3BrokeDownPath = new Path2D();
+		team3BrokeDownPath.rect(385, 700, 140, 43);
+		
 		
 		for (var i = 0; i < defensePositions.length; i++)
 		{
@@ -289,14 +309,23 @@ var robot = function(teamNumber, position){
 		lowGoalPath = new Path2D();
 		
 		robot0Path = new Path2D();
-		robot0Path.rect(robotPositions[0].position.x, robotPositions[0].position.y, robotPositions[0].position.width, robotPositions[0].position.height);
-		
 		robot1Path = new Path2D();
-		robot1Path.rect(robotPositions[1].position.x, robotPositions[1].position.y, robotPositions[1].position.width, robotPositions[1].position.height);
-		
 		robot2Path = new Path2D();
-		robot2Path.rect(robotPositions[2].position.x, robotPositions[2].position.y, robotPositions[2].position.width, robotPositions[2].position.height);
 		
+		if (robot0teamNumber != 'null')
+		{
+			robot0Path.rect(robotPositions[0].position.x, robotPositions[0].position.y, robotPositions[0].position.width, robotPositions[0].position.height);
+		}
+		
+		if (robot1teamNumber != 'null')
+		{
+			robot1Path.rect(robotPositions[1].position.x, robotPositions[1].position.y, robotPositions[1].position.width, robotPositions[1].position.height);
+		}
+		
+		if (robot2teamNumber != 'null' || robotAsSpyBot != '0')
+		{
+			robot2Path.rect(robotPositions[2].position.x, robotPositions[2].position.y, robotPositions[2].position.width, robotPositions[2].position.height);
+		}
 		
 		failedPath = new Path2D();
 		failedPath.rect(105, 652, 78, 33);
@@ -560,29 +589,71 @@ var robot = function(teamNumber, position){
 				}
 				else if (context.isPointInPath(defensivePlay1Path, x, y))
 				{
-					var robotToParse = robotPositions[0];
-					var form = document.getElementById("cycleForm");
-					form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
-					form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
-					form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
-					form.submit();
+					if (robot0teamNumber != 'null')
+					{
+						var robotToParse = robotPositions[0];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
 				}
 				else if (context.isPointInPath(defensivePlay2Path, x, y))
 				{
-					var robotToParse = robotPositions[1];
-					var form = document.getElementById("cycleForm");
-					form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
-					form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
-					form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
-					form.submit();
+					if (robot1teamNumber != 'null')
+					{
+						var robotToParse = robotPositions[1];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
 				}
 				else if (context.isPointInPath(defensivePlay3Path, x, y))
 				{
-					if (selectedRobot != null)
+					if (robot2teamNumber != 'null' || robotAsSpyBot != '0')
 					{
 						var robotToParse = robotPositions[2];
 						var form = document.getElementById("cycleForm");
 						form.innerHTML += '<input type="hidden" name="operationAttempted" value="DEF"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
+				}
+				else if (context.isPointInPath(team1BrokeDownPath, x, y))
+				{
+					if (robot0teamNumber != 'null')
+					{
+						var robotToParse = robotPositions[0];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="BRK"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
+				}
+				else if (context.isPointInPath(team2BrokeDownPath, x, y))
+				{
+					if (robot1teamNumber != 'null')
+					{
+						var robotToParse = robotPositions[1];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="BRK"/>';
+						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
+						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
+						form.submit();
+					}
+				}
+				else if (context.isPointInPath(team3BrokeDownPath, x, y))
+				{
+					if (robot2teamNumber != 'null' || robotAsSpyBot != '0')
+					{
+						var robotToParse = robotPositions[2];
+						var form = document.getElementById("cycleForm");
+						form.innerHTML += '<input type="hidden" name="operationAttempted" value="BRK"/>';
 						form.innerHTML += '<input type="hidden" name="succeeded" value="' + 'Y' + '"/>';
 						form.innerHTML += '<input type="hidden" name="teamNumber" value="' + robotToParse.teamNumber + '"/>';
 						form.submit();
@@ -595,6 +666,7 @@ var robot = function(teamNumber, position){
 	function drawArenaWithChanges()
 	{
 		ctx.drawImage(arena, 0, 0);
+		ctx.lineWidth = 2;
 		
 		for (var i = 0; i < defensePositions.length; i++)
 		{
@@ -608,52 +680,91 @@ var robot = function(teamNumber, position){
 		for (var i = 0; i < robotPositions.length; i++)
 		{
 			var robotToDraw = robotPositions[i];
-			ctx.fillText("Team " + robotToDraw.teamNumber, robotToDraw.position.x + 77 / 2, robotToDraw.position.y + 58 / 2 + 3, robotToDraw.position.width);
+			if (i != 2 || robotAsSpyBot == '0')
+				ctx.fillText("Team " + robotToDraw.teamNumber, robotToDraw.position.x + 77 / 2, robotToDraw.position.y + 58 / 2 + 3, robotToDraw.position.width);
 		}
 		
-		ctx.fillStyle = "red";
-		ctx.strokeStyle = "yellow";
-		ctx.lineWidth = 1;
-		ctx.stroke(defensivePlay1Path);
-		ctx.fill(defensivePlay1Path);
-		ctx.fillStyle = "white";
-		ctx.fillText("Team " + robotPositions[0].teamNumber, 50 + 70, 10 + 45 / 3, 140);
-		ctx.fillText("Defensive Play", 50 + 70, 10 + 45 / 1.4, 140);
+		// Defensive Play Boxes
+		if (robot0teamNumber != 'null')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(defensivePlay1Path);
+			ctx.fill(defensivePlay1Path);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[0].teamNumber, 50 + 70, 10 + 45 / 3, 140);
+			ctx.fillText("Defensive Play", 50 + 70, 10 + 45 / 1.4, 140);
+		}
 		
-		ctx.fillStyle = "red";
-		ctx.strokeStyle = "yellow";
-		ctx.lineWidth = 1;
-		ctx.stroke(defensivePlay2Path);
-		ctx.fill(defensivePlay2Path);
-		ctx.fillStyle = "white";
-		ctx.fillText("Team " + robotPositions[1].teamNumber, 217.5 + 70, 10 + 45 / 3, 140);
-		ctx.fillText("Defensive Play", 217.5 + 70, 10 + 45 / 1.4, 140);
+		if (robot1teamNumber != 'null')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(defensivePlay2Path);
+			ctx.fill(defensivePlay2Path);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[1].teamNumber, 217.5 + 70, 10 + 45 / 3, 140);
+			ctx.fillText("Defensive Play", 217.5 + 70, 10 + 45 / 1.4, 140);
+		}
 		
-		ctx.fillStyle = "red";
-		ctx.strokeStyle = "yellow";
-		ctx.lineWidth = 1;
-		ctx.stroke(defensivePlay3Path);
-		ctx.fill(defensivePlay3Path);
-		ctx.fillStyle = "white";
-		ctx.fillText("Team " + robotPositions[2].teamNumber, 385 + 70, 10 + 45 / 3, 140);
-		ctx.fillText("Defensive Play", 385 + 70, 10 + 45 / 1.4, 140);
+		if (robot2teamNumber != 'null' || robotAsSpyBot != '0')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(defensivePlay3Path);
+			ctx.fill(defensivePlay3Path);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[2].teamNumber, 385 + 70, 10 + 45 / 3, 140);
+			ctx.fillText("Defensive Play", 385 + 70, 10 + 45 / 1.4, 140);
+		}
+		
+		// Broke Down Boxes
+		if (robot0teamNumber != 'null')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(team1BrokeDownPath);
+			ctx.fill(team1BrokeDownPath);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[0].teamNumber, 50 + 70, 700 + 45 / 3, 140);
+			ctx.fillText("Broke Down", 50 + 70, 700 + 45 / 1.4, 140);
+		}
+		
+		if (robot1teamNumber != 'null')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(team2BrokeDownPath);
+			ctx.fill(team2BrokeDownPath);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[1].teamNumber, 217.5 + 70, 700 + 45 / 3, 140);
+			ctx.fillText("Broke Down", 217.5 + 70, 700 + 45 / 1.4, 140);
+		}
+		
+		if (robot2teamNumber != 'null' || robotAsSpyBot != '0')
+		{
+			ctx.fillStyle = "red";
+			ctx.strokeStyle = "yellow";
+			ctx.stroke(team3BrokeDownPath);
+			ctx.fill(team3BrokeDownPath);
+			ctx.fillStyle = "white";
+			ctx.fillText("Team " + robotPositions[2].teamNumber, 385 + 70, 700 + 45 / 3, 140);
+			ctx.fillText("Broke Down", 385 + 70, 700 + 45 / 1.4, 140);
+		}
 		
 		if (selectedDefense != null)
 		{
-			ctx.strokeStyle = "red";
-			ctx.lineWidth = 2;
+			ctx.strokeStyle = "white";
 			ctx.stroke(defensePath);
 		}
 		else if (operationAttempted == "HGH")
 		{
-			ctx.strokeStyle = "red";
-			ctx.lineWidth = 2;
+			ctx.strokeStyle = "white";
 			ctx.stroke(highGoalPath);
 		}
 		else if (operationAttempted == "LOW")
 		{
-			ctx.strokeStyle = "red";
-			ctx.lineWidth = 2;
+			ctx.strokeStyle = "white";
 			ctx.stroke(lowGoalPath);
 		}
 		
@@ -665,9 +776,8 @@ var robot = function(teamNumber, position){
 				if (selectedRobot == robotToCheck.teamNumber)
 				{
 					var path = new Path2D();
-					path.rect(robotToCheck.position.x, robotToCheck.position.y, robotToCheck.position.width, robotToCheck.position.height);
-					ctx.strokeStyle = "red";
-					ctx.lineWidth = 2;
+					path.rect(robotToCheck.position.x - 5, robotToCheck.position.y, robotToCheck.position.width + 10, robotToCheck.position.height);
+					ctx.strokeStyle = "white";
 					ctx.stroke(path);
 				}
 			}

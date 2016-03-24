@@ -1,4 +1,3 @@
-
 var positionToPlaceDefense;
 var positionToPlaceRobot;
 var teamAsSpyBot = "";
@@ -34,27 +33,36 @@ var robot = function(teamNumber, position){
 		
 		if (defense0name != "")
 		{
-			if (robot0teamNumber != null)
+			if (Team1NoShow == "YES")
 			{
-				var positionToPlaceRobot = {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height};
-				var newRobot = new robot(robot0teamNumber, positionToPlaceRobot);
-				robotPositions.push(newRobot);
+				document.getElementById("team1Checkbox").checked = true;
 			}
-
-			if (robot1teamNumber != null)
+			if (Team2NoShow == "YES")
+			{
+				document.getElementById("team2Checkbox").checked = true;
+			}
+			if (Team3NoShow == "YES")
+			{
+				document.getElementById("team3Checkbox").checked = true;
+			}
+			
+			if (robot0teamNumber != 'null')
+			{
+				robotPositions.push(new robot(robot0teamNumber, {x:robot0xPosition, y:robot0yPosition, width:robot0width, height:robot0height}));
+			}
+			if (robot1teamNumber != 'null')
 			{
 				robotPositions.push(new robot(robot1teamNumber, {x:robot1xPosition, y:robot1yPosition, width:robot1width, height:robot1height}));
 			}
-			
-			if (robot2teamNumber != null)
+			if (robot2teamNumber != 'null')
 			{
 				robotPositions.push(new robot(robot2teamNumber, {x:robot2xPosition, y:robot2yPosition, width:robot2width, height:robot2height}));
 			}
 			
 			for (var i = 0; i < 4; i++)
 			{
-				var image;
-				var category;
+				var image = null;
+				var category = null;
 				
 				if (i == 0)
 				{
@@ -254,6 +262,7 @@ var robot = function(teamNumber, position){
 					teamAsSpyBot = robotAsSpyBot;
 				}
 			}
+		}
 		
 		if (side != "Near")
 		{
@@ -290,7 +299,6 @@ var robot = function(teamNumber, position){
 						defensePositions.push(new defense(document.getElementById("lowBar"), {x:363, y:531, width:74, height:79}, 0, "Low Bar"));
 					}
 				}
-			}
 			
 			selectMode = 0;
 
@@ -965,6 +973,7 @@ var robot = function(teamNumber, position){
 				}
 			}
 		}
+		drawArenaWithChanges();
 	}
 	
 	function drawArenaWithChanges() {
